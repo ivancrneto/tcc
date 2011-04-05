@@ -1,0 +1,64 @@
+\chapter{Conceitos} \label{cap:conceitos}
+
+Este trabalho relata o onon ono non ono non ono non ono non ono non on.
+
+\section{Listagens} \label{sec:listagens}
+
+Na listagem \ref{lst:testjUnit} 
+é mostrado o teste do método \texttt{Engine.initialize()}:
+
+\lstset{language=java}
+\lstset{commentstyle=\textit}
+\begin{lstlisting}[frame=trbl, caption=Classe Factory2D,label=lst:testjUnit]{}
+public class EngineTest
+// JUnitDoclet begin extends_implements
+extends TestCase
+// JUnitDoclet end extends_implements
+{
+  //...
+  public void testInitialize() throws Exception {
+   // JUnitDoclet begin method initialize
+   EngineState engineState = (EngineState) PrivateAccessor.
+    getField(engine,"engineState");
+   engine.initialize();
+   assertEquals(engineState, new InitState());
+   // JUnitDoclet end method initialize
+  }
+  ...
+}
+\end{lstlisting}
+
+\section{Figuras} \label{sec:figuras}
+
+É possível usar imagens vetoriais no formato PDF, como pode ser visto
+na figura \ref{fig:ufba}, ou imagens \emph{bitmap} no formato PNG, como
+a da figura \ref{fig:ufba2}.
+
+\begin{figure}
+\centering
+\includegraphics{brasaoUFBA2}
+\caption{Brasão da UFBA (vetorial)}
+\label{fig:ufba}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.3\textwidth]{brasaoUFBA}
+\caption{Brasão da UFBA (\emph{bitmap})}
+\label{fig:ufba2}
+\end{figure}
+
+
+\chapter{Outro capítulo}
+\label{cap:outrocapitulo}
+
+Como visto no capítulo \ref{cap:conceitos}, no nonno\footnote{Isto é uma nota
+de rodapé.} no nonon onono:
+\begin{itemize}
+  \item{nononoo}
+  \item{nononono}
+  \item{no}
+\end{itemize}
+
+
+Nonono nonnono onononono \cite{fowler2000}.
