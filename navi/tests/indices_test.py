@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import unittest
-import base.indices
+from indices import *
 
 class IndicesCalculationTestCase(unittest.TestCase):
     def setUp(self):
