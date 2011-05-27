@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+<svg width="110" height="100">
+  <defs> 
+    <marker id="ArrowEnd" viewBox="0 0 10 10" refX="0" refY="5" 
+     markerUnits="strokeWidth" 
+     markerWidth="4" 
+     markerHeight="3" 
+     orient="auto"> 
+        <path d="M 0 0 L 10 5 L 0 10 z" /> 
+    </marker>
+    <marker id="ArrowStart" viewBox="0 0 10 10" refX="10" refY="5" 
+     markerUnits="strokeWidth" 
+     markerWidth="4" 
+     markerHeight="3" 
+     orient="auto"> 
+        <path d="M 10 0 L 0 5 L 10 10 z" /> 
+    </marker> </defs>
+<g>
+<path stroke="#000000" stroke-width="2" fill-rule="evenodd" fill="#e0e0e0" d="M 20 5L 40 35L 20 65L 40 95L 100 95L 80 65L 100 35L 80 5L 20 5z"/>
+<path stroke="#000000" stroke-width="2" fill-rule="evenodd" fill="#efefef" d="M 20 65L 80 65L 100 95L 40 95L 20 65z"/>
+<path stroke="#000000" stroke-width="2" fill-rule="evenodd" fill="#efefef" d="M 20 5L 40 35L 100 35L 80 5L 20 5z"/>
+<path stroke="none" fill="none" d="M 0 0L 120 0L 120 110L 0 110L 0 0z"/>
+</g>
+</svg>

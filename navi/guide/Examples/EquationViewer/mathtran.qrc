@@ -1,0 +1,11 @@
+<RCC>
+    <qresource prefix="/images" >
+        <file>images/larger.png</file>
+        <file>images/mathlarger.png</file>
+        <file>images/mathsmaller.png</file>
+        <file>images/new.png</file>
+        <file>images/save.png</file>
+        <file>images/smaller.png</file>
+        <file>images/update.png</file>
+    </qresource>
+</RCC>

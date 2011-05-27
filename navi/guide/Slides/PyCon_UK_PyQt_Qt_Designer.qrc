@@ -1,0 +1,17 @@
+<RCC>
+    <qresource prefix="/" >
+        <file>Pictures/Icons/fullscreen.svg</file>
+        <file>Pictures/Icons/normal.svg</file>
+        <file>Pictures/arrow.svg</file>
+        <file>Pictures/directory.svg</file>
+        <file>Pictures/left-arrow.svg</file>
+        <file>Pictures/logomaker_original.png</file>
+        <file>Pictures/mathtran.png</file>
+        <file>Pictures/print.svg</file>
+        <file>Pictures/pyfile.svg</file>
+        <file>Pictures/pypi_information.png</file>
+        <file>Pictures/right-arrow.svg</file>
+        <file>Pictures/zoom-in.svg</file>
+        <file>Pictures/zoom-out.svg</file>
+    </qresource>
+</RCC>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+<svg width="331.927" height="361.927">
+  <defs> 
+    <marker id="ArrowEnd" viewBox="0 0 10 10" refX="0" refY="5" 
+     markerUnits="strokeWidth" 
+     markerWidth="4" 
+     markerHeight="3" 
+     orient="auto"> 
+        <path d="M 0 0 L 10 5 L 0 10 z" /> 
+    </marker>
+    <marker id="ArrowStart" viewBox="0 0 10 10" refX="10" refY="5" 
+     markerUnits="strokeWidth" 
+     markerWidth="4" 
+     markerHeight="3" 
+     orient="auto"> 
+        <path d="M 10 0 L 0 5 L 10 10 z" /> 
+    </marker> </defs>
+<g>
+<path style="stroke:#000000; stroke-width:4.0; fill-rule:evenodd; fill:#cecece" d="M 20.9634 20.9634L 270.963 20.9634L 270.963 60.9634L 310.963 60.9634L 310.963 340.963L 20.9634 340.963L 20.9634 20.9634z"/>
+<path style="stroke:#000000; stroke-width:4.0; fill:none" d="M 20.9634 20.9634L 270.963 20.9634L 310.963 60.9634L 310.963 340.963L 20.9634 340.963L 20.9634 20.9634z"/>
+<g>
+<path style="stroke:none; fill-rule:evenodd; fill:#000000; font-family:Helvetica; font-size:144.0" d="M 92.7394 189.099L 77.7634 189.099L 77.7634 204.075L 92.7394 204.075L 92.7394 189.099z"/>
+<path style="stroke:none; fill-rule:evenodd; fill:#000000; font-family:Helvetica; font-size:144.0" d="M 113.043 235.467L 125.139 235.467L 125.139 196.155C 131.475 203.931 138.531 207.387 148.323 207.387C 167.763 207.387 180.579 191.691 180.579 167.643C 180.579 142.299 168.195 126.459 148.179 126.459C 137.955 126.459 129.747 131.067 124.131 139.995L 124.131 128.619L 113.043 128.619L 113.043 235.467zM 146.163 137.691C 159.411 137.691 168.051 149.355 168.051 167.355C 168.051 184.491 159.267 196.155 146.163 196.155C 133.491 196.155 125.139 184.635 125.139 166.923C 125.139 149.211 133.491 137.691 146.163 137.691z"/>
+<path style="stroke:none; fill-rule:evenodd; fill:#000000; font-family:Helvetica; font-size:144.0" d="M 241.203 128.619L 220.323 187.371L 201.027 128.619L 188.211 128.619L 213.699 204.363L 209.091 216.315C 207.219 221.643 204.483 223.659 199.443 223.659C 197.715 223.659 195.699 223.371 193.107 222.795L 193.107 233.595C 195.555 234.891 198.003 235.467 201.171 235.467C 205.059 235.467 209.235 234.171 212.403 231.867C 216.147 229.131 218.307 225.963 220.611 219.915L 254.163 128.619L 241.203 128.619z"/>
+</g>
+</g>
+</svg>

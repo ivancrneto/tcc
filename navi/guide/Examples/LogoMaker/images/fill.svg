@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+<svg width="206.203" height="200.482">
+  <defs> 
+    <marker id="ArrowEnd" viewBox="0 0 10 10" refX="0" refY="5" 
+     markerUnits="strokeWidth" 
+     markerWidth="4" 
+     markerHeight="3" 
+     orient="auto"> 
+        <path d="M 0 0 L 10 5 L 0 10 z" /> 
+    </marker>
+    <marker id="ArrowStart" viewBox="0 0 10 10" refX="10" refY="5" 
+     markerUnits="strokeWidth" 
+     markerWidth="4" 
+     markerHeight="3" 
+     orient="auto"> 
+        <path d="M 10 0 L 0 5 L 10 10 z" /> 
+    </marker> </defs>
+<g>
+<defs><linearGradient id="1" x1="78.1602" y1="165.731" x2="78.1602" y2="5.84781" gradientUnits="userSpaceOnUse">
+<stop offset="0" style="stop-color:#7a7a7a"/>
+<stop offset="1" style="stop-color:#ffffff"/>
+</linearGradient>
+</defs><path style="stroke:#000000; stroke-width:3.0; fill-rule:evenodd; fill:url(#1)" d="M 140.598 96.791L 70.2595 148.43C 61.0329 154.491 42.4741 142.56 28.8362 121.8C 15.1984 101.041 11.6179 79.2703 20.8444 73.209L 91.1828 21.5703L 140.598 96.791z"/>
+<path style="stroke:none; fill:none" d="M 5.72114 0L 205.721 0L 205.721 200L 5.72114 200L 5.72114 0z"/>
+<defs><linearGradient id="2" x1="115.89" y1="100.861" x2="115.89" y2="17.5" gradientUnits="userSpaceOnUse">
+<stop offset="0" style="stop-color:#ffffff"/>
+<stop offset="1" style="stop-color:#7a7a7a"/>
+</linearGradient>
+</defs><path style="stroke:#000000; stroke-width:3.0; fill-rule:evenodd; fill:url(#2)" d="M 132.606 48.1995C 146.244 68.9594 149.824 90.7297 140.598 96.791C 131.371 102.852 112.812 90.9216 99.1746 70.1618C 85.5368 49.402 81.9562 27.6316 91.1828 21.5703C 100.409 15.5091 118.968 27.4398 132.606 48.1995z"/>
+<path style="stroke:#000000; stroke-width:2; fill-rule:evenodd; fill:#727fff" d="M 145.721 92.991C 183.563 132.08 152.112 131.706 195.721 190L 135.721 190C 139.955 173.063 123.236 112.804 124.644 95.3868C 134.644 95.3868 145.721 92.991 145.721 92.991z"/>
+</g>
+</svg>

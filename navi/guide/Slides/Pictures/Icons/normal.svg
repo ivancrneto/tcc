@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+<svg width="121.445" height="111.445">
+  <defs> 
+    <marker id="ArrowEnd" viewBox="0 0 10 10" refX="0" refY="5" 
+     markerUnits="strokeWidth" 
+     markerWidth="4" 
+     markerHeight="3" 
+     orient="auto"> 
+        <path d="M 0 0 L 10 5 L 0 10 z" /> 
+    </marker>
+    <marker id="ArrowStart" viewBox="0 0 10 10" refX="10" refY="5" 
+     markerUnits="strokeWidth" 
+     markerWidth="4" 
+     markerHeight="3" 
+     orient="auto"> 
+        <path d="M 10 0 L 0 5 L 10 10 z" /> 
+    </marker> </defs>
+<g>
+<defs><linearGradient id="1" x1="60.7225" y1="111.204" x2="60.7225" y2="0.240845" gradientUnits="userSpaceOnUse">
+<stop offset="0" stop-color="#a399ff"/>
+<stop offset="1" stop-color="#e7e7e7"/>
+</linearGradient>
+</defs><path stroke="#000000" stroke-dasharray="6,3" stroke-width="2" marker-end="url(#ArrowEnd)" fill-rule="evenodd" fill="url(#1)" d="M 10.7225 10.7225L 110.723 10.7225L 110.723 100.723L 10.7225 100.723L 10.7225 10.7225z"/>
+<g>
+<path stroke="#000000" stroke-width="3" fill="none" d="M 15.7225 95.7225L 35.7225 75.7225"/>
+<path stroke="#000000" stroke-width="1" fill-rule="evenodd" fill="#000000" d="M 40.7225 70.7225L 20.7225 75.7225L 35.7225 90.7225L 40.7225 70.7225"/>
+</g>
+<g>
+<path stroke="#000000" stroke-width="3" fill="none" d="M 105.723 15.7225L 85.7225 35.7225"/>
+<path stroke="#000000" stroke-width="1" fill-rule="evenodd" fill="#000000" d="M 80.7225 40.7225L 100.723 35.7225L 85.7225 20.7225L 80.7225 40.7225"/>
+</g>
+<g>
+<path stroke="#000000" stroke-width="3" fill="none" d="M 105.723 95.7225L 85.7225 75.7225"/>
+<path stroke="#000000" stroke-width="1" fill-rule="evenodd" fill="#000000" d="M 80.7225 70.7225L 100.723 75.7225L 85.7225 90.7225L 80.7225 70.7225"/>
+</g>
+<g>
+<path stroke="#000000" stroke-width="3" fill="none" d="M 15.7225 15.7225L 35.7225 35.7225"/>
+<path stroke="#000000" stroke-width="1" fill-rule="evenodd" fill="#000000" d="M 40.7225 40.7225L 20.7225 35.7225L 35.7225 20.7225L 40.7225 40.7225"/>
+</g>
+</g>
+</svg>

@@ -1,8 +1,14 @@
-# To change this template, choose Tools | Templates
-# and open the template in the editor.
 
-__author__="ivan"
-__date__ ="$05/05/2011 20:30:46$"
+class Project:
+    
+    def __init__(self):
+        pass
 
-if __name__ == "__main__":
-    print "Hello World";
+class Makecoba:
+
+    def __init__(self):
+        pass
+        
+    def new_project(self, string):
+        self.project = Project()
+        print 'Project ' +  string + ' Created!'

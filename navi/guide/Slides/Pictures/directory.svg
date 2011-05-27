@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+<svg width="200.963" height="200">
+  <defs> 
+    <marker id="ArrowEnd" viewBox="0 0 10 10" refX="0" refY="5" 
+     markerUnits="strokeWidth" 
+     markerWidth="4" 
+     markerHeight="3" 
+     orient="auto"> 
+        <path d="M 0 0 L 10 5 L 0 10 z" /> 
+    </marker>
+    <marker id="ArrowStart" viewBox="0 0 10 10" refX="10" refY="5" 
+     markerUnits="strokeWidth" 
+     markerWidth="4" 
+     markerHeight="3" 
+     orient="auto"> 
+        <path d="M 10 0 L 0 5 L 10 10 z" /> 
+    </marker> </defs>
+<g>
+<path style="stroke:none; fill:none" d="M 0.481686 0L 200.482 0L 200.482 200L 0.481686 200L 0.481686 0z"/>
+<g>
+<path style="stroke:#000000; stroke-width:2; fill-rule:evenodd; fill:#a6c2e5" d="M 30.4817 30L 60.4817 30C 90.4817 30 60.4817 51.5385 90.4817 51.5385L 180.482 51.5385C 190.482 51.5385 190.482 51.5385 190.482 62.3077L 190.482 148.462L 30.4817 148.462L 30.4817 30z"/>
+<path style="stroke:#000000; stroke-width:2; fill-rule:evenodd; fill:#b8d8ff" d="M 20.4817 40.7692L 50.4817 40.7692C 80.4817 40.7692 50.4817 62.3077 80.4817 62.3077L 170.482 62.3077C 180.482 62.3077 180.482 62.3077 180.482 73.0769L 180.482 159.231L 20.4817 159.231L 20.4817 40.7692z"/>
+<path style="stroke:#000000; stroke-width:2; fill-rule:evenodd; fill:#c8e3ff" d="M 10.4817 51.5385L 40.4817 51.5385C 70.4817 51.5385 40.4817 73.0769 70.4817 73.0769L 160.482 73.0769C 170.482 73.0769 170.482 73.0769 170.482 83.8461L 170.482 170L 10.4817 170L 10.4817 51.5385z"/>
+</g>
+</g>
+</svg>

@@ -1,0 +1,141 @@
+<ui version="4.0" >
+ <class>Window</class>
+ <widget class="QWidget" name="Window" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>352</width>
+    <height>281</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>PyPI Information</string>
+  </property>
+  <property name="toolTip" >
+   <string/>
+  </property>
+  <widget class="QComboBox" name="fieldCombo" >
+   <property name="geometry" >
+    <rect>
+     <x>85</x>
+     <y>10</y>
+     <width>257</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <item>
+    <property name="text" >
+     <string>name</string>
+    </property>
+   </item>
+   <item>
+    <property name="text" >
+     <string>version</string>
+    </property>
+   </item>
+   <item>
+    <property name="text" >
+     <string>author</string>
+    </property>
+   </item>
+   <item>
+    <property name="text" >
+     <string>author_email</string>
+    </property>
+   </item>
+   <item>
+    <property name="text" >
+     <string>maintainer</string>
+    </property>
+   </item>
+   <item>
+    <property name="text" >
+     <string>maintainer_email</string>
+    </property>
+   </item>
+   <item>
+    <property name="text" >
+     <string>home_page</string>
+    </property>
+   </item>
+   <item>
+    <property name="text" >
+     <string>license</string>
+    </property>
+   </item>
+   <item>
+    <property name="text" >
+     <string>summary</string>
+    </property>
+   </item>
+   <item>
+    <property name="text" >
+     <string>description</string>
+    </property>
+   </item>
+   <item>
+    <property name="text" >
+     <string>keywords</string>
+    </property>
+   </item>
+   <item>
+    <property name="text" >
+     <string>platform</string>
+    </property>
+   </item>
+   <item>
+    <property name="text" >
+     <string>download_url</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QLabel" name="label" >
+   <property name="geometry" >
+    <rect>
+     <x>10</x>
+     <y>10</y>
+     <width>69</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text" >
+    <string>Search &amp;field:</string>
+   </property>
+   <property name="buddy" >
+    <cstring>fieldCombo</cstring>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="closeButton" >
+   <property name="geometry" >
+    <rect>
+     <x>250</x>
+     <y>240</y>
+     <width>75</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="text" >
+    <string>&amp;Close</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_2" >
+   <property name="geometry" >
+    <rect>
+     <x>40</x>
+     <y>70</y>
+     <width>261</width>
+     <height>141</height>
+    </rect>
+   </property>
+   <property name="text" >
+    <string>We need termsEdit, treeWidget and searchButton.</string>
+   </property>
+  </widget>
+ </widget>
+ <tabstops>
+  <tabstop>fieldCombo</tabstop>
+ </tabstops>
+ <resources/>
+ <connections/>
+</ui>

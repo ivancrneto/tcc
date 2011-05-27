@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+<svg width="220.963" height="210.482">
+  <defs> 
+    <marker id="ArrowEnd" viewBox="0 0 10 10" refX="0" refY="5" 
+     markerUnits="strokeWidth" 
+     markerWidth="4" 
+     markerHeight="3" 
+     orient="auto"> 
+        <path d="M 0 0 L 10 5 L 0 10 z" /> 
+    </marker>
+    <marker id="ArrowStart" viewBox="0 0 10 10" refX="10" refY="5" 
+     markerUnits="strokeWidth" 
+     markerWidth="4" 
+     markerHeight="3" 
+     orient="auto"> 
+        <path d="M 10 0 L 0 5 L 10 10 z" /> 
+    </marker> </defs>
+<g>
+<path style="stroke:#000000; stroke-width:2; fill-rule:evenodd; fill:#b4cce5" d="M 30.4817 40L 60.4817 40C 90.4817 40 60.4817 60 90.4817 60L 200.482 60C 210.482 60 210.482 60 210.482 70L 210.482 190L 30.4817 190L 30.4817 40z"/>
+<path style="stroke:#000000; stroke-width:2; fill-rule:evenodd; fill:#ffa285" d="M 180.482 20C 140.482 30 90.4817 70 90.4817 100L 70.4817 90L 90.4817 140L 130.482 120L 110.482 110C 110.482 80 150.482 40 190.482 30L 180.482 20z"/>
+<path style="stroke:none; fill:none" d="M 10.4817 0L 220.482 0L 220.482 210L 10.4817 210L 10.4817 0z"/>
+<path style="stroke:#000000; stroke-width:2; fill-rule:evenodd; fill:#c8e3ff" d="M 10.4817 50L 40.4817 50C 70.4817 50 43.1487 70 73.1487 70L 183.149 70C 193.149 70 193.149 70 194.482 80L 210.482 200L 30.4817 200L 10.4817 50z"/>
+<defs><linearGradient id="1" x1="100.482" y1="150.482" x2="100.482" y2="59.2483" gradientUnits="userSpaceOnUse">
+<stop offset="0" style="stop-color:#ffffff"/>
+<stop offset="1" style="stop-color:#ffca9a"/>
+</linearGradient>
+</defs><path style="stroke:#000000; stroke-dasharray:6,3; stroke-width:2; fill-rule:evenodd; fill:url(#1)" d="M 103.643 69.73C 95.5057 79.976 90.4817 90.49 90.4817 100L 70.4817 90L 90.4817 140L 130.482 120L 110.482 110C 110.482 97.196 119.019 83.338 130.482 70L 103.643 69.73z"/>
+<path style="stroke:#000000; stroke-width:2; fill:none" d="M 10.4817 50L 40.4817 50C 70.4817 50 43.1487 70 73.1487 70L 183.149 70C 193.149 70 193.149 70 194.482 80L 210.482 200L 30.4817 200L 10.4817 50z"/>
+</g>
+</svg>

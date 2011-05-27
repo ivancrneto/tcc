@@ -1,0 +1,866 @@
+<ui version="4.0" >
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>395</width>
+    <height>516</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>Logo Maker [*]</string>
+  </property>
+  <property name="dockNestingEnabled" >
+   <bool>true</bool>
+  </property>
+  <widget class="QWidget" name="centralwidget" >
+   <layout class="QGridLayout" >
+    <property name="margin" >
+     <number>9</number>
+    </property>
+    <property name="spacing" >
+     <number>6</number>
+    </property>
+    <item row="0" column="3" >
+     <widget class="QFontComboBox" name="fontComboBox" />
+    </item>
+    <item row="1" column="1" >
+     <widget class="QDoubleSpinBox" name="sizeSpinBox" >
+      <property name="sizePolicy" >
+       <sizepolicy>
+        <hsizetype>3</hsizetype>
+        <vsizetype>0</vsizetype>
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="suffix" >
+       <string> pt</string>
+      </property>
+      <property name="maximum" >
+       <double>128.000000000000000</double>
+      </property>
+      <property name="minimum" >
+       <double>1.000000000000000</double>
+      </property>
+      <property name="value" >
+       <double>64.000000000000000</double>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="1" >
+     <widget class="QLineEdit" name="lineEdit" >
+      <property name="text" >
+       <string>PyCon UK</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="3" >
+     <widget class="QComboBox" name="styleComboBox" />
+    </item>
+    <item row="1" column="2" >
+     <widget class="QLabel" name="label_3" >
+      <property name="text" >
+       <string>St&amp;yle:</string>
+      </property>
+      <property name="buddy" >
+       <cstring>styleComboBox</cstring>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="0" >
+     <widget class="QLabel" name="label_2" >
+      <property name="text" >
+       <string>&amp;Size:</string>
+      </property>
+      <property name="buddy" >
+       <cstring>sizeSpinBox</cstring>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="2" >
+     <widget class="QLabel" name="label" >
+      <property name="text" >
+       <string>F&amp;ont:</string>
+      </property>
+      <property name="buddy" >
+       <cstring>fontComboBox</cstring>
+      </property>
+     </widget>
+    </item>
+    <item row="5" column="0" colspan="4" >
+     <widget class="QGroupBox" name="fillGroupBox" >
+      <property name="title" >
+       <string>Text &amp;Color</string>
+      </property>
+      <property name="checkable" >
+       <bool>true</bool>
+      </property>
+      <property name="checked" >
+       <bool>false</bool>
+      </property>
+      <layout class="QHBoxLayout" >
+       <property name="margin" >
+        <number>9</number>
+       </property>
+       <property name="spacing" >
+        <number>6</number>
+       </property>
+       <item>
+        <widget class="QLabel" name="label_7" >
+         <property name="text" >
+          <string>Color:</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="ColorButton" name="colorButton_3" >
+         <property name="text" >
+          <string>Select color...</string>
+         </property>
+         <property name="toolButtonStyle" >
+          <enum>Qt::ToolButtonTextBesideIcon</enum>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer>
+         <property name="orientation" >
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" >
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item row="3" column="0" colspan="4" >
+     <widget class="QGroupBox" name="backgroundGroupBox" >
+      <property name="title" >
+       <string>&amp;Background</string>
+      </property>
+      <property name="checkable" >
+       <bool>true</bool>
+      </property>
+      <property name="checked" >
+       <bool>false</bool>
+      </property>
+      <layout class="QHBoxLayout" >
+       <property name="margin" >
+        <number>9</number>
+       </property>
+       <property name="spacing" >
+        <number>6</number>
+       </property>
+       <item>
+        <widget class="QLabel" name="label_6" >
+         <property name="text" >
+          <string>Color:</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="ColorButton" name="colorButton" >
+         <property name="text" >
+          <string>Select color...</string>
+         </property>
+         <property name="toolButtonStyle" >
+          <enum>Qt::ToolButtonTextBesideIcon</enum>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer>
+         <property name="orientation" >
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" >
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item row="6" column="0" colspan="4" >
+     <widget class="QGroupBox" name="linesGroupBox" >
+      <property name="title" >
+       <string>&amp;Lines</string>
+      </property>
+      <property name="checkable" >
+       <bool>true</bool>
+      </property>
+      <property name="checked" >
+       <bool>false</bool>
+      </property>
+      <layout class="QHBoxLayout" >
+       <property name="margin" >
+        <number>9</number>
+       </property>
+       <property name="spacing" >
+        <number>6</number>
+       </property>
+       <item>
+        <widget class="QLabel" name="label_11" >
+         <property name="text" >
+          <string>Color:</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="ColorButton" name="colorButton_4" >
+         <property name="text" >
+          <string>Select color...</string>
+         </property>
+         <property name="toolButtonStyle" >
+          <enum>Qt::ToolButtonTextBesideIcon</enum>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer>
+         <property name="orientation" >
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" >
+          <size>
+           <width>41</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_10" >
+         <property name="text" >
+          <string>Number:</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QSpinBox" name="linesSpinBox" >
+         <property name="sizePolicy" >
+          <sizepolicy>
+           <hsizetype>1</hsizetype>
+           <vsizetype>0</vsizetype>
+           <horstretch>1</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="maximum" >
+          <number>300</number>
+         </property>
+         <property name="minimum" >
+          <number>1</number>
+         </property>
+         <property name="value" >
+          <number>100</number>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer>
+         <property name="orientation" >
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" >
+          <size>
+           <width>41</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item row="2" column="0" colspan="4" >
+     <widget class="EffectWidget" native="1" name="effectWidget" >
+      <property name="sizePolicy" >
+       <sizepolicy>
+        <hsizetype>5</hsizetype>
+        <vsizetype>5</vsizetype>
+        <horstretch>0</horstretch>
+        <verstretch>1</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize" >
+       <size>
+        <width>0</width>
+        <height>100</height>
+       </size>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="0" >
+     <widget class="QLabel" name="label_4" >
+      <property name="text" >
+       <string>&amp;Text:</string>
+      </property>
+      <property name="buddy" >
+       <cstring>lineEdit</cstring>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="0" colspan="4" >
+     <widget class="QGroupBox" name="shadowGroupBox" >
+      <property name="title" >
+       <string>S&amp;hadow</string>
+      </property>
+      <property name="checkable" >
+       <bool>true</bool>
+      </property>
+      <property name="checked" >
+       <bool>false</bool>
+      </property>
+      <layout class="QHBoxLayout" >
+       <property name="margin" >
+        <number>9</number>
+       </property>
+       <property name="spacing" >
+        <number>6</number>
+       </property>
+       <item>
+        <widget class="QLabel" name="label_8" >
+         <property name="text" >
+          <string>Color:</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="ColorButton" name="colorButton_2" >
+         <property name="text" >
+          <string>Select color...</string>
+         </property>
+         <property name="toolButtonStyle" >
+          <enum>Qt::ToolButtonTextBesideIcon</enum>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer>
+         <property name="orientation" >
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" >
+          <size>
+           <width>41</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_9" >
+         <property name="text" >
+          <string>Thickness:</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QSpinBox" name="shadowThicknessSpinBox" >
+         <property name="maximum" >
+          <number>11</number>
+         </property>
+         <property name="minimum" >
+          <number>1</number>
+         </property>
+         <property name="value" >
+          <number>3</number>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer>
+         <property name="orientation" >
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" >
+          <size>
+           <width>41</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar" >
+   <property name="geometry" >
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>395</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menu_File" >
+    <property name="title" >
+     <string>&amp;File</string>
+    </property>
+    <addaction name="newAction" />
+    <addaction name="saveAction" />
+    <addaction name="saveAsAction" />
+    <addaction name="separator" />
+    <addaction name="exitAction" />
+   </widget>
+   <addaction name="menu_File" />
+  </widget>
+  <action name="newAction" >
+   <property name="icon" >
+    <iconset resource="../logomaker.qrc" >:/images/images/newfile.svg</iconset>
+   </property>
+   <property name="text" >
+    <string>&amp;New</string>
+   </property>
+   <property name="shortcut" >
+    <string>Ctrl+N</string>
+   </property>
+  </action>
+  <action name="openAction" >
+   <property name="text" >
+    <string>&amp;Open...</string>
+   </property>
+   <property name="shortcut" >
+    <string>Ctrl+O</string>
+   </property>
+  </action>
+  <action name="exitAction" >
+   <property name="text" >
+    <string>E&amp;xit</string>
+   </property>
+   <property name="shortcut" >
+    <string>Ctrl+Q</string>
+   </property>
+  </action>
+  <action name="fillAction" >
+   <property name="checkable" >
+    <bool>true</bool>
+   </property>
+   <property name="icon" >
+    <iconset resource="../logomaker.qrc" >:/images/images/fill.svg</iconset>
+   </property>
+   <property name="text" >
+    <string>&amp;Fill...</string>
+   </property>
+  </action>
+  <action name="shadowAction" >
+   <property name="checkable" >
+    <bool>true</bool>
+   </property>
+   <property name="icon" >
+    <iconset resource="../logomaker.qrc" >:/images/images/shadow.png</iconset>
+   </property>
+   <property name="text" >
+    <string>&amp;Shadow</string>
+   </property>
+  </action>
+  <action name="backgroundAction" >
+   <property name="checkable" >
+    <bool>true</bool>
+   </property>
+   <property name="icon" >
+    <iconset resource="../logomaker.qrc" >:/images/images/background.svg</iconset>
+   </property>
+   <property name="text" >
+    <string>&amp;Background</string>
+   </property>
+  </action>
+  <action name="saveAsAction" >
+   <property name="enabled" >
+    <bool>false</bool>
+   </property>
+   <property name="text" >
+    <string>Save &amp;As...</string>
+   </property>
+  </action>
+  <action name="saveAction" >
+   <property name="enabled" >
+    <bool>false</bool>
+   </property>
+   <property name="icon" >
+    <iconset resource="../logomaker.qrc" >:/images/images/savefile.svg</iconset>
+   </property>
+   <property name="text" >
+    <string>&amp;Save</string>
+   </property>
+   <property name="shortcut" >
+    <string>Ctrl+S</string>
+   </property>
+  </action>
+  <action name="linesAction" >
+   <property name="checkable" >
+    <bool>true</bool>
+   </property>
+   <property name="text" >
+    <string>&amp;Lines</string>
+   </property>
+  </action>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>ColorButton</class>
+   <extends>QToolButton</extends>
+   <header>colorbutton</header>
+  </customwidget>
+  <customwidget>
+   <class>EffectWidget</class>
+   <extends>QWidget</extends>
+   <header>effectwidget</header>
+  </customwidget>
+ </customwidgets>
+ <tabstops>
+  <tabstop>lineEdit</tabstop>
+  <tabstop>fontComboBox</tabstop>
+  <tabstop>sizeSpinBox</tabstop>
+  <tabstop>styleComboBox</tabstop>
+  <tabstop>backgroundGroupBox</tabstop>
+  <tabstop>colorButton</tabstop>
+  <tabstop>shadowGroupBox</tabstop>
+  <tabstop>colorButton_2</tabstop>
+  <tabstop>shadowThicknessSpinBox</tabstop>
+  <tabstop>fillGroupBox</tabstop>
+  <tabstop>colorButton_3</tabstop>
+  <tabstop>linesGroupBox</tabstop>
+  <tabstop>colorButton_4</tabstop>
+  <tabstop>linesSpinBox</tabstop>
+ </tabstops>
+ <resources>
+  <include location="../logomaker.qrc" />
+ </resources>
+ <connections>
+  <connection>
+   <sender>lineEdit</sender>
+   <signal>textChanged(QString)</signal>
+   <receiver>effectWidget</receiver>
+   <slot>setText(QString)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>148</x>
+     <y>56</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>110</x>
+     <y>211</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>fontComboBox</sender>
+   <signal>currentFontChanged(QFont)</signal>
+   <receiver>effectWidget</receiver>
+   <slot>setFontFamily(QFont)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>367</x>
+     <y>56</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>142</x>
+     <y>205</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>styleComboBox</sender>
+   <signal>currentIndexChanged(QString)</signal>
+   <receiver>effectWidget</receiver>
+   <slot>setFontStyle(QString)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>385</x>
+     <y>85</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>178</x>
+     <y>203</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>sizeSpinBox</sender>
+   <signal>valueChanged(double)</signal>
+   <receiver>effectWidget</receiver>
+   <slot>setFontSize(double)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>179</x>
+     <y>85</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>268</x>
+     <y>215</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>backgroundAction</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>effectWidget</receiver>
+   <slot>setBackgroundEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>206</x>
+     <y>223</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>fillAction</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>effectWidget</receiver>
+   <slot>setFillEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>206</x>
+     <y>223</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>linesAction</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>effectWidget</receiver>
+   <slot>setLinesEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>206</x>
+     <y>223</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>shadowAction</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>effectWidget</receiver>
+   <slot>setShadowEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>206</x>
+     <y>223</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>shadowThicknessSpinBox</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>effectWidget</receiver>
+   <slot>setShadow(int)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>289</x>
+     <y>345</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>284</x>
+     <y>152</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>colorButton</sender>
+   <signal>colorChanged(QColor)</signal>
+   <receiver>effectWidget</receiver>
+   <slot>setBackground(QColor)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>126</x>
+     <y>280</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>126</x>
+     <y>215</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>colorButton_3</sender>
+   <signal>colorChanged(QColor)</signal>
+   <receiver>effectWidget</receiver>
+   <slot>setFill(QColor)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>115</x>
+     <y>410</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>72</x>
+     <y>210</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>linesSpinBox</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>effectWidget</receiver>
+   <slot>setLines(int)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>292</x>
+     <y>482</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>322</x>
+     <y>217</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>colorButton_2</sender>
+   <signal>colorChanged(QColor)</signal>
+   <receiver>effectWidget</receiver>
+   <slot>setShadowColor(QColor)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>128</x>
+     <y>346</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>162</x>
+     <y>208</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>colorButton_4</sender>
+   <signal>colorChanged(QColor)</signal>
+   <receiver>effectWidget</receiver>
+   <slot>setLinesColor(QColor)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>121</x>
+     <y>484</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>204</x>
+     <y>227</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>colorButton_3</sender>
+   <signal>colorChanged(QColor)</signal>
+   <receiver>effectWidget</receiver>
+   <slot>setFill(QColor)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>111</x>
+     <y>412</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>180</x>
+     <y>221</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>colorButton_2</sender>
+   <signal>colorChanged(QColor)</signal>
+   <receiver>effectWidget</receiver>
+   <slot>setShadowColor(QColor)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>93</x>
+     <y>358</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>88</x>
+     <y>215</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>linesGroupBox</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>effectWidget</receiver>
+   <slot>setLinesEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>351</x>
+     <y>471</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>347</x>
+     <y>172</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>fillGroupBox</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>effectWidget</receiver>
+   <slot>setFillEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>248</x>
+     <y>410</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>253</x>
+     <y>196</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>shadowGroupBox</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>effectWidget</receiver>
+   <slot>setShadowEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>229</x>
+     <y>322</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>230</x>
+     <y>187</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>backgroundGroupBox</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>effectWidget</receiver>
+   <slot>setBackgroundEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>36</x>
+     <y>260</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>35</x>
+     <y>164</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>

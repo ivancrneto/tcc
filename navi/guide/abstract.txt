@@ -1,0 +1,27 @@
+Creating GUI Applications with PyQt and Qt Designer
+===================================================
+
+It has been widely known for some time in the Python community that Python
+is a good choice of language for developing applications of any size and
+complexity, mainly because it takes care of troublesome low-level tasks, such
+as memory management, and provides high-level data types that scale well.
+
+`PyQt <http://www.riverbankcomputing.co.uk/pyqt/>`_ is a set of bindings to Qt,
+a C++ framework for Graphical User Interface (GUI) applications that is known
+for it's intuitive and well designed API. Just as with Python, PyQt frees
+developers from the more tedious tasks associated with software development,
+allowing more time to be spent on writing maintainable cross-platform code to
+implement all those new features requested by users.
+
+Nonetheless, the task of creating a GUI application can be made even easier.
+`Qt Designer <http://trolltech.com/products/qt/features/designer>`_, the GUI
+design tool supplied with Qt, can be used to design user interfaces for PyQt
+applications. Additionally, specialized application controls written in Python
+can be installed alongside the standard Qt controls in Qt Designer, making it
+easier to experiment with user interface ideas at the design stage.
+
+In this talk, I will use examples to show how Qt Designer's capabilities as a
+GUI design tool can be used to make the development of PyQt applications easier
+and more intuitive for developers and user interface designers. I will also
+demonstrate how simple it is to take specialized widgets and make them
+available for use in Qt Designer.

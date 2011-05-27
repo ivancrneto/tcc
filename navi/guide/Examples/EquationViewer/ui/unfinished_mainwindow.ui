@@ -1,0 +1,198 @@
+<ui version="4.0" >
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>443</width>
+    <height>419</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>MathTran Equation Viewer [*]</string>
+  </property>
+  <property name="windowIcon" >
+   <iconset resource="../mathtran.qrc" >:/images/images/new.png</iconset>
+  </property>
+  <widget class="QWidget" name="centralwidget" >
+   <widget class="QLabel" name="outputLabel" >
+    <property name="geometry" >
+     <rect>
+      <x>9</x>
+      <y>9</y>
+      <width>425</width>
+      <height>156</height>
+     </rect>
+    </property>
+    <property name="sizePolicy" >
+     <sizepolicy>
+      <hsizetype>5</hsizetype>
+      <vsizetype>5</vsizetype>
+      <horstretch>0</horstretch>
+      <verstretch>1</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="frameShape" >
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <property name="text" >
+     <string/>
+    </property>
+   </widget>
+   <widget class="QTextEdit" name="equationEditor" >
+    <property name="geometry" >
+     <rect>
+      <x>9</x>
+      <y>262</y>
+      <width>425</width>
+      <height>101</height>
+     </rect>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar" >
+   <property name="geometry" >
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>443</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menu_File" >
+    <property name="title" >
+     <string>&amp;File</string>
+    </property>
+    <addaction name="newAction" />
+    <addaction name="saveAction" />
+    <addaction name="saveAsAction" />
+    <addaction name="separator" />
+    <addaction name="exitAction" />
+   </widget>
+   <addaction name="menu_File" />
+  </widget>
+  <widget class="QStatusBar" name="statusbar" />
+  <action name="newAction" >
+   <property name="icon" >
+    <iconset resource="../mathtran.qrc" >:/images/images/new.png</iconset>
+   </property>
+   <property name="text" >
+    <string>&amp;New</string>
+   </property>
+  </action>
+  <action name="updateAction" >
+   <property name="icon" >
+    <iconset resource="../mathtran.qrc" >:/images/images/update.png</iconset>
+   </property>
+   <property name="text" >
+    <string>&amp;Update</string>
+   </property>
+   <property name="shortcut" >
+    <string>Ctrl+Return</string>
+   </property>
+  </action>
+  <action name="saveAsAction" >
+   <property name="enabled" >
+    <bool>false</bool>
+   </property>
+   <property name="text" >
+    <string>Save &amp;As...</string>
+   </property>
+  </action>
+  <action name="saveAction" >
+   <property name="enabled" >
+    <bool>false</bool>
+   </property>
+   <property name="icon" >
+    <iconset resource="../mathtran.qrc" >:/images/images/save.png</iconset>
+   </property>
+   <property name="text" >
+    <string>&amp;Save</string>
+   </property>
+   <property name="shortcut" >
+    <string>Ctrl+S</string>
+   </property>
+  </action>
+  <action name="exitAction" >
+   <property name="text" >
+    <string>E&amp;xit</string>
+   </property>
+   <property name="shortcut" >
+    <string>Ctrl+Q</string>
+   </property>
+  </action>
+  <action name="increaseTextAction" >
+   <property name="icon" >
+    <iconset resource="../mathtran.qrc" >:/images/images/larger.png</iconset>
+   </property>
+   <property name="text" >
+    <string>&amp;Increase Text Size</string>
+   </property>
+   <property name="shortcut" >
+    <string>Ctrl+=</string>
+   </property>
+  </action>
+  <action name="decreaseTextAction" >
+   <property name="icon" >
+    <iconset resource="../mathtran.qrc" >:/images/images/smaller.png</iconset>
+   </property>
+   <property name="text" >
+    <string>&amp;Decrease Text Size</string>
+   </property>
+   <property name="shortcut" >
+    <string>Ctrl+-</string>
+   </property>
+  </action>
+  <action name="increaseMathAction" >
+   <property name="icon" >
+    <iconset resource="../mathtran.qrc" >:/images/images/mathlarger.png</iconset>
+   </property>
+   <property name="text" >
+    <string>Increase Math Size</string>
+   </property>
+  </action>
+  <action name="aboutAction" >
+   <property name="text" >
+    <string>&amp;About...</string>
+   </property>
+  </action>
+ </widget>
+ <resources>
+  <include location="../mathtran.qrc" />
+ </resources>
+ <connections>
+  <connection>
+   <sender>increaseTextAction</sender>
+   <signal>triggered()</signal>
+   <receiver>equationEditor</receiver>
+   <slot>zoomIn()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>221</x>
+     <y>293</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>decreaseTextAction</sender>
+   <signal>triggered()</signal>
+   <receiver>equationEditor</receiver>
+   <slot>zoomOut()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>221</x>
+     <y>293</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>

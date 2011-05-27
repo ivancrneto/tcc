@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+<svg width="120.963" height="110.963">
+  <defs> 
+    <marker id="ArrowEnd" viewBox="0 0 10 10" refX="0" refY="5" 
+     markerUnits="strokeWidth" 
+     markerWidth="4" 
+     markerHeight="3" 
+     orient="auto"> 
+        <path d="M 0 0 L 10 5 L 0 10 z" /> 
+    </marker>
+    <marker id="ArrowStart" viewBox="0 0 10 10" refX="10" refY="5" 
+     markerUnits="strokeWidth" 
+     markerWidth="4" 
+     markerHeight="3" 
+     orient="auto"> 
+        <path d="M 10 0 L 0 5 L 10 10 z" /> 
+    </marker> </defs>
+<g>
+<defs><linearGradient id="1" x1="60.4817" y1="110.963" x2="60.4817" y2="0" gradientUnits="userSpaceOnUse">
+<stop offset="0" stop-color="#a399ff"/>
+<stop offset="1" stop-color="#e7e7e7"/>
+</linearGradient>
+</defs><path stroke="#000000" stroke-width="2" marker-end="url(#ArrowEnd)" fill-rule="evenodd" fill="url(#1)" d="M 10.4817 10.4817L 110.482 10.4817L 110.482 100.482L 10.4817 100.482L 10.4817 10.4817z"/>
+<g>
+<path stroke="#000000" stroke-width="3" fill="none" d="M 80.4817 40.4817L 100.482 20.4817"/>
+<path stroke="#000000" stroke-width="1" fill-rule="evenodd" fill="#000000" d="M 105.482 15.4817L 85.4817 20.4817L 100.482 35.4817L 105.482 15.4817"/>
+</g>
+<g>
+<path stroke="#000000" stroke-width="3" fill="none" d="M 40.4817 70.4817L 20.4817 90.4817"/>
+<path stroke="#000000" stroke-width="1" fill-rule="evenodd" fill="#000000" d="M 15.4817 95.4817L 35.4817 90.4817L 20.4817 75.4817L 15.4817 95.4817"/>
+</g>
+<g>
+<path stroke="#000000" stroke-width="3" fill="none" d="M 40.4817 40.4817L 20.4817 20.4817"/>
+<path stroke="#000000" stroke-width="1" fill-rule="evenodd" fill="#000000" d="M 15.4817 15.4817L 35.4817 20.4817L 20.4817 35.4817L 15.4817 15.4817"/>
+</g>
+<g>
+<path stroke="#000000" stroke-width="3" fill="none" d="M 80.4817 70.4817L 100.482 90.4817"/>
+<path stroke="#000000" stroke-width="1" fill-rule="evenodd" fill="#000000" d="M 105.482 95.4817L 85.4817 90.4817L 100.482 75.4817L 105.482 95.4817"/>
+</g>
+</g>
+</svg>
