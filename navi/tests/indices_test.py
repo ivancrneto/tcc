@@ -23,4 +23,3 @@ from base.indices import Indices
 #
 #if __name__ == '__main__':
 #    unittest.main()
-
