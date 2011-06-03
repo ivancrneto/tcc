@@ -1,8 +1,9 @@
 
 class Project:
     
-    def __init__(self):
-        pass
+    def __init__(self, project_name, project_path):
+        self.name = project_name
+        self.path = project_path
 
 class Makecoba:
 

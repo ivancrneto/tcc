@@ -4,14 +4,15 @@ import os
 import sys
 import unittest
 
-IGNORE_FILES = ['run_tests.py',]
+IGNORE_FILES = ['run_tests.py', '__init__.py']
 
 suite = unittest.TestSuite()
-debug = False
+debug = True
 tests_path = 'tests'
 
 
 sys.path.append("./tests")
+sys.path.append("./tests/base")
 
 try:
     descriptions = sys.argv[1]
@@ -26,13 +27,19 @@ try:
 except IndexError:
     pass
 
-for file in os.listdir(os.path.abspath(tests_path)):
-    if file in IGNORE_FILES:
-        continue
-    if file[-3:] != '.py':
-        continue
-    if debug: print 'Found test : %s' % file[:-3]
-    suite.addTest(unittest.defaultTestLoader.loadTestsFromName(file[:-3]))
+def find_tests(path):
+    for file in os.listdir(os.path.abspath(path)):
+        if file in IGNORE_FILES:
+            continue
+        if os.path.isdir(file):
+            find_tests(os.path.join(path, file))
+            continue
+        elif file[-3:] != '.py':
+            continue
+        if debug: print 'Found test : %s' % file[:-3]
+        suite.addTest(unittest.defaultTestLoader.loadTestsFromName(file[:-3]))
+
+find_tests(tests_path)
 
 test_runner = unittest.TextTestRunner(descriptions=descriptions, verbosity=verbosity)
 result = test_runner.run(suite)

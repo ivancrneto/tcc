@@ -15,7 +15,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         QMainWindow.__init__(self, parent)
         self.setupUi(self)
         self.makecoba = Makecoba()
-        self.connect(self.actionNew_Project, SIGNAL(_fromUtf8("triggered()")), self.new_project)
+        self.connect(self.actionNew_Project, SIGNAL(_fromUtf8("triggered()")),
+            self.new_project)
         
     def new_project(self):
-        self.makecoba.new_project('Ivan')
+        self.file_dialog = QFileDialog(self)
+        self.file_dialog.setAcceptMode(QFileDialog.AcceptOpen)
+        self.file_dialog.setFileMode(QFileDialog.Directory)
+        self.file_dialog.getOpenFileName(self, 'Open File', '/home')
+        #self.makecoba.new_project('Ivan')
