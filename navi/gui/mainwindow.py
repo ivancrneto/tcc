@@ -19,8 +19,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.new_project)
         
     def new_project(self):
-        self.file_dialog = QFileDialog(self)
-        self.file_dialog.setAcceptMode(QFileDialog.AcceptOpen)
-        self.file_dialog.setFileMode(QFileDialog.Directory)
-        self.file_dialog.getOpenFileName(self, 'Open File', '/home')
+        #self.file_dialog = QFileDialog(self)
+        #self.file_dialog.setAcceptMode(QFileDialog.AcceptSave)
+        #self.file_dialog.setFileMode(QFileDialog.AnyFile)
+        #self.file_dialog.getOpenFileName(self, 'Open File', '/home')
         #self.makecoba.new_project('Ivan')
+        file_name = getSaveFileNameAndFilter(None, 'Choose the file name', '/home', QString filter = QString(), QString initialFilter = QString(), Options options = 0)
