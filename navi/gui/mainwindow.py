@@ -3,6 +3,7 @@ from PyQt4.QtGui import *
 from ui_mainwindow import Ui_MainWindow
 from base.makecoba import Makecoba
 
+
 try:
     _fromUtf8 = QString.fromUtf8
 except AttributeError:
@@ -11,7 +12,6 @@ except AttributeError:
 class MainWindow(QMainWindow, Ui_MainWindow):
 
     def __init__(self, parent = None):
-
         QMainWindow.__init__(self, parent)
         self.setupUi(self)
         self.makecoba = Makecoba()
@@ -22,6 +22,18 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         #self.file_dialog = QFileDialog(self)
         #self.file_dialog.setAcceptMode(QFileDialog.AcceptSave)
         #self.file_dialog.setFileMode(QFileDialog.AnyFile)
-        #self.file_dialog.getOpenFileName(self, 'Open File', '/home')
-        #self.makecoba.new_project('Ivan')
-        file_name = getSaveFileNameAndFilter(None, 'Choose the file name', '/home', QString filter = QString(), QString initialFilter = QString(), Options options = 0)
+        import os
+
+        a = QFileDialog.getSaveFileNameAndFilter(self,
+            'Save Project File', os.path.expanduser('~'), 
+            'Navi Project file (*.nav)')
+        print a
+        #self.file_dialog = QFileDialog(self)
+        #self.file_dialog.setAcceptMode(QFileDialog.AcceptSave)
+        #self.file_dialog.setFileMode(QFileDialog.AnyFile)
+        #self.file_dialog.setDirectory(os.path.expanduser('~'))
+        #self.file_dialog.setNameFilter('Navi Project file (*.nav)')
+        #self.file_dialog.open()        
+        #a = self.file_dialog.selectedFiles()
+        #print a.last()
+        #file_name = getSaveFileNameAndFilter(None, 'Choose the file name', '/home', QString filter = QString(), QString initialFilter = QString(), Options options = 0)
