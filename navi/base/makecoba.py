@@ -2,9 +2,9 @@ from xml.dom import minidom
 
 class Project:
     
-    def __init__(self, project_path):
-        self.path = project_path
-        self.document = minidom.Document()
+    def __init__(self, name, path):
+        self.name = name
+        self.path = path
 
 class Makecoba:
 
