@@ -21,3 +21,10 @@ class NewProject(QDialog, Ui_NewProject):
         
     def reject(self):
         print 'rejected'
+        self.close()
+        
+    def on_buttonBox_clicked(self):
+        self.close()
+        
+    def on_rejectButton_clicked(self):
+        self.close()

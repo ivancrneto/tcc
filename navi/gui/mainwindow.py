@@ -28,7 +28,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def new_project(self):
         new_project = NewProject(self)
         new_project.show()
-        new_project.close()
+        #new_project.close()
         #file_name = QFileDialog.getSaveFileName(self, 'Save Project File',
         #    os.path.expanduser('~'), 'Navi Project file (*.nav)')
         #makecoba = Makecoba()
