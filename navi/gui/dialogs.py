@@ -1,4 +1,5 @@
 from PyQt4.QtGui import *
+from PyQt4.QtCore import *
 from ui.new_project import Ui_NewProject
 
 class NewProject(QDialog, Ui_NewProject):
@@ -16,15 +17,16 @@ class NewProject(QDialog, Ui_NewProject):
                   
     def accept(self):
         print 'accepted'
-        print self.project_name.text()
-        print self.project_path.text()
+        self.close()
         
     def reject(self):
         print 'rejected'
         self.close()
         
-    def on_buttonBox_clicked(self):
-        self.close()
+    def closeEvent(self, event):
+        self.emit(SIGNAL("closed()"))
+    #def on_buttonBox_clicked(self):
+    #    self.close()
         
-    def on_rejectButton_clicked(self):
-        self.close()
+    #def on_rejectButton_clicked(self):
+    #    self.close()
