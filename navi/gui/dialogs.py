@@ -17,6 +17,8 @@ class NewProject(QDialog, Ui_NewProject):
                   
     def accept(self):
         print 'accepted'
+        print self.project_name.text()
+        print self.project_path.text()
         self.close()
         
     def reject(self):
