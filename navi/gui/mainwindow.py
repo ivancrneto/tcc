@@ -24,8 +24,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.makecoba = Makecoba()
         self.connect(self.actionNew_Project, SIGNAL(_fromUtf8("triggered()")),
             self.new_project)
-        self.connect(self.actionNew_Project, SIGNAL(_fromUtf8("triggered()")),
-            self.new_project)
         
     def new_project(self):
         new_project = NewProject(self)
