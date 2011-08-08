@@ -1,0 +1,7 @@
+Project
+Database (Sequences and Similarity Matrix)
+Similarity Matrix*
+Adjacency Matrices - Graph
+Neighbourhood Matrices - Color Matrix
+Threshold Analysis (Distance Graph)
+Clustering (Dendrogram)

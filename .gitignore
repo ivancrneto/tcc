@@ -3,3 +3,7 @@ semana*
 navi/nbproject
 navi/.project
 navi/.pydevproject
+*.pyc
+*.backup
+*.bak
+*.ppt

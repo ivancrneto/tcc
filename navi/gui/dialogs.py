@@ -10,19 +10,18 @@ class NewProject(QDialog, Ui_NewProject):
     def __init__(self, parent = None):
         QDialog.__init__(self, parent)
         self.setupUi(self)
+        self.setModal(True)
         screen = QDesktopWidget().screenGeometry()
         size = self.geometry()
-        self.move((screen.width() - size.width())/2,
-                  (screen.height() - size.height())/2)
-                  
+        #self.move((screen.width() - size.width())/2,
+        #          (screen.height() - size.height())/2)
+    
     def accept(self):
-        print 'accepted'
-        print self.project_name.text()
-        print self.project_path.text()
+        self.accepted = True
         self.close()
-        
+    
     def reject(self):
-        print 'rejected'
+        self.accepted = False
         self.close()
         
     def closeEvent(self, event):
