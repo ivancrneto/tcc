@@ -1,8 +1,8 @@
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 from ui.mainwindow import Ui_MainWindow
-from base.makecoba import Makecoba
 from dialogs import NewProject
+from base.makecoba import Project
 import os
 
 
@@ -22,9 +22,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.addIcons()
         #screen = QDesktopWidget().screenGeometry()
         #self.resize(screen.width(), screen.height())
-        self.makecoba = Makecoba()
+        #self.makecoba = Makecoba()
         self.connect(self.actionNew_Project, SIGNAL(_fromUtf8("triggered()")),
             self.new_project)
+        #temporarily
         self.move(500, 500)
     
     def addIcons(self):
@@ -34,15 +35,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         
         self.toolbar = self.addToolBar('New Project')
         self.toolbar.addAction(self.actionNew_Project)
-        
-    def minhadjonga(self, lele):
-        print 'a' + lele
     
     def new_project(self):
-        new_project = NewProject(self)
-        new_project.exec_()
-        if new_project.accepted:
-            print 'accepted', new_project.project_name.text(), new_project.project_path.text()
+        project_dialog = NewProject(self)
+        project_dialog.exec_()
+        if project_dialog.accepted:
+            print 'accepted'
+            project = Project(project_dialog.project_name.text(), project_dialog.project_path.text())
+            project.save_file('w')
         else:
             print 'not accepted'
         #new_project.close()
