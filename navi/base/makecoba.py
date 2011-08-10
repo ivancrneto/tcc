@@ -1,5 +1,4 @@
 from xml.dom import minidom
-import os
 from persistence import Persistence
 
 class Project:
