@@ -1,5 +1,6 @@
 from xml.dom import minidom
 import os
+from persistence import Persistence
 
 class Project:
     
@@ -8,11 +9,10 @@ class Project:
             name += '.nav'
         self.name = name
         self.path = path
+        self.persistence = Persistence()
         
     def save_file(self, mode):
-        f = open(os.path.join("%s" % self.path, "%s" % self.name), mode)
-        f.write('project saved successfully!')
-        f.close()
+        return self.persistence.save_project_file(self, mode)
 
 class Makecoba:
 

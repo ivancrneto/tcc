@@ -1,8 +1,12 @@
-# To change this template, choose Tools | Templates
-# and open the template in the editor.
+import os
 
-__author__="ivan"
-__date__ ="$05/05/2011 20:05:11$"
+class Persistence:
 
-if __name__ == "__main__":
-    print "Hello World";
+    def __init__(self):
+        pass
+        
+    def save_project_file(self, project, mode):
+        f = open(os.path.join("%s" % project.path, "%s" % project.name), mode)
+        f.write('project saved successfully!')
+        f.close()
+        return True

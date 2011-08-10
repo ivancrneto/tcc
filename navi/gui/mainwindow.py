@@ -25,16 +25,33 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         #self.makecoba = Makecoba()
         self.connect(self.actionNew_Project, SIGNAL(_fromUtf8("triggered()")),
             self.new_project)
+        self.connect(self.actionOpen_Project, SIGNAL(_fromUtf8("triggered()")),
+            self.open_project)
+        self.connect(self.actionSave_Project, SIGNAL(_fromUtf8("triggered()")),
+            self.save_project)
         #temporarily
         self.move(500, 500)
     
     def addIcons(self):
         #new_project action
         self.actionNew_Project = QAction(
-            QIcon(os.path.join(os.path.dirname(__file__), 'icons/fileopen.png')), 'New Project', self)
+            QIcon(os.path.join(os.path.dirname(__file__), 'icons/newproject.png')), 'New Project', self)
+        self.actionOpen_Project = QAction(
+            QIcon(os.path.join(os.path.dirname(__file__), 'icons/openproject.png')), 'Open Project', self)
+        self.actionSave_Project = QAction(
+            QIcon(os.path.join(os.path.dirname(__file__), 'icons/saveproject.png')), 'Save Project', self)
+        self.actionDatabase = QAction(
+            QIcon(os.path.join(os.path.dirname(__file__), 'icons/database.png')), 'Database', self)
         
-        self.toolbar = self.addToolBar('New Project')
+        self.actionSave_Project.setDisabled(True)
+        self.actionDatabase.setDisabled(True)
+        
+        self.toolbar = self.addToolBar('Toolbar')
         self.toolbar.addAction(self.actionNew_Project)
+        self.toolbar.addAction(self.actionOpen_Project)
+        self.toolbar.addAction(self.actionSave_Project)
+        self.toolbar.addSeparator()
+        self.toolbar.addAction(self.actionDatabase)
     
     def new_project(self):
         project_dialog = NewProject(self)
@@ -50,4 +67,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         #    os.path.expanduser('~'), 'Navi Project file (*.nav)')
         #makecoba = Makecoba()
         #makecoba.new_project(file_name)
+            
+    def open_project(self):
+        print 'implement open project'
         
+    def save_project(self):
+        print 'implement save project'
