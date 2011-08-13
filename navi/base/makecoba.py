@@ -9,17 +9,18 @@ class Project:
         self.name = name
         self.path = path
         self.persistence = Persistence()
+        self.state = ProjectState()
         
     def save_file(self, mode):
         return self.persistence.save_project_file(self, mode)
-
-class Makecoba:
+        
+        
+class ProjectState:
 
     def __init__(self):
         pass
         
-    def new_project(self, project_path):
-        if project_path[:-4] != '.nav':
-            project_path += '.nav'
-        #self.project = Project(string)
-        #print 'Project ' +  string + ' Created!'
+
+class SimilaryMatrixGenerated(ProjectState):
+    def __init__(self):
+        pass
