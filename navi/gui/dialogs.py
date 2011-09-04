@@ -14,12 +14,13 @@ class NewProject(QDialog, Ui_NewProject):
         self.setModal(True)
         screen = QDesktopWidget().screenGeometry()
         size = self.geometry()
-        self.connect(self.browse_button, SIGNAL('clicked()'), self.browse_directory)
+        self.connect(self.browse_project_button, SIGNAL('clicked()'), self.browse_project_directory)
+        self.connect(self.browse_database_button, SIGNAL('clicked()'), self.browse_database_directory)
         #self.move((screen.width() - size.width())/2,
         #          (screen.height() - size.height())/2)
     
     def accept(self):
-        if self.project_name.text() and self.project_path.text():
+        if self.project_name.text() and self.project_path.text() and self.database_path.text():
             self.accepted = True
         self.close()
     
@@ -30,6 +31,11 @@ class NewProject(QDialog, Ui_NewProject):
     def closeEvent(self, event):
         self.emit(SIGNAL("closed()"))
         
-    def browse_directory(self):
+    #TODO: change to become only one function
+    def browse_project_directory(self):
         self.project_path.setText(QFileDialog.getExistingDirectory(self, 'Choose the directory',
+            os.path.expanduser('~')))
+            
+    def browse_database_directory(self):
+        self.database_path.setText(QFileDialog.getExistingDirectory(self, 'Choose the directory',
             os.path.expanduser('~')))

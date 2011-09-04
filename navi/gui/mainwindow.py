@@ -81,7 +81,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if project_dialog.accepted:
             if hasattr(self, 'project') and self.project != None:
                 self.project.end()
-            self.project = Project(project_dialog.project_name.text(), project_dialog.project_path.text())
+            self.project = Project(project_dialog.project_name.text(),
+                project_dialog.project_path.text(), project_dialog.database_path.text())
             self.actionDatabase.setEnabled(True)
         #new_project.close()
         #file_name = QFileDialog.getSaveFileName(self, 'Save Project File',

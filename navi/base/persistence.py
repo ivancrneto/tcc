@@ -1,8 +1,4 @@
-import os
-import zipfile
-import time
-import tempfile
-import shutil
+import os, sys, zipfile, time, tempfile, shutil, pickle
 
 class Persistence:
 
@@ -17,7 +13,7 @@ class Persistence:
             self.tmp_project_dir = os.path.join(tempfile.gettempdir(), 'navi-%s' % int(time.time()))
         os.mkdir(self.tmp_project_dir)
         f = open(os.path.join(self.tmp_project_dir, 'project.nv'), 'w')
-        f.write('project saved successfully!')
+        pickle.dump(project, f)
         f.close()
         self.compress_dir_structure()
         return True
@@ -37,23 +33,28 @@ class Persistence:
         
     #TODO: implement decompress_dir_structure method
     def decompress_dir_structure(self):
-        zip = zipfile.ZipFile(self.project_file, 'r')
-        olddir = os.getcwd()
-        try:
-            os.chdir(self.tmp_project_dir)
-        except OSError:
-            folder_name = 'navi-%s' % int(time.time())
-            self.tmp_project_dir = os.path.join(tempfile.gettempdir(), folder_name)
-            os.chdir(tempfile.gettempdir())
-            os.mkdir(folder_name)
-            os.chdir(self.tmp_project_dir)
-        zip.extractall()
-        os.chdir(olddir)
-        self.project_tree_decompressed = True
+        if not self.project_tree_decompressed:
+            zip = zipfile.ZipFile(self.project_file, 'r')
+            olddir = os.getcwd()
+            try:
+                os.chdir(self.tmp_project_dir)
+            except OSError:
+                folder_name = 'navi-%s' % int(time.time())
+                self.tmp_project_dir = os.path.join(tempfile.gettempdir(), folder_name)
+                os.chdir(tempfile.gettempdir())
+                os.mkdir(folder_name)
+                os.chdir(self.tmp_project_dir)
+            zip.extractall()
+            os.chdir(olddir)
+            self.project_tree_decompressed = True
         
     #TODO: implement update_data method
     def update_data(self, project):
-        pass
+        self.decompress_dir_structure()
+        f = open(os.path.join(self.tmp_project_dir, 'project.nv'), 'w')
+        pickle.dump(project, f)
+        f.close()
+        self.compress_dir_structure()
         
     #>>> zip = zipfile.ZipFile('/home/ivan/Desktop/teste.zip', 'r')
     #>>> a = zip.open('tmp/navi-1315077411/project.nv', 'r')
