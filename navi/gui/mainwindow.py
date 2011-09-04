@@ -79,12 +79,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         project_dialog = NewProject(self)
         project_dialog.exec_()
         if project_dialog.accepted:
-            print 'accepted'
+            if hasattr(self, 'project') and self.project != None:
+                self.project.end()
             self.project = Project(project_dialog.project_name.text(), project_dialog.project_path.text())
-            self.project.save_file('w')
             self.actionDatabase.setEnabled(True)
-        else:
-            print 'not accepted'
         #new_project.close()
         #file_name = QFileDialog.getSaveFileName(self, 'Save Project File',
         #    os.path.expanduser('~'), 'Navi Project file (*.nav)')

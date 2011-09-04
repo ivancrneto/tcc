@@ -9,18 +9,10 @@ class Project:
         self.name = name
         self.path = path
         self.persistence = Persistence()
-        self.state = ProjectState()
+        self.save_file('w')
         
     def save_file(self, mode):
         return self.persistence.save_project_file(self, mode)
         
-        
-class ProjectState:
-
-    def __init__(self):
-        pass
-        
-
-class SimilaryMatrixGenerated(ProjectState):
-    def __init__(self):
-        pass
+    def end(self):
+        self.persistence.update_data(self)
