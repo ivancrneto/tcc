@@ -12,6 +12,7 @@ class Project:
     path
     database_path
     database_date
+    Persistence 1
     BioHandler 1
     SimilarityMatrix 1
     AdjacencyMatrix *
@@ -27,10 +28,14 @@ class Project:
         self.persistence = Persistence()
         self.save_file('w')
         self.bio_handler = BioHandler(database_path)
+        self.save_project()
         
     def save_file(self, mode):
         return self.persistence.save_project_file(self, mode)
         
+    def save_project(self):
+        self.persistence.update_data(self)
+    
     def end(self):
         self.persistence.update_data(self)
         
@@ -46,62 +51,56 @@ class BioHandler:
 
     def __init__(self, database_path):
         self.database_path = database_path
+        self.organisms = []
         self.filter_files()
+        
+    def add_organism(self, organism):
+        self.organisms.append(organism)
         
     def filter_files(self):
         #TODO: this should be done by persistence
         for file_name in glob.glob(os.path.join('%s' % self.database_path, '*')):
             for seq_record in SeqIO.parse(file_name, "genbank"):
-                print file_name
-                print seq_record.id #locus
-                print seq_record.description #definition
-                print seq_record.name
-                #print seq_record.locus
-                #print seq_record.gi
-                #print seq_record.keywords
-                print seq_record.seq.alphabet #alphabet
-                #print seq_record.organism
-                print dir(seq_record)
-                print seq_record.seq #sequence
-                print dir(seq_record.seq)
+            
+                #TODO: implement the situation when we have more than one sequence for a organism
+                organism = Organism(seq_record.annotations['organism'], seq_record.annotations['taxonomy'])
                 
-                #keywords
-                #gi
-                #organism
+                sequence = Sequence(
+                    seq_record.annotations['accessions'],
+                    seq_record.annotations['gi'],
+                    0,
+                    seq_record.name,
+                    seq_record.description,
+                    seq_record.id, #locus
+                    file_name,
+                    '%s' % seq_record.seq.alphabet,
+                    seq_record.seq,
+                    seq_record.annotations,
+                    organism
+                )
                 
-                #print repr(seq_record.seq)
-                #print len(seq_record)
-                #print '-------------------------------------------'
-                #print seq_record
-                #print '==========================================='
-                #$locus, $definition, $gi, $keywords, $organism, $sequence, $arquivo, $alphabet
-                #['__add__', '__class__', '__contains__', '__delattr__', '__dict__', '__doc__', '__format__', '__getattribute__', '__getitem__', '__hash__', '__init__', '__iter__', '__len__', '__module__', '__new__', '__nonzero__', '__radd__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', '__weakref__', '_per_letter_annotations', '_seq', '_set_per_letter_annotations', '_set_seq', 'annotations', 'dbxrefs', 'description', 'features', 'format', 'id', 'letter_annotations', 'lower', 'name', 'seq', 'upper']
-                #my $arquivo = $fileName;
-				
-				#my $locus = $seq->display_id;
-				#my $definition = $seq->desc;
-				#my $gi = $seq->primary_id;
-				#my $keywords = $seq->keywords;
-				#my $alphabet = $seq->alphabet;
-				#my $sequence = $seq->seq;
-
+                organism.add_sequence(sequence)
+                self.add_organism(organism)
         
 class Organism:
     '''
-    description
     name
+    taxonomy
     Sequence 1..*
     '''
     
-    def __init__(self):
-        pass
+    def __init__(self, name, taxonomy):
+        self.sequences = []
+        self.name = name
+        self.taxonomy = taxonomy
     
+    def add_sequence(self, sequence):
+        self.sequences.append(sequence)
     
 class Sequence:
     '''
-    ec
+    accessions
     gi
-    complement
     community
     name
     description
@@ -112,10 +111,19 @@ class Sequence:
     Organism 1
     '''
     
-    def __init__(self):
-        pass
-    
-    
+    def __init__(self, accessions, gi, community, name, description, locus, 
+            file_name, alphabet, code, annotations, organism):
+        self.accessions = accessions
+        self.gi = gi
+        self.community = community
+        self.name = name
+        self.description = description
+        self.locus = locus
+        self.file = file_name
+        self.alphabet = alphabet
+        self.code = code
+        self.annotations = annotations
+        self.organism = organism
     
     
     

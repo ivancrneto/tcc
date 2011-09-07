@@ -1,0 +1,10 @@
+dependencies:
+python-qt4
+python-biopython
+
+
+anotacoes:
+    diag-classes:
+        
+    diag-seq1:
+        ir na persistencia salvar os arquivos do projeto antes de instanciar as classes

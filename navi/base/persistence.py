@@ -30,8 +30,6 @@ class Persistence:
         shutil.rmtree(self.tmp_project_dir)
         self.project_tree_decompressed = False
     
-        
-    #TODO: implement decompress_dir_structure method
     def decompress_dir_structure(self):
         if not self.project_tree_decompressed:
             zip = zipfile.ZipFile(self.project_file, 'r')
@@ -47,8 +45,7 @@ class Persistence:
             zip.extractall()
             os.chdir(olddir)
             self.project_tree_decompressed = True
-        
-    #TODO: implement update_data method
+    
     def update_data(self, project):
         self.decompress_dir_structure()
         f = open(os.path.join(self.tmp_project_dir, 'project.nv'), 'w')
