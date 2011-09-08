@@ -1,6 +1,7 @@
 from PyQt4.QtGui import *
 from PyQt4.QtCore import *
 from ui.new_project import Ui_NewProject
+from ui.choose_sequences import Ui_ChooseSequences
 import os
 
 class NewProject(QDialog, Ui_NewProject):

@@ -1,7 +1,7 @@
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 from ui.mainwindow import Ui_MainWindow
-from dialogs import NewProject
+from dialogs import NewProject, ChooseSequences
 from base.makecoba import Project
 import os
 
@@ -74,6 +74,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         qtool_button.setIcon(QIcon(os.path.join(os.path.dirname(__file__), 'icons/database-big.png')))
         qtool_button.setIconSize(QSize(48, 48))
         self.grid.addWidget(qtool_button, 0, 3)
+        self.connect(qtool_button, SIGNAL(_fromUtf8("clicked()")),
+            self.choose_sequences)
     
     def new_project(self):
         project_dialog = NewProject(self)
@@ -84,11 +86,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.project = Project(project_dialog.project_name.text(),
                 project_dialog.project_path.text(), project_dialog.database_path.text())
             self.actionDatabase.setEnabled(True)
-        #new_project.close()
-        #file_name = QFileDialog.getSaveFileName(self, 'Save Project File',
-        #    os.path.expanduser('~'), 'Navi Project file (*.nav)')
-        #makecoba = Makecoba()
-        #makecoba.new_project(file_name)
+            
+    def choose_sequences(self):
+        choose_sequences_dialog = ChooseSequences(self)
+        choose_sequences_dialog.exec_()
             
     def open_project(self):
         print 'implement open project'
