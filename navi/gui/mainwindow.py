@@ -88,8 +88,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.actionDatabase.setEnabled(True)
             
     def choose_sequences(self):
-        choose_sequences_dialog = ChooseSequences(self)
+        sequences_map = self.project.get_sequences()
+        choose_sequences_dialog = ChooseSequences(sequences_map, self)
         choose_sequences_dialog.exec_()
+        if choose_sequences_dialog.accepted:
+            selected_sequences = choose_sequences_dialog.selected_sequences()
+            if selected_sequences:
+                self.project.generate_similarities(selected_sequences)
             
     def open_project(self):
         print 'implement open project'
