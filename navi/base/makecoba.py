@@ -101,8 +101,21 @@ class BioHandler:
         import time
         blast_directory = tempfile.mkdtemp(prefix='navi-blast-', dir=tempfile.gettempdir())
         database_file = tempfile.NamedTemporaryFile(mode='w', prefix='navi-', dir=blast_directory)
+        
+        similarity_array = []
+        for t in range(0, len(sequences):
+            columns = []
+            for v in range(0, len(sequences)):
+                 columns.append(0)
+            similarity_array.append(columns)
+
+        sequence_position_map = {}
+        
+        count = 0
         for sequence in sequences:
             database_file.write('>' + sequence.locus + '\n' + '%s' % sequence.code + '\n')
+            sequence_position_map[sequence.locus] = count
+            count += 1
         
         database_file.flush()
         
@@ -112,8 +125,25 @@ class BioHandler:
             seq_file = tempfile.NamedTemporaryFile(mode='w', prefix='navi-', dir=blast_directory)
             seq_file.write('>' + sequence.locus + '\n' + '%s' % sequence.code + '\n')
             seq_file.flush()
-            subprocess.check_call(['blastall', '-d', database_file.name, '-i',
-                seq_file.name, '-p', 'blastp', '-o',  seq_file.name + '-blast-res'])
+            #subprocess.check_call(['blastall', '-d', database_file.name, '-i',
+            #    seq_file.name, '-p', 'blastp', '-o',  seq_file.name + '-blast-res'])
+            command = ' '.join(['blastall', '-d', database_file.name, '-i',
+                seq_file.name, '-p', 'blastp'])
+            process = subprocess.Popen(command, shell=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE,
+                stderr=subprocess.STDOUT, close_fds=True)
+            blast_res = process.stdout.read().split('\n')
+            
+            for i in range(0, len(blast_res)):
+                if '>' in blast_res[i]:
+                    #print blast_res[i].split('>')[1].strip(),
+                    sequence_locus = blast_res[i].split('>')[1].strip()
+                    percent = int(blast_res[i + 4].split()[3].strip('(').strip('%,)'))
+                    
+                    if similarity_array[sequence_position_map[sequence.locus]][sequence_position_map[sequence_locus]] < percent:
+                        similarity_array[sequence_position_map[sequence.locus]][sequence_position_map[sequence_locus]] = percent
+                        similarity_array[sequence_position_map[sequence_locus]][sequence_position_map[sequence.locus]] = percent
+
+ 
             #f = open(seq_file.name + '-blast-res', 'r')
             #remove seq_file blast result file
         #remove blast directory

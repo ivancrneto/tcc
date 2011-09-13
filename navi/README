@@ -13,3 +13,4 @@ anotacoes:
         ir na persistencia salvar os arquivos do projeto antes de instanciar as classes
         colocar update_project depois da geracao da matriz de similaridades
         mudar de choose_sequences para generate_similarities em main window -> project
+        colocar map na instanciação de matriz de similaridades
