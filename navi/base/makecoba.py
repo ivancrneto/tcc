@@ -1,10 +1,13 @@
 from xml.dom import minidom
 from persistence import Persistence
+from matrices import SimilarityMatrix
 from Bio import SeqIO
 import os
 import glob
 import tempfile
 import subprocess
+import time
+import shutil
 
 
 class Project:
@@ -27,6 +30,7 @@ class Project:
         self.name = name
         self.path = path
         self.database_path = database_path
+        self.state = 'new'
         self.persistence = Persistence()
         self.save_file('w')
         self.bio_handler = BioHandler(database_path)
@@ -45,8 +49,9 @@ class Project:
         return self.bio_handler.get_sequences()
         
     def generate_similarities(self, sequences):
-        return self.bio_handler.generate_similarities(sequences)
-        
+        self.similarity_matrix = self.bio_handler.generate_similarities(sequences)
+        self.state = 'similarity_matrix'
+        return True
         
 class BioHandler:
     '''
@@ -60,6 +65,7 @@ class BioHandler:
     def __init__(self, database_path):
         self.database_path = database_path
         self.organisms = []
+        self.matrices = []
         self.filter_files()
         
     def add_organism(self, organism):
@@ -98,12 +104,11 @@ class BioHandler:
                 self.add_organism(organism)
                 
     def generate_similarities(self, sequences):
-        import time
         blast_directory = tempfile.mkdtemp(prefix='navi-blast-', dir=tempfile.gettempdir())
         database_file = tempfile.NamedTemporaryFile(mode='w', prefix='navi-', dir=blast_directory)
         
         similarity_array = []
-        for t in range(0, len(sequences):
+        for t in range(0, len(sequences)):
             columns = []
             for v in range(0, len(sequences)):
                  columns.append(0)
@@ -123,6 +128,7 @@ class BioHandler:
         
         for sequence in sequences:
             seq_file = tempfile.NamedTemporaryFile(mode='w', prefix='navi-', dir=blast_directory)
+            
             seq_file.write('>' + sequence.locus + '\n' + '%s' % sequence.code + '\n')
             seq_file.flush()
             #subprocess.check_call(['blastall', '-d', database_file.name, '-i',
@@ -139,20 +145,23 @@ class BioHandler:
                     sequence_locus = blast_res[i].split('>')[1].strip()
                     percent = int(blast_res[i + 4].split()[3].strip('(').strip('%,)'))
                     
-                    if similarity_array[sequence_position_map[sequence.locus]][sequence_position_map[sequence_locus]] < percent:
-                        similarity_array[sequence_position_map[sequence.locus]][sequence_position_map[sequence_locus]] = percent
-                        similarity_array[sequence_position_map[sequence_locus]][sequence_position_map[sequence.locus]] = percent
-
- 
-            #f = open(seq_file.name + '-blast-res', 'r')
-            #remove seq_file blast result file
-        #remove blast directory
-        #>>> from subprocess import Popen, PIPE, STDOUT
-        #>>> cmd = 'ls -la'
-        #>>> p = Popen(cmd, shell=True, stdin=PIPE, stdout=PIPE, stderr=STDOUT, close_fds=True)
-        #>>> output = p.stdout.read()
-        #>>> print output
-
+                    if sequence_locus != sequence.locus:
+                        if similarity_array[sequence_position_map[sequence.locus]][sequence_position_map[sequence_locus]] < percent:
+                            similarity_array[sequence_position_map[sequence.locus]][sequence_position_map[sequence_locus]] = percent
+                            similarity_array[sequence_position_map[sequence_locus]][sequence_position_map[sequence.locus]] = percent
+                    else:
+                        similarity_array[sequence_position_map[sequence.locus]][sequence_position_map[sequence_locus]] = 0
+                        similarity_array[sequence_position_map[sequence_locus]][sequence_position_map[sequence.locus]] = 0
+            #####remove seq_file blast result file
+        shutil.rmtree(blast_directory)
+        for i in range(0, len(similarity_array)):
+            for j in range(0, len(similarity_array[i])):
+                print similarity_array[i][j],
+            print '\n'
+            
+        sim_matrix = SimilarityMatrix(similarity_array, sequence_position_map)
+        self.matrices.append(sim_matrix)
+        return sim_matrix
         
 class Organism:
     '''

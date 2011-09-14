@@ -1,8 +1,16 @@
-# To change this template, choose Tools | Templates
-# and open the template in the editor.
-
-__author__="ivan"
-__date__ ="$05/05/2011 20:28:05$"
-
-if __name__ == "__main__":
-    print "Hello World";
+class Matrix:
+    '''
+    data
+    path
+    sequence_position_map
+    '''
+    
+    def __init__(self, data, sequence_position_map):
+        self.data = data
+        self.path = None
+        self.sequence_position_map = sequence_position_map
+        
+        
+class SimilarityMatrix(Matrix):
+    def __init__(self, data, sequence_position_map):
+        Matrix.__init__(self, data, sequence_position_map)

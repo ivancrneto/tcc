@@ -76,6 +76,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.grid.addWidget(qtool_button, 0, 3)
         self.connect(qtool_button, SIGNAL(_fromUtf8("clicked()")),
             self.choose_sequences)
+        if self.project.state == 'new':
+            self.project.state = 'database'
     
     def new_project(self):
         project_dialog = NewProject(self)

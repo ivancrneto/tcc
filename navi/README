@@ -9,6 +9,9 @@ anotacoes:
         adicionar version no lugar de name na sequencia
         adicionar generate_similarities a Project
         blast virará um pacote
+        mudar de rows e columns de Matrix para data
+        mudar de nome grandao para sequence_position_map
+        adicionar state a projeto
     diag-seq1:
         ir na persistencia salvar os arquivos do projeto antes de instanciar as classes
         colocar update_project depois da geracao da matriz de similaridades
