@@ -25,22 +25,30 @@ class Project:
     '''
     
     def __init__(self, name, path, database_path):
-        if name[:-4] != '.nav':
-            name += '.nav'
-        self.name = name
-        self.path = path
-        self.database_path = database_path
-        self.state = 'new'
-        self.persistence = Persistence()
-        self.save_file('w')
-        self.bio_handler = BioHandler(database_path)
-        self.save_project()
+        #TODO: it is better if we override __new__ method in Project class instead of receive None args
+        if name != None and database_path != None: #new project called
+            if name[:-4] != '.nav':
+                name += '.nav'
+            self.name = name
+            self.path = path
+            self.database_path = database_path
+            self.state = 'new'
+            self.persistence = Persistence()
+            self.save_file('w')
+            self.bio_handler = BioHandler(database_path)
+            self.save_project()
+        else: #open project called
+            self.path = path
+            self.persistence = Persistence()
         
     def save_file(self, mode):
         return self.persistence.save_project_file(self, mode)
         
     def save_project(self):
         self.persistence.update_data(self)
+        
+    def load_data(self):
+        return self.persistence.load_project_data(self)
     
     def end(self):
         self.persistence.update_data(self)
@@ -152,7 +160,7 @@ class BioHandler:
                     else:
                         similarity_array[sequence_position_map[sequence.locus]][sequence_position_map[sequence_locus]] = 0
                         similarity_array[sequence_position_map[sequence_locus]][sequence_position_map[sequence.locus]] = 0
-            #####remove seq_file blast result file
+        #remove seq_file blast result file
         shutil.rmtree(blast_directory)
         for i in range(0, len(similarity_array)):
             for j in range(0, len(similarity_array[i])):

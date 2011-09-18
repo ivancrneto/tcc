@@ -1,19 +1,11 @@
 dependencies:
 python-qt4
 python-biopython
+blast2
 
 
 anotacoes:
     diag-classes:
-        adicionar metodo get_sequences em BioHandler, Project e Organism
-        adicionar version no lugar de name na sequencia
-        adicionar generate_similarities a Project
-        blast virará um pacote
-        mudar de rows e columns de Matrix para data
-        mudar de nome grandao para sequence_position_map
-        adicionar state a projeto
-    diag-seq1:
-        ir na persistencia salvar os arquivos do projeto antes de instanciar as classes
-        colocar update_project depois da geracao da matriz de similaridades
-        mudar de choose_sequences para generate_similarities em main window -> project
-        colocar map na instanciação de matriz de similaridades
+        
+    diag-seq2:
+        
