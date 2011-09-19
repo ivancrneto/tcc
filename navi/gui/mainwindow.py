@@ -66,6 +66,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.grid.activate()
         
     def add_buttons_to_grid(self):
+        self.clean_grid()
         if not hasattr(self, 'project'):
             self.project_button_grid()
             return
@@ -73,6 +74,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.project_button_grid()
         if self.project.state in ('new', 'similarity_matrix'):
             self.database_button_grid()
+        if self.project.state in ('similarity_matrix'):
+            self.matrix_button_grid()
             
         #self.actionSave_Project.setEnabled(True)
     
@@ -100,6 +103,17 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         
         self.connect(qtool_button, SIGNAL(_fromUtf8("clicked()")),
             self.choose_sequences)
+            
+    def matrix_button_grid(self):
+        self.add_arrow_grid()
+        
+        qtool_button = QToolButton(self)
+        qtool_button.setIcon(QIcon(os.path.join(os.path.dirname(__file__), 'icons/matrix.png')))
+        qtool_button.setIconSize(QSize(48, 48))
+        self.grid.insertWidget(self.grid.count() - 1, qtool_button, 0)
+        
+        self.connect(qtool_button, SIGNAL(_fromUtf8("clicked()")),
+            self.choose_sequences)
     
     def new_project(self):
         project_dialog = NewProject(self)
@@ -107,7 +121,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if project_dialog.accepted:
             if hasattr(self, 'project') and self.project != None:
                 self.project.end()
-            self.clean_grid()
             self.project = Project(project_dialog.project_name.text(),
                 project_dialog.project_path.text(), project_dialog.database_path.text())
             #self.actionDatabase.setEnabled(True)
@@ -123,9 +136,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 done = self.project.generate_similarities(selected_sequences)
                 if done:
                     self.project.save_project()
+                    self.add_buttons_to_grid()
             
     def open_project(self):
-        self.clean_grid()
         if hasattr(self, 'project') and self.project != None:
             self.project.end()
         project_path = QFileDialog.getOpenFileName(self, 'Open Project', os.path.expanduser('~'), "Navi Project Files (*.nav)")
