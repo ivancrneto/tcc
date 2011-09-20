@@ -1,7 +1,7 @@
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 from ui.mainwindow import Ui_MainWindow
-from dialogs import NewProject, ChooseSequences
+from dialogs import NewProject, ChooseSequences, Matrices
 from base.makecoba import Project
 import os
 
@@ -113,7 +113,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.grid.insertWidget(self.grid.count() - 1, qtool_button, 0)
         
         self.connect(qtool_button, SIGNAL(_fromUtf8("clicked()")),
-            self.choose_sequences)
+            self.matrix_operations)
     
     def new_project(self):
         project_dialog = NewProject(self)
@@ -137,6 +137,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 if done:
                     self.project.save_project()
                     self.add_buttons_to_grid()
+                    
+    def matrix_operations(self):
+        matrix_dialog = Matrices(self, self.project)
+        matrix_dialog.exec_()
             
     def open_project(self):
         if hasattr(self, 'project') and self.project != None:

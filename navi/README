@@ -6,6 +6,6 @@ blast2
 
 anotacoes:
     diag-classes:
-        
+        incluir get_adjacency_matrices e get_neighbourhood_matrices em Project
     diag-seq3:
         

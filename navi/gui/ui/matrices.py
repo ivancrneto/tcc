@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'matrices.ui'
 #
-# Created: Sun Sep 18 23:17:09 2011
+# Created: Tue Sep 20 07:21:46 2011
 #      by: PyQt4 UI code generator 4.8.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -14,19 +14,19 @@ try:
 except AttributeError:
     _fromUtf8 = lambda s: s
 
-class Ui_Form(object):
-    def setupUi(self, Form):
-        Form.setObjectName(_fromUtf8("Form"))
-        Form.resize(681, 485)
-        self.horizontalLayoutWidget = QtGui.QWidget(Form)
+class Ui_Matrices(object):
+    def setupUi(self, Matrices):
+        Matrices.setObjectName(_fromUtf8("Matrices"))
+        Matrices.resize(681, 485)
+        self.horizontalLayoutWidget = QtGui.QWidget(Matrices)
         self.horizontalLayoutWidget.setGeometry(QtCore.QRect(9, 9, 661, 471))
         self.horizontalLayoutWidget.setObjectName(_fromUtf8("horizontalLayoutWidget"))
         self.horizontalLayout = QtGui.QHBoxLayout(self.horizontalLayoutWidget)
         self.horizontalLayout.setMargin(0)
         self.horizontalLayout.setObjectName(_fromUtf8("horizontalLayout"))
-        self.tableView = QtGui.QTableView(self.horizontalLayoutWidget)
-        self.tableView.setObjectName(_fromUtf8("tableView"))
-        self.horizontalLayout.addWidget(self.tableView)
+        self.matrix_tableview = QtGui.QTableView(self.horizontalLayoutWidget)
+        self.matrix_tableview.setObjectName(_fromUtf8("matrix_tableview"))
+        self.horizontalLayout.addWidget(self.matrix_tableview)
         self.vboxlayout = QtGui.QVBoxLayout()
         self.vboxlayout.setContentsMargins(0, -1, -1, -1)
         self.vboxlayout.setObjectName(_fromUtf8("vboxlayout"))
@@ -49,14 +49,14 @@ class Ui_Form(object):
         self.vboxlayout.addWidget(self.pushButton_5)
         self.horizontalLayout.addLayout(self.vboxlayout)
 
-        self.retranslateUi(Form)
-        QtCore.QMetaObject.connectSlotsByName(Form)
+        self.retranslateUi(Matrices)
+        QtCore.QMetaObject.connectSlotsByName(Matrices)
 
-    def retranslateUi(self, Form):
-        Form.setWindowTitle(QtGui.QApplication.translate("Form", "Matrices and Threshold Analysis", None, QtGui.QApplication.UnicodeUTF8))
-        self.pushButton.setText(QtGui.QApplication.translate("Form", "Generate Matrices", None, QtGui.QApplication.UnicodeUTF8))
-        self.pushButton_4.setText(QtGui.QApplication.translate("Form", "Network Graph", None, QtGui.QApplication.UnicodeUTF8))
-        self.pushButton_3.setText(QtGui.QApplication.translate("Form", "Color Matrix Graph", None, QtGui.QApplication.UnicodeUTF8))
-        self.pushButton_2.setText(QtGui.QApplication.translate("Form", "Export Matrices", None, QtGui.QApplication.UnicodeUTF8))
-        self.pushButton_5.setText(QtGui.QApplication.translate("Form", "Analyse Thresholds", None, QtGui.QApplication.UnicodeUTF8))
+    def retranslateUi(self, Matrices):
+        Matrices.setWindowTitle(QtGui.QApplication.translate("Matrices", "Matrices and Threshold Analysis", None, QtGui.QApplication.UnicodeUTF8))
+        self.pushButton.setText(QtGui.QApplication.translate("Matrices", "Generate Matrices", None, QtGui.QApplication.UnicodeUTF8))
+        self.pushButton_4.setText(QtGui.QApplication.translate("Matrices", "Network Graph", None, QtGui.QApplication.UnicodeUTF8))
+        self.pushButton_3.setText(QtGui.QApplication.translate("Matrices", "Color Matrix Graph", None, QtGui.QApplication.UnicodeUTF8))
+        self.pushButton_2.setText(QtGui.QApplication.translate("Matrices", "Export Matrices", None, QtGui.QApplication.UnicodeUTF8))
+        self.pushButton_5.setText(QtGui.QApplication.translate("Matrices", "Analyse Thresholds", None, QtGui.QApplication.UnicodeUTF8))
 

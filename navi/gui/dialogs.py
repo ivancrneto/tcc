@@ -2,6 +2,7 @@ from PyQt4.QtGui import *
 from PyQt4.QtCore import *
 from ui.new_project import Ui_NewProject
 from ui.choose_sequences import Ui_ChooseSequences
+from ui.matrices import Ui_Matrices
 import os
 import operator
 
@@ -86,7 +87,7 @@ class ChooseSequences(QDialog, Ui_ChooseSequences):
         header = ['Gi', 'Accessions', 'Locus', 'Version', 'Community', 'Organism', 
                 'Description', 'File', 'Alphabet', 'Code']
         
-        table_model = SequencesTableModel(self.sequence_table.tabledata, header, self) 
+        table_model = GenericTableModel(self.sequence_table.tabledata, header, self) 
         self.sequence_table.setModel(table_model)
         
         self.sequence_table.setSelectionBehavior(QAbstractItemView.SelectRows)
@@ -140,7 +141,7 @@ class ChooseSequences(QDialog, Ui_ChooseSequences):
     
     
 #got from: http://www.saltycrane.com/blog/2007/12/pyqt-43-qtableview-qabstracttablemodel/
-class SequencesTableModel(QAbstractTableModel): 
+class GenericTableModel(QAbstractTableModel): 
     def __init__(self, datain, headerdata, parent=None, *args): 
         """ datain: a list of lists
             headerdata: a list of strings
@@ -175,5 +176,113 @@ class SequencesTableModel(QAbstractTableModel):
         if order == Qt.DescendingOrder:
             self.arraydata.reverse()
         self.emit(SIGNAL("layoutChanged()"))
+
+
+class Matrices(QDialog, Ui_Matrices):
+    '''
+    Class with a dialog to the user operate with matrices
+    '''
+    def __init__(self, parent=None, project):
+        QDialog.__init__(self, parent)
+        self.setupUi(self)
+        self.setModal(True)
+        self.project = project
+        self.matrix_tableview.tabledata = self.get_matrices()
+        self.create_table()
+        
+    def get_matrices(self):
+        adj_matrices = self.project.get_adjacency_matrices()
+        nbh_matrices = self.project.get_neighbourhood_matrices()
+        
+        matrices_dict = []
+        for threshold in range(0, 101):
+            if threshold in adj_matrices:
+                adj_generated = True
+            else:
+                adj_generated = False
+            if threshold in nbh_matrices:
+                nbh_generated = True
+            else:
+                nbh_generated = False
+            matrices_dict.append([threshold, adj_generated, nbh_generated])
     
-    
+    def create_table(self):
+        header = ['Threshold', 'Adjacency Matrix', 'Neighbourhood Matrix']
+        
+        table_model = GenericTableModel(self.matrix_tableview.tabledata, header, self) 
+        self.matrix_tableview.setModel(table_model)
+        
+        self.matrix_tableview.setSelectionBehavior(QAbstractItemView.SelectRows)
+        #self.sequence_table.setSelectionMode(QAbstractItemView.ExtendedSelection)
+        
+        self.matrix_tableview.setMinimumSize(400, 300)
+
+        self.matrix_tableview.setShowGrid(False)
+
+        font = QFont("Times New Roman", 10)
+        self.matrix_tableview.setFont(font)
+
+        vh = self.matrix_tableview.verticalHeader()
+        vh.setVisible(False)
+
+        hh = self.matrix_tableview.horizontalHeader()
+        hh.setStretchLastSection(True)
+
+        self.matrix_tableview.resizeColumnsToContents()
+
+        nrows = len(self.matrix_tableview.tabledata)
+        for row in xrange(nrows):
+            self.matrix_tableview.setRowHeight(row, 18)
+
+        self.matrix_tableview.setSortingEnabled(True)
+        
+        
+    def closeEvent(self, event):
+        print 'testing close event'
+        self.emit(SIGNAL("closed()"))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
