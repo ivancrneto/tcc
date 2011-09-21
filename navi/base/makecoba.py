@@ -32,6 +32,8 @@ class Project:
             self.name = name
             self.path = path
             self.database_path = database_path
+            self.adjacency_matrices = []
+            self.neighbourhood_matrices = []
             self.state = 'new'
             self.persistence = Persistence()
             self.save_file('w')
@@ -55,6 +57,20 @@ class Project:
         
     def get_sequences(self):
         return self.bio_handler.get_sequences()
+        
+    def get_adjacency_matrices(self):
+        adj_matrices = {}
+        for matrix in self.adjacency_matrices:
+            adj_matrices[matrix.threshold] = matrix
+            
+        return adj_matrices
+        
+    def get_neighbourhood_matrices(self):
+        nbh_matrices = {}
+        for matrix in self.neighbourhood_matrices:
+            nbh_matrices[matrix.threshold] = matrix
+            
+        return nbh_matrices
         
     def generate_similarities(self, sequences):
         self.similarity_matrix = self.bio_handler.generate_similarities(sequences)

@@ -182,13 +182,15 @@ class Matrices(QDialog, Ui_Matrices):
     '''
     Class with a dialog to the user operate with matrices
     '''
-    def __init__(self, parent=None, project):
+    def __init__(self, project, parent=None):
         QDialog.__init__(self, parent)
         self.setupUi(self)
         self.setModal(True)
         self.project = project
         self.matrix_tableview.tabledata = self.get_matrices()
         self.create_table()
+        self.pushButton.setFocusPolicy(Qt.NoFocus)
+        self.pushButton_5.setFocus(Qt.OtherFocusReason)
         
     def get_matrices(self):
         adj_matrices = self.project.get_adjacency_matrices()
@@ -197,14 +199,17 @@ class Matrices(QDialog, Ui_Matrices):
         matrices_dict = []
         for threshold in range(0, 101):
             if threshold in adj_matrices:
-                adj_generated = True
+                adj_generated = 'X'
             else:
-                adj_generated = False
+                adj_generated = ''
             if threshold in nbh_matrices:
-                nbh_generated = True
+                nbh_generated = 'X'
             else:
-                nbh_generated = False
+                nbh_generated = ''
             matrices_dict.append([threshold, adj_generated, nbh_generated])
+        
+        matrices_dict.reverse()
+        return matrices_dict
     
     def create_table(self):
         header = ['Threshold', 'Adjacency Matrix', 'Neighbourhood Matrix']
@@ -235,7 +240,8 @@ class Matrices(QDialog, Ui_Matrices):
             self.matrix_tableview.setRowHeight(row, 18)
 
         self.matrix_tableview.setSortingEnabled(True)
-        
+        self.matrix_tableview.sortByColumn(0, Qt.AscendingOrder)
+        self.matrix_tableview.setColumnWidth(0, 120)
         
     def closeEvent(self, event):
         print 'testing close event'

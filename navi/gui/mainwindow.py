@@ -139,7 +139,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     self.add_buttons_to_grid()
                     
     def matrix_operations(self):
-        matrix_dialog = Matrices(self, self.project)
+        matrix_dialog = Matrices(self.project, self)
         matrix_dialog.exec_()
             
     def open_project(self):
