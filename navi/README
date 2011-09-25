@@ -8,13 +8,6 @@ madchar.f compiled as madchar in vendors/madchar folder
 
 anotacoes:
     diag-classes:
-        incluir get_adjacency_matrices e get_neighbourhood_matrices em Project
-        remover metodos generate_matrix de BioHandler
-        adicionar graphic_name a AdjacencyMatrix e NeighbourhoodMatrix
-    diag-seq3:
-        colocar o loop em Project ao inves de Main Window
-        Main Window - GenerateAdjacencyMatriCES adicionar map no lugar de threshold
-        Main Window - GenerateNeighbourhoodMatriCES adicionar map no lugar de threshold
-        remover graphic de GenerateNeighbourhoodMatriCES
-        remover graphic de GenerateAdjacencyMatriCES
-        remover GenerateMatrixImg e GraphicalLib dos dois
+    
+    diag-seq6:
+    

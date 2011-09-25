@@ -251,7 +251,6 @@ class Matrices(QDialog, Ui_Matrices):
         selected_cells_data = []
         while selected_cells:
             selected_cells_data.append('%s' % selected_cells.pop().data(Qt.DisplayRole).toString())
-        print selected_cells_data
         
         threshold = int(selected_cells_data[0])
         nbh_matrix = self.project.get_neighbourhood_matrix(threshold)
@@ -260,7 +259,7 @@ class Matrices(QDialog, Ui_Matrices):
             image_dialog = ImageDialog(self, image='color matrix', nbh_matrix=nbh_matrix)
             image_dialog.exec_()
         else:
-            'Neighbourhood Matrix None'
+            print 'Neighbourhood Matrix None'
     
     def create_table(self):
         header = ['Threshold', 'Adjacency Matrix', 'Neighbourhood Matrix']
@@ -317,25 +316,26 @@ class ImageDialog(QDialog, Ui_ImageDialog):
         
         self.navbar_layout.addWidget(self.mpl_toolbar)
         
-        print kwargs
-        print dir(kwargs)
         if 'image' in kwargs:
             if kwargs['image'] == 'color matrix':
                 self.show_color_matrix(kwargs['nbh_matrix'])
 
     def show_color_matrix(self, nbh_matrix):
-        num_max = 3
-        var = 1.0 / num_max
+        nbh_matrix_data = nbh_matrix.data
+        #TODO: try to choose better colors
+        #for i in range(0, len(nbh_matrix_data)):
+        #    for j in range(0, len(nbh_matrix_data[i])):
+        #        print nbh_matrix_data[i][j]
+        #        new_number = var * nbh_matrix_data[i][j]
+        #        nbh_matrix_data[i][j] = [new_number, new_number, new_number]
 
-        for i in range(0, len(matrix)):
-            for j in range(0, len(matrix[i])):
-                new_number = var * matrix[i][j]
-                matrix[i][j] = [new_number, new_number, new_number]
-
-        img = numpy.array(matrix)
-        pyplot.colorbar()
+        img = numpy.array(nbh_matrix_data)
+        #TODO: add colorbar
+        #self.fig.colorbar()
+        #pyplot.colorbar()
+        imgplot = self.axes.imshow(img)
+        imgplot.set_cmap('spectral')
         imgplot.set_interpolation('nearest')
-        imgplot = pyplot.imshow(img)
 
     def closeEvent(self, event):
         self.emit(SIGNAL("closed()"))

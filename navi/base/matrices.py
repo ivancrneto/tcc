@@ -27,8 +27,6 @@ class AdjacencyMatrix(Matrix):
     def __init__(self, similarity_matrix, threshold):
         sequence_position_map = similarity_matrix.sequence_position_map
         self.threshold = threshold
-        self.graphic = False
-        self.graphic_name = None
         
         data = []
         for t in range(0, len(similarity_matrix.data)):
@@ -51,8 +49,6 @@ class NeighbourhoodMatrix(Matrix):
     def __init__(self, similarity_matrix, threshold):
         sequence_position_map = similarity_matrix.sequence_position_map
         self.threshold = threshold
-        self.graphic = False
-        self.graphic_name = None
         self.rearranged = False
         
         data = []
