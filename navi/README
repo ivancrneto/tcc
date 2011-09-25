@@ -3,6 +3,7 @@ python-qt4
 python-biopython
 python-matplotlib
 blast2
+madchar.f compiled as madchar in vendors/madchar folder
 
 
 anotacoes:
@@ -14,3 +15,5 @@ anotacoes:
         colocar o loop em Project ao inves de Main Window
         Main Window - GenerateAdjacencyMatriCES adicionar map no lugar de threshold
         Main Window - GenerateNeighbourhoodMatriCES adicionar map no lugar de threshold
+        remover graphic de GenerateNeighbourhoodMatriCES
+        remover graphic de GenerateAdjacencyMatriCES

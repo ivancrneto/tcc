@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'generate_matrices.ui'
 #
-# Created: Sat Sep 24 14:26:54 2011
+# Created: Sun Sep 25 12:13:31 2011
 #      by: PyQt4 UI code generator 4.8.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -17,14 +17,14 @@ except AttributeError:
 class Ui_GenerateMatrices(object):
     def setupUi(self, GenerateMatrices):
         GenerateMatrices.setObjectName(_fromUtf8("GenerateMatrices"))
-        GenerateMatrices.resize(400, 255)
+        GenerateMatrices.resize(400, 215)
         self.buttonBox = QtGui.QDialogButtonBox(GenerateMatrices)
-        self.buttonBox.setGeometry(QtCore.QRect(50, 220, 341, 32))
+        self.buttonBox.setGeometry(QtCore.QRect(50, 180, 341, 32))
         self.buttonBox.setOrientation(QtCore.Qt.Horizontal)
         self.buttonBox.setStandardButtons(QtGui.QDialogButtonBox.Cancel|QtGui.QDialogButtonBox.Ok)
         self.buttonBox.setObjectName(_fromUtf8("buttonBox"))
         self.verticalLayoutWidget = QtGui.QWidget(GenerateMatrices)
-        self.verticalLayoutWidget.setGeometry(QtCore.QRect(10, 10, 381, 211))
+        self.verticalLayoutWidget.setGeometry(QtCore.QRect(10, 10, 381, 161))
         self.verticalLayoutWidget.setObjectName(_fromUtf8("verticalLayoutWidget"))
         self.verticalLayout = QtGui.QVBoxLayout(self.verticalLayoutWidget)
         self.verticalLayout.setMargin(0)
@@ -60,11 +60,6 @@ class Ui_GenerateMatrices(object):
         self.horizontalLayout_3 = QtGui.QHBoxLayout()
         self.horizontalLayout_3.setContentsMargins(-1, -1, -1, 0)
         self.horizontalLayout_3.setObjectName(_fromUtf8("horizontalLayout_3"))
-        spacerItem1 = QtGui.QSpacerItem(20, 20, QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Minimum)
-        self.horizontalLayout_3.addItem(spacerItem1)
-        self.generate_adj_graphic_checkbox = QtGui.QCheckBox(self.verticalLayoutWidget)
-        self.generate_adj_graphic_checkbox.setObjectName(_fromUtf8("generate_adj_graphic_checkbox"))
-        self.horizontalLayout_3.addWidget(self.generate_adj_graphic_checkbox)
         self.verticalLayout.addLayout(self.horizontalLayout_3)
         self.nbh_matrix_checkbox = QtGui.QCheckBox(self.verticalLayoutWidget)
         self.nbh_matrix_checkbox.setObjectName(_fromUtf8("nbh_matrix_checkbox"))
@@ -72,23 +67,18 @@ class Ui_GenerateMatrices(object):
         self.horizontalLayout_4 = QtGui.QHBoxLayout()
         self.horizontalLayout_4.setContentsMargins(-1, -1, -1, 0)
         self.horizontalLayout_4.setObjectName(_fromUtf8("horizontalLayout_4"))
-        spacerItem2 = QtGui.QSpacerItem(20, 20, QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Minimum)
-        self.horizontalLayout_4.addItem(spacerItem2)
-        self.generate_nbh_graphic_checkbox = QtGui.QCheckBox(self.verticalLayoutWidget)
-        self.generate_nbh_graphic_checkbox.setObjectName(_fromUtf8("generate_nbh_graphic_checkbox"))
-        self.horizontalLayout_4.addWidget(self.generate_nbh_graphic_checkbox)
         self.verticalLayout.addLayout(self.horizontalLayout_4)
         self.horizontalLayout_5 = QtGui.QHBoxLayout()
         self.horizontalLayout_5.setContentsMargins(-1, -1, -1, 0)
         self.horizontalLayout_5.setObjectName(_fromUtf8("horizontalLayout_5"))
-        spacerItem3 = QtGui.QSpacerItem(20, 20, QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Minimum)
-        self.horizontalLayout_5.addItem(spacerItem3)
+        spacerItem1 = QtGui.QSpacerItem(20, 20, QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Minimum)
+        self.horizontalLayout_5.addItem(spacerItem1)
         self.rearrange_checkbox = QtGui.QCheckBox(self.verticalLayoutWidget)
         self.rearrange_checkbox.setObjectName(_fromUtf8("rearrange_checkbox"))
         self.horizontalLayout_5.addWidget(self.rearrange_checkbox)
         self.verticalLayout.addLayout(self.horizontalLayout_5)
-        spacerItem4 = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
-        self.verticalLayout.addItem(spacerItem4)
+        spacerItem2 = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
+        self.verticalLayout.addItem(spacerItem2)
 
         self.retranslateUi(GenerateMatrices)
         QtCore.QObject.connect(self.buttonBox, QtCore.SIGNAL(_fromUtf8("accepted()")), GenerateMatrices.accept)
@@ -100,8 +90,6 @@ class Ui_GenerateMatrices(object):
         self.label.setText(QtGui.QApplication.translate("GenerateMatrices", "Threshold or interval", None, QtGui.QApplication.UnicodeUTF8))
         self.label_2.setText(QtGui.QApplication.translate("GenerateMatrices", "Example: 50 or 30-50", None, QtGui.QApplication.UnicodeUTF8))
         self.adj_matrix_checkbox.setText(QtGui.QApplication.translate("GenerateMatrices", "Adjacency Matrix", None, QtGui.QApplication.UnicodeUTF8))
-        self.generate_adj_graphic_checkbox.setText(QtGui.QApplication.translate("GenerateMatrices", "Generate Graphic", None, QtGui.QApplication.UnicodeUTF8))
         self.nbh_matrix_checkbox.setText(QtGui.QApplication.translate("GenerateMatrices", "Neighbourhood Matrix", None, QtGui.QApplication.UnicodeUTF8))
-        self.generate_nbh_graphic_checkbox.setText(QtGui.QApplication.translate("GenerateMatrices", "Generate Graphic", None, QtGui.QApplication.UnicodeUTF8))
         self.rearrange_checkbox.setText(QtGui.QApplication.translate("GenerateMatrices", "Rearrange", None, QtGui.QApplication.UnicodeUTF8))
 
