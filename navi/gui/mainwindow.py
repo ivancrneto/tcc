@@ -143,6 +143,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         matrix_dialog.exec_()
         
         self.project = matrix_dialog.project
+        self.project.save_project()
             
     def open_project(self):
         if hasattr(self, 'project') and self.project != None:

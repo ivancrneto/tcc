@@ -76,8 +76,6 @@ class Project:
         if adj_matrix_gen:
             for threshold in range(adj_matrix_gen['begin'], adj_matrix_gen['end'] + 1):
                 adj_matrix = AdjacencyMatrix(self.similarity_matrix, threshold)
-                if adj_matrix_gen['gen_graphic']:
-                    pass
                 adj = self.get_adjacency_matrix(adj_matrix.threshold)
                 if adj:
                     self.adjacency_matrices.remove(adj)
@@ -87,8 +85,6 @@ class Project:
         if nbh_matrix_gen:
             for threshold in range(nbh_matrix_gen['begin'], nbh_matrix_gen['end'] + 1):
                 nbh_matrix = NeighbourhoodMatrix(self.similarity_matrix, threshold)
-                if nbh_matrix_gen['gen_graphic']:
-                    pass
                 if nbh_matrix_gen['rearrange']:
                     #TODO
                     #pass matrix and call minener

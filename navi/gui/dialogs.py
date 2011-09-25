@@ -4,8 +4,16 @@ from ui.new_project import Ui_NewProject
 from ui.choose_sequences import Ui_ChooseSequences
 from ui.matrices import Ui_Matrices
 from ui.generate_matrices import Ui_GenerateMatrices
+from ui.image_dialog import Ui_ImageDialog
 import os
 import operator
+import matplotlib
+from matplotlib.backends.backend_qt4agg import FigureCanvasQTAgg as FigureCanvas
+from matplotlib.backends.backend_qt4agg import NavigationToolbar2QTAgg as NavigationToolbar
+from matplotlib.figure import Figure
+from matplotlib import pyplot
+from matplotlib import image as mpimg
+import numpy
 
 class NewProject(QDialog, Ui_NewProject):
     '''
@@ -197,6 +205,7 @@ class Matrices(QDialog, Ui_Matrices):
         self.analyse_thresholds_button.setFocus(Qt.OtherFocusReason)
         
         self.connect(self.generate_matrices_button, SIGNAL('clicked()'), self.generate_matrices)
+        self.connect(self.color_matrix_graph_button, SIGNAL('clicked()'), self.color_matrix_graph)
         
     def get_matrices(self):
         adj_matrices = self.project.get_adjacency_matrices()
@@ -206,18 +215,10 @@ class Matrices(QDialog, Ui_Matrices):
         for threshold in range(0, 101):
             if threshold in adj_matrices:
                 adj_generated = 'Yes'
-                if adj_matrices[threshold].graphic:
-                    adj_generated += ', Graphic: Yes'
-                else:
-                    adj_generated += ', Graphic: No'
             else:
                 adj_generated = ''
             if threshold in nbh_matrices:
                 nbh_generated = 'Yes'
-                if nbh_matrices[threshold].graphic:
-                    nbh_generated += ', Graphic: Yes'
-                else:
-                    nbh_generated += ', Graphic: No'
                 if nbh_matrices[threshold].rearranged:
                     nbh_generated += ', Rearranged: Yes'
                 else:
@@ -239,8 +240,27 @@ class Matrices(QDialog, Ui_Matrices):
             self.project.bio_handler.matrices = [self.project.similarity_matrix] + \
                 self.project.adjacency_matrices + self.project.neighbourhood_matrices
                 
+            
+            self.project.save_project()
+            
             self.matrix_tableview.tabledata = self.get_matrices()
             self.create_table()
+            
+    def color_matrix_graph(self):
+        selected_cells = self.matrix_tableview.selectionModel().selectedRows(0)
+        selected_cells_data = []
+        while selected_cells:
+            selected_cells_data.append('%s' % selected_cells.pop().data(Qt.DisplayRole).toString())
+        print selected_cells_data
+        
+        threshold = int(selected_cells_data[0])
+        nbh_matrix = self.project.get_neighbourhood_matrix(threshold)
+        
+        if nbh_matrix != None:
+            image_dialog = ImageDialog(self, image='color matrix', nbh_matrix=nbh_matrix)
+            image_dialog.exec_()
+        else:
+            'Neighbourhood Matrix None'
     
     def create_table(self):
         header = ['Threshold', 'Adjacency Matrix', 'Neighbourhood Matrix']
@@ -279,6 +299,46 @@ class Matrices(QDialog, Ui_Matrices):
         self.emit(SIGNAL("closed()"))
 
 
+class ImageDialog(QDialog, Ui_ImageDialog):
+    '''
+    Class with a dialog to the user view images in general
+    '''
+    def __init__(self, parent=None, **kwargs):
+        QDialog.__init__(self, parent)
+        self.setupUi(self)
+        self.setModal(True)
+        
+        self.dpi = 100
+        self.fig = Figure((7.0, 5.2), dpi=self.dpi)
+        self.canvas = FigureCanvas(self.fig)
+        self.canvas.setParent(self)
+        self.axes = self.fig.add_subplot(111)
+        self.mpl_toolbar = NavigationToolbar(self.canvas, self)
+        
+        self.navbar_layout.addWidget(self.mpl_toolbar)
+        
+        print kwargs
+        print dir(kwargs)
+        if 'image' in kwargs:
+            if kwargs['image'] == 'color matrix':
+                self.show_color_matrix(kwargs['nbh_matrix'])
+
+    def show_color_matrix(self, nbh_matrix):
+        num_max = 3
+        var = 1.0 / num_max
+
+        for i in range(0, len(matrix)):
+            for j in range(0, len(matrix[i])):
+                new_number = var * matrix[i][j]
+                matrix[i][j] = [new_number, new_number, new_number]
+
+        img = numpy.array(matrix)
+        pyplot.colorbar()
+        imgplot.set_interpolation('nearest')
+        imgplot = pyplot.imshow(img)
+
+    def closeEvent(self, event):
+        self.emit(SIGNAL("closed()"))
 
 class GenerateMatrices(QDialog, Ui_GenerateMatrices):
     '''
@@ -289,27 +349,16 @@ class GenerateMatrices(QDialog, Ui_GenerateMatrices):
         self.setupUi(self)
         self.setModal(True)
         
-        self.generate_adj_graphic_checkbox.setDisabled(True)
-        self.generate_nbh_graphic_checkbox.setDisabled(True)
         self.rearrange_checkbox.setDisabled(True)
         
-        self.connect(self.adj_matrix_checkbox, SIGNAL('stateChanged(int)'), self.adj_mat_checkbox)
         self.connect(self.nbh_matrix_checkbox, SIGNAL('stateChanged(int)'), self.nbh_mat_checkbox)
         
         self.accepted = False
-        
-    def adj_mat_checkbox(self, state):
-        if state == Qt.Checked:
-            self.generate_adj_graphic_checkbox.setEnabled(True)
-        else:
-            self.generate_adj_graphic_checkbox.setDisabled(True)
             
     def nbh_mat_checkbox(self, state):
         if state == Qt.Checked:
-            self.generate_nbh_graphic_checkbox.setEnabled(True)
             self.rearrange_checkbox.setEnabled(True)
         else:
-            self.generate_nbh_graphic_checkbox.setDisabled(True)
             self.rearrange_checkbox.setDisabled(True)
         
     def accept(self):
@@ -321,24 +370,13 @@ class GenerateMatrices(QDialog, Ui_GenerateMatrices):
             else:
                 begin = end = int(self.threshold_input.text())
             
-            if self.generate_adj_graphic_checkbox.checkState() == Qt.Checked:
-                gen_graphic = True
-            else:
-                gen_graphic = False
-            
             self.adj_matrix_gen = {}
             if self.adj_matrix_checkbox.checkState() == Qt.Checked:
                 self.adj_matrix_gen = {
                     'begin': begin,
                     'end': end,
-                    'gen_graphic': gen_graphic
                 }
             
-            if self.generate_nbh_graphic_checkbox.checkState() == Qt.Checked:
-                gen_graphic = True
-            else:
-                gen_graphic = False
-                
             if self.rearrange_checkbox.checkState() == Qt.Checked:
                 rearrange = True
             else:
@@ -349,7 +387,6 @@ class GenerateMatrices(QDialog, Ui_GenerateMatrices):
                 self.nbh_matrix_gen = {
                     'begin': begin,
                     'end': end,
-                    'gen_graphic': gen_graphic,
                     'rearrange': rearrange,
                 }
         self.close()

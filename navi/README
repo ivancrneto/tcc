@@ -17,3 +17,4 @@ anotacoes:
         Main Window - GenerateNeighbourhoodMatriCES adicionar map no lugar de threshold
         remover graphic de GenerateNeighbourhoodMatriCES
         remover graphic de GenerateAdjacencyMatriCES
+        remover GenerateMatrixImg e GraphicalLib dos dois
