@@ -1,6 +1,7 @@
 dependencies:
 python-qt4
 python-biopython
+python-matplotlib
 blast2
 
 
