@@ -141,6 +141,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def matrix_operations(self):
         matrix_dialog = Matrices(self.project, self)
         matrix_dialog.exec_()
+        
+        self.project = matrix_dialog.project
             
     def open_project(self):
         if hasattr(self, 'project') and self.project != None:

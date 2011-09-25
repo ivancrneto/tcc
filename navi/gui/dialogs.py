@@ -3,6 +3,7 @@ from PyQt4.QtCore import *
 from ui.new_project import Ui_NewProject
 from ui.choose_sequences import Ui_ChooseSequences
 from ui.matrices import Ui_Matrices
+from ui.generate_matrices import Ui_GenerateMatrices
 import os
 import operator
 
@@ -189,8 +190,13 @@ class Matrices(QDialog, Ui_Matrices):
         self.project = project
         self.matrix_tableview.tabledata = self.get_matrices()
         self.create_table()
-        self.pushButton.setFocusPolicy(Qt.NoFocus)
-        self.pushButton_5.setFocus(Qt.OtherFocusReason)
+        self.generate_matrices_button.setFocusPolicy(Qt.NoFocus)
+        self.network_graph_button.setFocusPolicy(Qt.NoFocus)
+        self.color_matrix_graph_button.setFocusPolicy(Qt.NoFocus)
+        self.export_matrices_button.setFocusPolicy(Qt.NoFocus)
+        self.analyse_thresholds_button.setFocus(Qt.OtherFocusReason)
+        
+        self.connect(self.generate_matrices_button, SIGNAL('clicked()'), self.generate_matrices)
         
     def get_matrices(self):
         adj_matrices = self.project.get_adjacency_matrices()
@@ -199,17 +205,42 @@ class Matrices(QDialog, Ui_Matrices):
         matrices_dict = []
         for threshold in range(0, 101):
             if threshold in adj_matrices:
-                adj_generated = 'X'
+                adj_generated = 'Yes'
+                if adj_matrices[threshold].graphic:
+                    adj_generated += ', Graphic: Yes'
+                else:
+                    adj_generated += ', Graphic: No'
             else:
                 adj_generated = ''
             if threshold in nbh_matrices:
-                nbh_generated = 'X'
+                nbh_generated = 'Yes'
+                if nbh_matrices[threshold].graphic:
+                    nbh_generated += ', Graphic: Yes'
+                else:
+                    nbh_generated += ', Graphic: No'
+                if nbh_matrices[threshold].rearranged:
+                    nbh_generated += ', Rearranged: Yes'
+                else:
+                    nbh_generated += ', Rearranged: No'
             else:
                 nbh_generated = ''
             matrices_dict.append([threshold, adj_generated, nbh_generated])
         
         matrices_dict.reverse()
         return matrices_dict
+        
+    def generate_matrices(self):
+        generate_matrices_dialog = GenerateMatrices()
+        generate_matrices_dialog.exec_()
+        if generate_matrices_dialog.accepted:
+            self.project.generate_adjacency_matrices(generate_matrices_dialog.adj_matrix_gen)
+            self.project.generate_neighbourhood_matrices(generate_matrices_dialog.nbh_matrix_gen)
+            #TODO: should not be here
+            self.project.bio_handler.matrices = [self.project.similarity_matrix] + \
+                self.project.adjacency_matrices + self.project.neighbourhood_matrices
+                
+            self.matrix_tableview.tabledata = self.get_matrices()
+            self.create_table()
     
     def create_table(self):
         header = ['Threshold', 'Adjacency Matrix', 'Neighbourhood Matrix']
@@ -249,6 +280,87 @@ class Matrices(QDialog, Ui_Matrices):
 
 
 
+class GenerateMatrices(QDialog, Ui_GenerateMatrices):
+    '''
+    Class with a dialog to the user generate matrices
+    '''
+    def __init__(self, parent=None):
+        QDialog.__init__(self, parent)
+        self.setupUi(self)
+        self.setModal(True)
+        
+        self.generate_adj_graphic_checkbox.setDisabled(True)
+        self.generate_nbh_graphic_checkbox.setDisabled(True)
+        self.rearrange_checkbox.setDisabled(True)
+        
+        self.connect(self.adj_matrix_checkbox, SIGNAL('stateChanged(int)'), self.adj_mat_checkbox)
+        self.connect(self.nbh_matrix_checkbox, SIGNAL('stateChanged(int)'), self.nbh_mat_checkbox)
+        
+        self.accepted = False
+        
+    def adj_mat_checkbox(self, state):
+        if state == Qt.Checked:
+            self.generate_adj_graphic_checkbox.setEnabled(True)
+        else:
+            self.generate_adj_graphic_checkbox.setDisabled(True)
+            
+    def nbh_mat_checkbox(self, state):
+        if state == Qt.Checked:
+            self.generate_nbh_graphic_checkbox.setEnabled(True)
+            self.rearrange_checkbox.setEnabled(True)
+        else:
+            self.generate_nbh_graphic_checkbox.setDisabled(True)
+            self.rearrange_checkbox.setDisabled(True)
+        
+    def accept(self):
+        if self.threshold_input.text():
+            self.accepted = True
+            if '-' in self.threshold_input.text():
+                begin = int(self.threshold_input.text().split('-')[0])
+                end = int(self.threshold_input.text().split('-')[1])
+            else:
+                begin = end = int(self.threshold_input.text())
+            
+            if self.generate_adj_graphic_checkbox.checkState() == Qt.Checked:
+                gen_graphic = True
+            else:
+                gen_graphic = False
+            
+            self.adj_matrix_gen = {}
+            if self.adj_matrix_checkbox.checkState() == Qt.Checked:
+                self.adj_matrix_gen = {
+                    'begin': begin,
+                    'end': end,
+                    'gen_graphic': gen_graphic
+                }
+            
+            if self.generate_nbh_graphic_checkbox.checkState() == Qt.Checked:
+                gen_graphic = True
+            else:
+                gen_graphic = False
+                
+            if self.rearrange_checkbox.checkState() == Qt.Checked:
+                rearrange = True
+            else:
+                rearrange = False
+            
+            self.nbh_matrix_gen = {}
+            if self.nbh_matrix_checkbox.checkState() == Qt.Checked:
+                self.nbh_matrix_gen = {
+                    'begin': begin,
+                    'end': end,
+                    'gen_graphic': gen_graphic,
+                    'rearrange': rearrange,
+                }
+        self.close()
+    
+    def reject(self):
+        self.accepted = False
+        self.close()
+        
+    def closeEvent(self, event):
+        print 'testing close event 2'
+        self.emit(SIGNAL("closed()"))
 
 
 

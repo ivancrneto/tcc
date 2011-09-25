@@ -1,6 +1,6 @@
 from xml.dom import minidom
 from persistence import Persistence
-from matrices import SimilarityMatrix
+from matrices import SimilarityMatrix, AdjacencyMatrix, NeighbourhoodMatrix
 from Bio import SeqIO
 import os
 import glob
@@ -71,6 +71,46 @@ class Project:
             nbh_matrices[matrix.threshold] = matrix
             
         return nbh_matrices
+        
+    def generate_adjacency_matrices(self, adj_matrix_gen):
+        if adj_matrix_gen:
+            for threshold in range(adj_matrix_gen['begin'], adj_matrix_gen['end'] + 1):
+                adj_matrix = AdjacencyMatrix(self.similarity_matrix, threshold)
+                if adj_matrix_gen['gen_graphic']:
+                    pass
+                adj = self.get_adjacency_matrix(adj_matrix.threshold)
+                if adj:
+                    self.adjacency_matrices.remove(adj)
+                self.adjacency_matrices.append(adj_matrix)
+                
+    def generate_neighbourhood_matrices(self, nbh_matrix_gen):
+        if nbh_matrix_gen:
+            for threshold in range(nbh_matrix_gen['begin'], nbh_matrix_gen['end'] + 1):
+                nbh_matrix = NeighbourhoodMatrix(self.similarity_matrix, threshold)
+                if nbh_matrix_gen['gen_graphic']:
+                    pass
+                if nbh_matrix_gen['rearrange']:
+                    #TODO
+                    #pass matrix and call minener
+                    #receive new matrix and list with new order
+                    #call method to rearrange nbh_matrix
+                    pass
+                nbh = self.get_neighbourhood_matrix(nbh_matrix.threshold)
+                if nbh:
+                    self.neighbourhood_matrices.remove(nbh)
+                self.neighbourhood_matrices.append(nbh_matrix)
+                
+    def get_adjacency_matrix(self, threshold):
+        for matrix in self.adjacency_matrices:
+            if matrix.threshold == threshold:
+                return matrix
+        return None
+        
+    def get_neighbourhood_matrix(self, threshold):
+        for matrix in self.neighbourhood_matrices:
+            if matrix.threshold == threshold:
+                return matrix
+        return None
         
     def generate_similarities(self, sequences):
         self.similarity_matrix = self.bio_handler.generate_similarities(sequences)

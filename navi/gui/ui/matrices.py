@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'matrices.ui'
 #
-# Created: Tue Sep 20 23:46:38 2011
+# Created: Sat Sep 24 14:26:53 2011
 #      by: PyQt4 UI code generator 4.8.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -30,23 +30,23 @@ class Ui_Matrices(object):
         self.vboxlayout = QtGui.QVBoxLayout()
         self.vboxlayout.setContentsMargins(0, -1, -1, -1)
         self.vboxlayout.setObjectName(_fromUtf8("vboxlayout"))
-        self.pushButton = QtGui.QPushButton(self.horizontalLayoutWidget)
-        self.pushButton.setObjectName(_fromUtf8("pushButton"))
-        self.vboxlayout.addWidget(self.pushButton)
-        self.pushButton_4 = QtGui.QPushButton(self.horizontalLayoutWidget)
-        self.pushButton_4.setObjectName(_fromUtf8("pushButton_4"))
-        self.vboxlayout.addWidget(self.pushButton_4)
-        self.pushButton_3 = QtGui.QPushButton(self.horizontalLayoutWidget)
-        self.pushButton_3.setObjectName(_fromUtf8("pushButton_3"))
-        self.vboxlayout.addWidget(self.pushButton_3)
-        self.pushButton_2 = QtGui.QPushButton(self.horizontalLayoutWidget)
-        self.pushButton_2.setObjectName(_fromUtf8("pushButton_2"))
-        self.vboxlayout.addWidget(self.pushButton_2)
+        self.generate_matrices_button = QtGui.QPushButton(self.horizontalLayoutWidget)
+        self.generate_matrices_button.setObjectName(_fromUtf8("generate_matrices_button"))
+        self.vboxlayout.addWidget(self.generate_matrices_button)
+        self.network_graph_button = QtGui.QPushButton(self.horizontalLayoutWidget)
+        self.network_graph_button.setObjectName(_fromUtf8("network_graph_button"))
+        self.vboxlayout.addWidget(self.network_graph_button)
+        self.color_matrix_graph_button = QtGui.QPushButton(self.horizontalLayoutWidget)
+        self.color_matrix_graph_button.setObjectName(_fromUtf8("color_matrix_graph_button"))
+        self.vboxlayout.addWidget(self.color_matrix_graph_button)
+        self.export_matrices_button = QtGui.QPushButton(self.horizontalLayoutWidget)
+        self.export_matrices_button.setObjectName(_fromUtf8("export_matrices_button"))
+        self.vboxlayout.addWidget(self.export_matrices_button)
         spacerItem = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
         self.vboxlayout.addItem(spacerItem)
-        self.pushButton_5 = QtGui.QPushButton(self.horizontalLayoutWidget)
-        self.pushButton_5.setObjectName(_fromUtf8("pushButton_5"))
-        self.vboxlayout.addWidget(self.pushButton_5)
+        self.analyse_thresholds_button = QtGui.QPushButton(self.horizontalLayoutWidget)
+        self.analyse_thresholds_button.setObjectName(_fromUtf8("analyse_thresholds_button"))
+        self.vboxlayout.addWidget(self.analyse_thresholds_button)
         self.horizontalLayout.addLayout(self.vboxlayout)
 
         self.retranslateUi(Matrices)
@@ -54,9 +54,9 @@ class Ui_Matrices(object):
 
     def retranslateUi(self, Matrices):
         Matrices.setWindowTitle(QtGui.QApplication.translate("Matrices", "Matrices and Threshold Analysis", None, QtGui.QApplication.UnicodeUTF8))
-        self.pushButton.setText(QtGui.QApplication.translate("Matrices", "Generate Matrices", None, QtGui.QApplication.UnicodeUTF8))
-        self.pushButton_4.setText(QtGui.QApplication.translate("Matrices", "Network Graph", None, QtGui.QApplication.UnicodeUTF8))
-        self.pushButton_3.setText(QtGui.QApplication.translate("Matrices", "Color Matrix Graph", None, QtGui.QApplication.UnicodeUTF8))
-        self.pushButton_2.setText(QtGui.QApplication.translate("Matrices", "Export Matrices", None, QtGui.QApplication.UnicodeUTF8))
-        self.pushButton_5.setText(QtGui.QApplication.translate("Matrices", "Analyse Thresholds", None, QtGui.QApplication.UnicodeUTF8))
+        self.generate_matrices_button.setText(QtGui.QApplication.translate("Matrices", "Generate Matrices", None, QtGui.QApplication.UnicodeUTF8))
+        self.network_graph_button.setText(QtGui.QApplication.translate("Matrices", "Network Graph", None, QtGui.QApplication.UnicodeUTF8))
+        self.color_matrix_graph_button.setText(QtGui.QApplication.translate("Matrices", "Color Matrix Graph", None, QtGui.QApplication.UnicodeUTF8))
+        self.export_matrices_button.setText(QtGui.QApplication.translate("Matrices", "Export Matrices", None, QtGui.QApplication.UnicodeUTF8))
+        self.analyse_thresholds_button.setText(QtGui.QApplication.translate("Matrices", "Analyse Thresholds", None, QtGui.QApplication.UnicodeUTF8))
 

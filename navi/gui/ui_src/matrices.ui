@@ -32,28 +32,28 @@
        <number>0</number>
       </property>
       <item>
-       <widget class="QPushButton" name="pushButton">
+       <widget class="QPushButton" name="generate_matrices_button">
         <property name="text">
          <string>Generate Matrices</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton_4">
+       <widget class="QPushButton" name="network_graph_button">
         <property name="text">
          <string>Network Graph</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton_3">
+       <widget class="QPushButton" name="color_matrix_graph_button">
         <property name="text">
          <string>Color Matrix Graph</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton_2">
+       <widget class="QPushButton" name="export_matrices_button">
         <property name="text">
          <string>Export Matrices</string>
         </property>
@@ -73,7 +73,7 @@
        </spacer>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton_5">
+       <widget class="QPushButton" name="analyse_thresholds_button">
         <property name="text">
          <string>Analyse Thresholds</string>
         </property>

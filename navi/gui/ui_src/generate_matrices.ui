@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>dialog</class>
- <widget class="QDialog" name="dialog">
+ <class>GenerateMatrices</class>
+ <widget class="QDialog" name="GenerateMatrices">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -58,7 +58,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QLineEdit" name="lineEdit"/>
+       <widget class="QLineEdit" name="threshold_input"/>
       </item>
      </layout>
     </item>
@@ -98,7 +98,7 @@
      </layout>
     </item>
     <item>
-     <widget class="QCheckBox" name="checkBox">
+     <widget class="QCheckBox" name="adj_matrix_checkbox">
       <property name="text">
        <string>Adjacency Matrix</string>
       </property>
@@ -126,7 +126,7 @@
        </spacer>
       </item>
       <item>
-       <widget class="QCheckBox" name="checkBox_2">
+       <widget class="QCheckBox" name="generate_adj_graphic_checkbox">
         <property name="text">
          <string>Generate Graphic</string>
         </property>
@@ -135,7 +135,7 @@
      </layout>
     </item>
     <item>
-     <widget class="QCheckBox" name="checkBox_3">
+     <widget class="QCheckBox" name="nbh_matrix_checkbox">
       <property name="text">
        <string>Neighbourhood Matrix</string>
       </property>
@@ -163,7 +163,7 @@
        </spacer>
       </item>
       <item>
-       <widget class="QCheckBox" name="checkBox_4">
+       <widget class="QCheckBox" name="generate_nbh_graphic_checkbox">
         <property name="text">
          <string>Generate Graphic</string>
         </property>
@@ -193,7 +193,7 @@
        </spacer>
       </item>
       <item>
-       <widget class="QCheckBox" name="checkBox_5">
+       <widget class="QCheckBox" name="rearrange_checkbox">
         <property name="text">
          <string>Rearrange</string>
         </property>
@@ -222,7 +222,7 @@
   <connection>
    <sender>buttonBox</sender>
    <signal>accepted()</signal>
-   <receiver>dialog</receiver>
+   <receiver>GenerateMatrices</receiver>
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -238,7 +238,7 @@
   <connection>
    <sender>buttonBox</sender>
    <signal>rejected()</signal>
-   <receiver>dialog</receiver>
+   <receiver>GenerateMatrices</receiver>
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">
