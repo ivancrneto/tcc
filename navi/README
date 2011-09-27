@@ -8,6 +8,8 @@ madchar.f compiled as madchar in vendors/madchar folder
 
 anotacoes:
     diag-classes:
-    
+        adicionar analyse_thresholds a Project
     diag-seq6:
-    
+        mudar AnalyseThreshold para AnalyseThresholds
+        mudar nbh_matrix para sim_matrix
+        retirar getmatrix

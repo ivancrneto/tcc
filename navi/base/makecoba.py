@@ -34,6 +34,7 @@ class Project:
             self.database_path = database_path
             self.adjacency_matrices = []
             self.neighbourhood_matrices = []
+            self.analysis = []
             self.state = 'new'
             self.persistence = Persistence()
             self.save_file('w')
@@ -107,6 +108,13 @@ class Project:
             if matrix.threshold == threshold:
                 return matrix
         return None
+        
+    def analyse_thresholds(self, analysis_type):
+        if analysis_type == 'distance':
+            th_analysis = Distance()
+            distance_data = th_analysis.do_analysis(self.similarity_matrix)
+            self.analysis.append(th_analysis)
+            return distance_data
         
     def generate_similarities(self, sequences):
         self.similarity_matrix = self.bio_handler.generate_similarities(sequences)

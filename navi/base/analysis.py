@@ -1,8 +1,29 @@
-# To change this template, choose Tools | Templates
-# and open the template in the editor.
+class Analysis:
+    
+    def __init__(self):
+        pass
+        
+        
+class ThresholdAnalysis(Analysis):
+    
+    def __init__(self):
+        Analysis.__init__(self)
+    
+    #TODO: decorator for abstract method
+    def do_analysis(self, sim_matrix):
+        pass
+        
+        
+class LargestCluster(ThresholdAnalysis):
 
-__author__="ivan"
-__date__ ="$05/05/2011 20:38:45$"
+    def __init__(self):
+        ThresholdAnalysis.__init__(self)
+        
 
-if __name__ == "__main__":
-    print "Hello World";
+class Distance(ThresholdAnalysis):
+
+    def __init__(self):
+        ThresholdAnalysis.__init__(self)
+        
+    def do_analysis(self, sim_matrix):
+        pass

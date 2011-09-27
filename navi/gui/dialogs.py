@@ -5,6 +5,7 @@ from ui.choose_sequences import Ui_ChooseSequences
 from ui.matrices import Ui_Matrices
 from ui.generate_matrices import Ui_GenerateMatrices
 from ui.image_dialog import Ui_ImageDialog
+from ui.analyse_threshold_dialog import Ui_AnalyseThresholdDialog
 import os
 import operator
 import matplotlib
@@ -206,6 +207,7 @@ class Matrices(QDialog, Ui_Matrices):
         
         self.connect(self.generate_matrices_button, SIGNAL('clicked()'), self.generate_matrices)
         self.connect(self.color_matrix_graph_button, SIGNAL('clicked()'), self.color_matrix_graph)
+        self.connect(self.analyse_thresholds_button, SIGNAL('clicked()'), self.analyse_thresholds)
         
     def get_matrices(self):
         adj_matrices = self.project.get_adjacency_matrices()
@@ -260,6 +262,13 @@ class Matrices(QDialog, Ui_Matrices):
             image_dialog.exec_()
         else:
             print 'Neighbourhood Matrix None'
+            
+    def analyse_thresholds(self):
+        analyse_threshold_dialog = AnalyseThreshold(self)
+        analyse_threshold_dialog.exec_()
+        if analyse_threshold_dialog.accepted:
+            if analyse_threshold_dialog.method == 'distance':
+                distance_data = self.project.analyse_thresholds('distance')
     
     def create_table(self):
         header = ['Threshold', 'Adjacency Matrix', 'Neighbourhood Matrix']
@@ -400,9 +409,33 @@ class GenerateMatrices(QDialog, Ui_GenerateMatrices):
         self.emit(SIGNAL("closed()"))
 
 
+class AnalyseThreshold(QDialog, Ui_AnalyseThresholdDialog):
+    '''
+    Class with a dialog to the user analyise thresholds
+    '''
+    def __init__(self, parent=None):
+        QDialog.__init__(self, parent)
+        self.setupUi(self)
+        self.setModal(True)
+        
+        self.accepted = False
 
+    def accept(self):
+        if self.distance_radiobutton.checkState() == Qt.Checked:
+            self.method == 'distance'
+            self.accepted = True
+        elif self.largestcluster_radiobutton.checkState() == Qt.Checked:
+            self.method == 'largestcluster'
+            self.accepted = True
+            
+        self.close()
 
-
+    def reject(self):
+        self.accepted = False
+        self.close()
+        
+    def closeEvent(self, event):
+        self.emit(SIGNAL("closed()"))
 
 
 

@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'choose_sequences.ui'
 #
-# Created: Sun Sep 25 18:06:34 2011
+# Created: Mon Sep 26 23:15:11 2011
 #      by: PyQt4 UI code generator 4.8.3
 #
 # WARNING! All changes made in this file will be lost!
