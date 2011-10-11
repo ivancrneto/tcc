@@ -70,12 +70,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if not hasattr(self, 'project'):
             self.project_button_grid()
             return
-        if self.project.state in (None, 'new', 'similarity_matrix'):
+        if self.project.state in (None, 'new', 'similarity_matrix', 'threshold'):
             self.project_button_grid()
-        if self.project.state in ('new', 'similarity_matrix'):
+        if self.project.state in ('new', 'similarity_matrix', 'threshold'):
             self.database_button_grid()
-        if self.project.state in ('similarity_matrix'):
+        if self.project.state in ('similarity_matrix', 'threshold'):
             self.matrix_button_grid()
+        if self.project.state in ('threshold'):
+            print 'testing'
             
         #self.actionSave_Project.setEnabled(True)
     
@@ -144,6 +146,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         
         self.project = matrix_dialog.project
         self.project.save_project()
+        self.add_buttons_to_grid()
             
     def open_project(self):
         if hasattr(self, 'project') and self.project != None:

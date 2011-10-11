@@ -13,3 +13,43 @@ anotacoes:
         mudar AnalyseThreshold para AnalyseThresholds
         mudar nbh_matrix para sim_matrix
         retirar getmatrix
+        
+        
+        
+Bom, das minhas experiências em projetos, eu já usei o CairoPlot (acho
+que é de um brasileiro esse projeto, mto bom por sinal) e já usei o
+Amcharts, que sem comparação aos outros geradores, é muito mais bonito
+e mais interativo, recomendo esse.
+
+Pra Scatter, veja em: http://www.amcharts.com/xy/
+E o CairoPlot vc pode ver em: https://launchpad.net/cairoplot
+
+
+
+
+
+Se você quer que cada elemento na matriz seja representado por um
+quadrado e a cor desse dependa do valor, o que você precisa é de um
+"heatmap". Eu geralmente faço no R, usando o RPy, porém dá para fazer
+direto no matplotlib[1,2].
+
+Quanto ao grafo, eu tenho usado igraph [3]. Mas precisa ver se você
+precisa de alguma "interatividade". Caso sim, talvez alguma outra
+coisa. Uma biblioteca que achei muito interessante, mas que nunca
+tentei é Nodebox[4].
+
+Se essas informações não forem suficientes, detalhe mais suas
+necessidades.
+
+Grade abraço,
+Fred
+
+
+1 - http://stackoverflow.com/questions/7372236/generating-heatmaps-in-python
+2 - http://stackoverflow.com/questions/2369492/generate-a-heatmap-in-matplotlib-using-a-scatter-data-set/2371812#2371812
+3- http://igraph.sourceforge.net/
+4- http://nodebox.net/code/index.php/Graph
+
+
+Opa, para grafos tem tb a Networkx (http://networkx.lanl.gov/), que é
+uma biblioteca muito completa.

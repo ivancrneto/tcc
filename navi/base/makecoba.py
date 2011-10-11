@@ -1,6 +1,7 @@
 from xml.dom import minidom
 from persistence import Persistence
 from matrices import SimilarityMatrix, AdjacencyMatrix, NeighbourhoodMatrix
+from analysis import Distance
 from Bio import SeqIO
 import os
 import glob
@@ -112,8 +113,14 @@ class Project:
     def analyse_thresholds(self, analysis_type):
         if analysis_type == 'distance':
             th_analysis = Distance()
-            distance_data = th_analysis.do_analysis(self.similarity_matrix)
-            self.analysis.append(th_analysis)
+            distance_data = None
+            if len(self.neighbourhood_matrices) == 101:
+                distance_data = th_analysis.do_analysis(self.similarity_matrix, self.neighbourhood_matrices)
+                self.analysis.append(th_analysis)
+            else:
+                print len(self.neighbourhood_matrices)
+            
+            self.state = 'threshold'
             return distance_data
         
     def generate_similarities(self, sequences):

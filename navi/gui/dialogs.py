@@ -260,8 +260,6 @@ class Matrices(QDialog, Ui_Matrices):
         if nbh_matrix != None:
             image_dialog = ImageDialog(self, image='color matrix', nbh_matrix=nbh_matrix)
             image_dialog.exec_()
-        else:
-            print 'Neighbourhood Matrix None'
             
     def analyse_thresholds(self):
         analyse_threshold_dialog = AnalyseThreshold(self)
@@ -269,6 +267,9 @@ class Matrices(QDialog, Ui_Matrices):
         if analyse_threshold_dialog.accepted:
             if analyse_threshold_dialog.method == 'distance':
                 distance_data = self.project.analyse_thresholds('distance')
+                if distance_data != None:
+                    image_dialog = ImageDialog(self, image='distance graphic', distance_data=distance_data)
+                    image_dialog.exec_()
     
     def create_table(self):
         header = ['Threshold', 'Adjacency Matrix', 'Neighbourhood Matrix']
@@ -328,6 +329,8 @@ class ImageDialog(QDialog, Ui_ImageDialog):
         if 'image' in kwargs:
             if kwargs['image'] == 'color matrix':
                 self.show_color_matrix(kwargs['nbh_matrix'])
+            elif kwargs['image'] == 'distance graphic':
+                self.show_distance_graphic(kwargs['distance_data'])
 
     def show_color_matrix(self, nbh_matrix):
         nbh_matrix_data = nbh_matrix.data
@@ -345,6 +348,10 @@ class ImageDialog(QDialog, Ui_ImageDialog):
         imgplot = self.axes.imshow(img)
         imgplot.set_cmap('spectral')
         imgplot.set_interpolation('nearest')
+        
+    def show_distance_graphic(self, distance_data):
+        dist = numpy.array(distance_data)
+        imgplot = self.axes.plot(distance_data, 'bs', distance_data, 'k')
 
     def closeEvent(self, event):
         self.emit(SIGNAL("closed()"))
@@ -421,11 +428,11 @@ class AnalyseThreshold(QDialog, Ui_AnalyseThresholdDialog):
         self.accepted = False
 
     def accept(self):
-        if self.distance_radiobutton.checkState() == Qt.Checked:
-            self.method == 'distance'
+        if self.distance_radiobutton.isChecked():
+            self.method = 'distance'
             self.accepted = True
-        elif self.largestcluster_radiobutton.checkState() == Qt.Checked:
-            self.method == 'largestcluster'
+        elif self.largestcluster_radiobutton.isChecked():
+            self.method = 'largestcluster'
             self.accepted = True
             
         self.close()
