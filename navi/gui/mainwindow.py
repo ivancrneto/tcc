@@ -1,7 +1,7 @@
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 from ui.mainwindow import Ui_MainWindow
-from dialogs import NewProject, ChooseSequences, Matrices
+from dialogs import NewProject, ChooseSequences, Matrices, Clusterize
 from base.makecoba import Project
 import os
 
@@ -77,7 +77,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if self.project.state in ('similarity_matrix', 'threshold'):
             self.matrix_button_grid()
         if self.project.state in ('threshold'):
-            print 'testing'
+            self.clustering_button_grid()
             
         #self.actionSave_Project.setEnabled(True)
     
@@ -117,6 +117,17 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.connect(qtool_button, SIGNAL(_fromUtf8("clicked()")),
             self.matrix_operations)
     
+    def clustering_button_grid(self):
+        self.add_arrow_grid()
+        
+        qtool_button = QToolButton(self)
+        qtool_button.setIcon(QIcon(os.path.join(os.path.dirname(__file__), 'icons/dendo.png')))
+        qtool_button.setIconSize(QSize(48, 48))
+        self.grid.insertWidget(self.grid.count() - 1, qtool_button, 0)
+        
+        self.connect(qtool_button, SIGNAL(_fromUtf8("clicked()")),
+            self.clusterize)
+    
     def new_project(self):
         project_dialog = NewProject(self)
         project_dialog.exec_()
@@ -147,6 +158,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.project = matrix_dialog.project
         self.project.save_project()
         self.add_buttons_to_grid()
+        
+    def clusterize(self):
+        clusterize_dialog = Clusterize(self.project, self)
+        clusterize_dialog.exec_()
+        
+        self.project = clusterize_dialog.project
+        self.project.save_project()
             
     def open_project(self):
         if hasattr(self, 'project') and self.project != None:

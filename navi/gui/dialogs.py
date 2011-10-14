@@ -6,6 +6,8 @@ from ui.matrices import Ui_Matrices
 from ui.generate_matrices import Ui_GenerateMatrices
 from ui.image_dialog import Ui_ImageDialog
 from ui.analyse_threshold_dialog import Ui_AnalyseThresholdDialog
+from ui.clusterization import Ui_Clusterize
+from ui.clusterization_dialog import Ui_ClusterizationDialog
 import os
 import operator
 import matplotlib
@@ -445,11 +447,61 @@ class AnalyseThreshold(QDialog, Ui_AnalyseThresholdDialog):
         self.emit(SIGNAL("closed()"))
 
 
+class Clusterize(QDialog, Ui_Clusterize):
+    '''
+    Class with a dialog to the user execute clusterization
+    '''
+    def __init__(self, project, parent=None):
+        QDialog.__init__(self, parent)
+        self.setupUi(self)
+        self.setModal(True)
+        self.project = project
+        #self.matrix_tableview.tabledata = self.get_matrices()
+        #self.create_table()
+        #self.generate_matrices_button.setFocusPolicy(Qt.NoFocus)
+        
+        self.connect(self.clusterize_button, SIGNAL('clicked()'), self.clusterize)
+
+    def clusterize(self):
+        clusterization_dialog = Clusterization(self)
+        clusterization_dialog.exec_()
+        '''
+        if analyse_threshold_dialog.accepted:
+            if analyse_threshold_dialog.method == 'distance':
+                distance_data = self.project.analyse_thresholds('distance')
+                if distance_data != None:
+                    image_dialog = ImageDialog(self, image='distance graphic', distance_data=distance_data)
+                    image_dialog.exec_()
+        '''
 
 
+class Clusterization(QDialog, Ui_ClusterizationDialog):
+    '''
+    Class with a dialog to the user analyise thresholds
+    '''
+    def __init__(self, parent=None):
+        QDialog.__init__(self, parent)
+        self.setupUi(self)
+        self.setModal(True)
+        
+        self.accepted = False
 
+    def accept(self):
+        if self.newmangirvan_radiobutton.isChecked():
+            self.method = 'newmangirvan'
+            self.accepted = True
+        elif self.other_radiobutton.isChecked():
+            self.method = 'other'
+            self.accepted = False
+            
+        self.close()
 
-
+    def reject(self):
+        self.accepted = False
+        self.close()
+        
+    def closeEvent(self, event):
+        self.emit(SIGNAL("closed()"))
 
 
 
