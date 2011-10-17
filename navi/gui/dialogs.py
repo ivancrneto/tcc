@@ -465,14 +465,10 @@ class Clusterize(QDialog, Ui_Clusterize):
     def clusterize(self):
         clusterization_dialog = Clusterization(self)
         clusterization_dialog.exec_()
-        '''
-        if analyse_threshold_dialog.accepted:
-            if analyse_threshold_dialog.method == 'distance':
-                distance_data = self.project.analyse_thresholds('distance')
-                if distance_data != None:
-                    image_dialog = ImageDialog(self, image='distance graphic', distance_data=distance_data)
-                    image_dialog.exec_()
-        '''
+        if clusterization_dialog.accepted:
+            threshold = int(clusterization_dialog.threshold_input.text())
+            if clusterization_dialog.method == 'newmangirvan':
+                self.project.clusterize(threshold, 'newmangirvan')
 
 
 class Clusterization(QDialog, Ui_ClusterizationDialog):
@@ -489,7 +485,8 @@ class Clusterization(QDialog, Ui_ClusterizationDialog):
     def accept(self):
         if self.newmangirvan_radiobutton.isChecked():
             self.method = 'newmangirvan'
-            self.accepted = True
+            if self.threshold_input.text():
+                self.accepted = True
         elif self.other_radiobutton.isChecked():
             self.method = 'other'
             self.accepted = False

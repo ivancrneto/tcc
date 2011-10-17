@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'clusterization.ui'
 #
-# Created: Fri Oct 14 00:18:15 2011
+# Created: Mon Oct 17 00:21:50 2011
 #      by: PyQt4 UI code generator 4.8.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -33,6 +33,9 @@ class Ui_Clusterize(object):
         self.clusterize_button = QtGui.QPushButton(self.horizontalLayoutWidget)
         self.clusterize_button.setObjectName(_fromUtf8("clusterize_button"))
         self.vboxlayout.addWidget(self.clusterize_button)
+        self.dendrogram_button = QtGui.QPushButton(self.horizontalLayoutWidget)
+        self.dendrogram_button.setObjectName(_fromUtf8("dendrogram_button"))
+        self.vboxlayout.addWidget(self.dendrogram_button)
         self.network_graph_button = QtGui.QPushButton(self.horizontalLayoutWidget)
         self.network_graph_button.setObjectName(_fromUtf8("network_graph_button"))
         self.vboxlayout.addWidget(self.network_graph_button)
@@ -52,6 +55,7 @@ class Ui_Clusterize(object):
     def retranslateUi(self, Clusterize):
         Clusterize.setWindowTitle(QtGui.QApplication.translate("Clusterize", "Clusterization", None, QtGui.QApplication.UnicodeUTF8))
         self.clusterize_button.setText(QtGui.QApplication.translate("Clusterize", "Clusterize", None, QtGui.QApplication.UnicodeUTF8))
+        self.dendrogram_button.setText(QtGui.QApplication.translate("Clusterize", "Dendrogram", None, QtGui.QApplication.UnicodeUTF8))
         self.network_graph_button.setText(QtGui.QApplication.translate("Clusterize", "Network Graph", None, QtGui.QApplication.UnicodeUTF8))
         self.define_communities_button.setText(QtGui.QApplication.translate("Clusterize", "Define Communities", None, QtGui.QApplication.UnicodeUTF8))
         self.export_data_button.setText(QtGui.QApplication.translate("Clusterize", "Export Data", None, QtGui.QApplication.UnicodeUTF8))

@@ -39,6 +39,13 @@
        </widget>
       </item>
       <item>
+       <widget class="QPushButton" name="dendrogram_button">
+        <property name="text">
+         <string>Dendrogram</string>
+        </property>
+       </widget>
+      </item>
+      <item>
        <widget class="QPushButton" name="network_graph_button">
         <property name="text">
          <string>Network Graph</string>

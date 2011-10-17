@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'clusterization_dialog.ui'
 #
-# Created: Fri Oct 14 00:18:15 2011
+# Created: Mon Oct 17 00:21:50 2011
 #      by: PyQt4 UI code generator 4.8.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -17,14 +17,14 @@ except AttributeError:
 class Ui_ClusterizationDialog(object):
     def setupUi(self, ClusterizationDialog):
         ClusterizationDialog.setObjectName(_fromUtf8("ClusterizationDialog"))
-        ClusterizationDialog.resize(400, 127)
+        ClusterizationDialog.resize(400, 177)
         self.buttonBox = QtGui.QDialogButtonBox(ClusterizationDialog)
-        self.buttonBox.setGeometry(QtCore.QRect(50, 90, 341, 32))
+        self.buttonBox.setGeometry(QtCore.QRect(50, 140, 341, 32))
         self.buttonBox.setOrientation(QtCore.Qt.Horizontal)
         self.buttonBox.setStandardButtons(QtGui.QDialogButtonBox.Cancel|QtGui.QDialogButtonBox.Ok)
         self.buttonBox.setObjectName(_fromUtf8("buttonBox"))
         self.verticalLayoutWidget = QtGui.QWidget(ClusterizationDialog)
-        self.verticalLayoutWidget.setGeometry(QtCore.QRect(10, 10, 381, 79))
+        self.verticalLayoutWidget.setGeometry(QtCore.QRect(10, 10, 381, 123))
         self.verticalLayoutWidget.setObjectName(_fromUtf8("verticalLayoutWidget"))
         self.verticalLayout = QtGui.QVBoxLayout(self.verticalLayoutWidget)
         self.verticalLayout.setMargin(0)
@@ -50,6 +50,16 @@ class Ui_ClusterizationDialog(object):
         self.other_radiobutton.setObjectName(_fromUtf8("other_radiobutton"))
         self.horizontalLayout_2.addWidget(self.other_radiobutton)
         self.verticalLayout.addLayout(self.horizontalLayout_2)
+        self.horizontalLayout_3 = QtGui.QHBoxLayout()
+        self.horizontalLayout_3.setContentsMargins(-1, -1, -1, 10)
+        self.horizontalLayout_3.setObjectName(_fromUtf8("horizontalLayout_3"))
+        self.label_2 = QtGui.QLabel(self.verticalLayoutWidget)
+        self.label_2.setObjectName(_fromUtf8("label_2"))
+        self.horizontalLayout_3.addWidget(self.label_2)
+        self.threshold_input = QtGui.QLineEdit(self.verticalLayoutWidget)
+        self.threshold_input.setObjectName(_fromUtf8("threshold_input"))
+        self.horizontalLayout_3.addWidget(self.threshold_input)
+        self.verticalLayout.addLayout(self.horizontalLayout_3)
 
         self.retranslateUi(ClusterizationDialog)
         QtCore.QObject.connect(self.buttonBox, QtCore.SIGNAL(_fromUtf8("accepted()")), ClusterizationDialog.accept)
@@ -61,4 +71,5 @@ class Ui_ClusterizationDialog(object):
         self.label.setText(QtGui.QApplication.translate("ClusterizationDialog", "Choose Method:", None, QtGui.QApplication.UnicodeUTF8))
         self.newmangirvan_radiobutton.setText(QtGui.QApplication.translate("ClusterizationDialog", "Newman and Girvan", None, QtGui.QApplication.UnicodeUTF8))
         self.other_radiobutton.setText(QtGui.QApplication.translate("ClusterizationDialog", "Other", None, QtGui.QApplication.UnicodeUTF8))
+        self.label_2.setText(QtGui.QApplication.translate("ClusterizationDialog", "Threshold", None, QtGui.QApplication.UnicodeUTF8))
 
