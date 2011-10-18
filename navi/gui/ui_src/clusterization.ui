@@ -24,7 +24,7 @@
    </property>
    <layout class="QHBoxLayout" name="horizontalLayout">
     <item>
-     <widget class="QTableView" name="matrix_tableview"/>
+     <widget class="QTableView" name="clustering_tableview"/>
     </item>
     <item>
      <layout class="QVBoxLayout">

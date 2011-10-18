@@ -61,8 +61,10 @@ class Clustering(Analysis):
 class NewmanGirvan(Clustering):
     def __init__(self):
         Clustering.__init__(self)
+        self.dendrogram = []
         
     def clusterize(self, nbh_matrix):
+        self.threshold = nbh_matrix.threshold
         similarity_array = nbh_matrix.data
         matrix_str = '   '
         for i in range(0, len(similarity_array)):
@@ -90,6 +92,12 @@ class NewmanGirvan(Clustering):
         #matrix_rearranged = treat open(os.path.join(dendo_directory, 'd2matrixde3.dat'), 'r')
         #dendrogram = treat open(os.path.join(dendo_directory, 'd2matrixde4.dat'), 'r')
         #new_vertex_order = treat open(os.path.join(dendo_directory, 'd2matrixde5.dat'), 'r')
+        
+        dendrogram_file = open('d2matrixde4.dat', 'r')
+        for i in dendrogram_file.readlines():
+            data = [float(elem.strip('\n')) for elem in i.split()]
+            data = data[1:]
+            self.dendrogram.append(data)
         
         os.chdir(olddir)
         

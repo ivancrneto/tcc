@@ -1,7 +1,7 @@
 from xml.dom import minidom
 from persistence import Persistence
 from matrices import SimilarityMatrix, AdjacencyMatrix, NeighbourhoodMatrix
-from analysis import Distance, NewmanGirvan
+from analysis import Distance, NewmanGirvan, Clustering
 from Bio import SeqIO
 import os
 import glob
@@ -123,11 +123,22 @@ class Project:
             self.state = 'threshold'
             return distance_data
             
+    def get_clustering_analysis(self, threshold):
+        for analysis in self.analysis:
+            if isinstance(analysis, Clustering) and analysis.threshold == threshold:
+                return analysis
+                
+        return None
+            
     def clusterize(self, threshold, method):
         if method == 'newmangirvan':
             clus_analysis = NewmanGirvan()
             nbh_matrix = self.get_neighbourhood_matrix(threshold)
             clus_analysis.clusterize(nbh_matrix)
+            old_clus_analysis = self.get_clustering_analysis(threshold)
+            if old_clus_analysis:
+                self.analysis.remove(old_clus_analysis)
+            self.analysis.append(clus_analysis)
         
     def generate_similarities(self, sequences):
         self.similarity_matrix = self.bio_handler.generate_similarities(sequences)

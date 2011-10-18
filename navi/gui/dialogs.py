@@ -11,6 +11,7 @@ from ui.clusterization_dialog import Ui_ClusterizationDialog
 import os
 import operator
 import matplotlib
+from base.analysis import NewmanGirvan
 from matplotlib.backends.backend_qt4agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.backends.backend_qt4agg import NavigationToolbar2QTAgg as NavigationToolbar
 from matplotlib.figure import Figure
@@ -333,6 +334,8 @@ class ImageDialog(QDialog, Ui_ImageDialog):
                 self.show_color_matrix(kwargs['nbh_matrix'])
             elif kwargs['image'] == 'distance graphic':
                 self.show_distance_graphic(kwargs['distance_data'])
+            elif kwargs['image'] == 'dendrogram':
+                self.show_dendrogram_graphic(kwargs['dendrogram_data'])
 
     def show_color_matrix(self, nbh_matrix):
         nbh_matrix_data = nbh_matrix.data
@@ -354,6 +357,11 @@ class ImageDialog(QDialog, Ui_ImageDialog):
     def show_distance_graphic(self, distance_data):
         dist = numpy.array(distance_data)
         imgplot = self.axes.plot(distance_data, 'bs', distance_data, 'k')
+        
+    def show_dendrogram_graphic(self, dendrogram_data):
+        dendo = numpy.array(dendrogram_data)
+        self.axes.axis([-250, len(dendrogram_data) + 10, -50, len(dendrogram_data[0]) + 10])
+        imgplot = self.axes.plot(dendrogram_data)
 
     def closeEvent(self, event):
         self.emit(SIGNAL("closed()"))
@@ -456,19 +464,91 @@ class Clusterize(QDialog, Ui_Clusterize):
         self.setupUi(self)
         self.setModal(True)
         self.project = project
-        #self.matrix_tableview.tabledata = self.get_matrices()
-        #self.create_table()
+        self.clustering_tableview.tabledata = self.get_clust()
+        self.create_table()
         #self.generate_matrices_button.setFocusPolicy(Qt.NoFocus)
+        self.clustering_tableview.tabledata = self.get_clust()
+        self.create_table()
         
         self.connect(self.clusterize_button, SIGNAL('clicked()'), self.clusterize)
+        self.connect(self.dendrogram_button, SIGNAL('clicked()'), self.show_dendrogram)
 
     def clusterize(self):
+        selected_cells = self.clustering_tableview.selectionModel().selectedRows(0)
+        selected_cells_data = []
+        while selected_cells:
+            selected_cells_data.append('%s' % selected_cells.pop().data(Qt.DisplayRole).toString())
+        threshold = int(selected_cells_data[0])
+        
         clusterization_dialog = Clusterization(self)
         clusterization_dialog.exec_()
         if clusterization_dialog.accepted:
-            threshold = int(clusterization_dialog.threshold_input.text())
             if clusterization_dialog.method == 'newmangirvan':
                 self.project.clusterize(threshold, 'newmangirvan')
+                
+        self.clustering_tableview.tabledata = self.get_clust()
+        self.create_table()
+                
+    def get_clust(self):
+        clust_dict = []
+        for threshold in range(0, 101):
+            clus_analysis = self.project.get_clustering_analysis(threshold)
+            if clus_analysis:
+                if isinstance(clus_analysis, NewmanGirvan):
+                    clust_dict.append([threshold, 'NewmanGirvan'])
+            else:
+                clust_dict.append([threshold, ''])
+        
+        #clust_dict.reverse()
+        return clust_dict
+                
+    def create_table(self):
+        header = ['Threshold', 'Clustering Method']
+        
+        table_model = GenericTableModel(self.clustering_tableview.tabledata, header, self) 
+        self.clustering_tableview.setModel(table_model)
+        
+        self.clustering_tableview.setSelectionBehavior(QAbstractItemView.SelectRows)
+        #self.sequence_table.setSelectionMode(QAbstractItemView.ExtendedSelection)
+        
+        self.clustering_tableview.setMinimumSize(400, 300)
+
+        self.clustering_tableview.setShowGrid(False)
+
+        font = QFont("Times New Roman", 10)
+        self.clustering_tableview.setFont(font)
+
+        vh = self.clustering_tableview.verticalHeader()
+        vh.setVisible(False)
+
+        hh = self.clustering_tableview.horizontalHeader()
+        hh.setStretchLastSection(True)
+
+        self.clustering_tableview.resizeColumnsToContents()
+
+        nrows = len(self.clustering_tableview.tabledata)
+        for row in xrange(nrows):
+            self.clustering_tableview.setRowHeight(row, 18)
+
+        self.clustering_tableview.setSortingEnabled(True)
+        self.clustering_tableview.sortByColumn(0, Qt.AscendingOrder)
+        self.clustering_tableview.setColumnWidth(0, 120)
+        
+    def show_dendrogram(self):
+        selected_cells = self.clustering_tableview.selectionModel().selectedRows(0)
+        selected_cells_data = []
+        while selected_cells:
+            selected_cells_data.append('%s' % selected_cells.pop().data(Qt.DisplayRole).toString())
+        
+        threshold = int(selected_cells_data[0])
+        
+        clus_analysis = self.project.get_clustering_analysis(threshold)
+        if clus_analysis:
+            image_dialog = ImageDialog(self, image='dendrogram', dendrogram_data=clus_analysis.dendrogram)
+            image_dialog.exec_()
+        
+    def closeEvent(self, event):
+        self.emit(SIGNAL("closed()"))
 
 
 class Clusterization(QDialog, Ui_ClusterizationDialog):
@@ -485,8 +565,7 @@ class Clusterization(QDialog, Ui_ClusterizationDialog):
     def accept(self):
         if self.newmangirvan_radiobutton.isChecked():
             self.method = 'newmangirvan'
-            if self.threshold_input.text():
-                self.accepted = True
+            self.accepted = True
         elif self.other_radiobutton.isChecked():
             self.method = 'other'
             self.accepted = False
@@ -499,7 +578,6 @@ class Clusterization(QDialog, Ui_ClusterizationDialog):
         
     def closeEvent(self, event):
         self.emit(SIGNAL("closed()"))
-
 
 
 

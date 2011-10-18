@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'clusterization.ui'
 #
-# Created: Mon Oct 17 00:21:50 2011
+# Created: Mon Oct 17 21:32:14 2011
 #      by: PyQt4 UI code generator 4.8.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -24,9 +24,9 @@ class Ui_Clusterize(object):
         self.horizontalLayout = QtGui.QHBoxLayout(self.horizontalLayoutWidget)
         self.horizontalLayout.setMargin(0)
         self.horizontalLayout.setObjectName(_fromUtf8("horizontalLayout"))
-        self.matrix_tableview = QtGui.QTableView(self.horizontalLayoutWidget)
-        self.matrix_tableview.setObjectName(_fromUtf8("matrix_tableview"))
-        self.horizontalLayout.addWidget(self.matrix_tableview)
+        self.clustering_tableview = QtGui.QTableView(self.horizontalLayoutWidget)
+        self.clustering_tableview.setObjectName(_fromUtf8("clustering_tableview"))
+        self.horizontalLayout.addWidget(self.clustering_tableview)
         self.vboxlayout = QtGui.QVBoxLayout()
         self.vboxlayout.setContentsMargins(0, -1, -1, -1)
         self.vboxlayout.setObjectName(_fromUtf8("vboxlayout"))
