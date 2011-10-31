@@ -227,7 +227,56 @@ mostrado na próxima seção.
 
 \section{Organização das Informações} \label{sec:organizacao}
 
-bla
+A organização das informações do sistema é um passo importante para que se tenha qualidade e se atenda aos requisitos propostos. Dentro de um boa modelagem,
+é imprescindível a criação de um diagrama de classes para definir entidades e suas responsabilidades, além de seus aspectos funcionais e os dados (e formatos)
+em que cada uma é responsável.
+
+Para um melhor entendimento desta etapa, foi criado um diagrama de classes simplificado, como pode ser visto na figura \ref{fig:diagrama-classes-simplificado}.
+O diagrama de classes completo pode ser encontrado no Apêndice.
+
+\begin{figure}
+\centering
+\includegraphics[scale=0.52]{diagrama-classes-simplificado}
+\caption{Diagrama de classes simplificado do Navi.}
+\label{fig:diagrama-classes-simplificado}
+\end{figure}
+
+A classe principal do Navi é a classe \textit{Project}. Todas as interações do usuário com a \textbf{GUI} passam por ela, que controlará operações com
+matrizes, análises, tratamento das informações biológicas e dos dados de entrada. Através dela é possível criar novo projeto, abrir projeto existente e
+salvar projeto corrente (requisitos 1 e 2). A classe também lida com o módulo \textit{Persistence}, que cuida do salvamento dos dados em disco. Não houve
+preocupação direta com o módulo \textit{Persistence}, então sua função é basicamente serializar e desserializar os objetos do sistema, além de prover
+a organização dos dados do projeto e compressão em um arquivo de extensão própria (.nav).
+
+\sigla{GUI}{Graphical User Interface}
+
+A filtragem do banco de dados biológico (sequências proteicas é realizada pela classe \textit{BioHandler}, que a partir desta operação instancia objetos
+da classe \textit{Organism} e da classe \textit{Sequence}, ou seja, cria organismo e associa sequências a eles. Então ela utiliza o pacote \textit{Blast},
+que realiza as comparações entre sequências, para gerar e instanciar a matriz de similaridades.
+
+O Navi possui três matrizes, representadas pelas classes \textit{SimilarityMatrix}, \textit{AdjacencyMatrix} e \textit{NeighbourhoodMatrix}. As três herdam
+da classe \textit{Matrix} por conterem características em comum. Só é possível ter uma matriz de similaridades por projeto. Em relação às demais, é permitido
+haver mais de uma. Se pesquisas posteriores desenvolverem outro tipo de matriz, ela poderá ser facilmente incorporada ao sistema através da adição de uma
+nova classe que será uma especificação da classe \textit{Matrix}. É possível gerar matrizes de adjacência ou de vizinhança, além da visualização de seus
+respectivos gráficos a qualquer momento após a escolha das sequências e geração da matriz de similaridades, de acordo com os requisitos 3, 4 e 5.
+
+A classe \textit{Analysis} é uma classe abstrata que concentra todos os tipos de análises que podem ser feitas sobre as matrizes relacionadas às redes
+proteicas. Existem três tipos de análises: Análise de Limiares (classe \textit{ThresholdAnalysis}), Clusterização (classe \textit{Clustering}) e
+Congruência (class \textit{Congruence}). Como descrito anteriormente, existem duas formas atualmente de analisar limiares: Distâncias (classe
+\textit{Distance}) e tamanho do maior cluster (\textit{LargestCluster}). Elas são subclasses de \textit{ThresholdAnalysis}, que também é abstrata. Essa
+abordagem permite que outros métodos de análise de limiares possam ser adicionados de forma facilitada por meio de herança. O mesmo acontece com a
+clusterização: a classe \textit{Clustering} é abstrata, e tem \textit{NewmanGirvan} como classe filha, que implementa o único método de clusterização
+usado no processo até o momento. Os requisitos 6 e 7 são atendidos com esta abordagem.
+
+A análise de congruência permite a comparação da divisão de comunidades entre diversos projetos executados sob o Navi, como também entre outros métodos de
+análise filogenética, através do fornecimento de um arquivo em um formato padrão. Isso é possível graças à classe \textit{Congruence}, que herda da classe
+\textit{Analysis}, atendendo aos requisitos 8 e 10.
+
+Outras funcionalidades extras do sistema incluem visualização do gráfico completo da rede, que utiliza a classe \textit{CommunityMap} para desenhar
+os vértices que pertencem a uma mesma comunidade de determinada cor (requisito 9); e também a possibilidade de exportar dados do projeto para
+gráficos em um formato de programas plotadores, utilizando-se de atributos de diversas classes, a depender do gráfico que se deseja (requisito 11).
+
+A seção seguinte explicará com mais detalhes como se dão os fluxos de execução do sistema para gerar, guardar e recuparar os dados necessários para a
+execução do método do FESC de análise filogenética usando Redes Complexas.
 
 \section{Dinâmica de Execução do Sistema} \label{sec:dinamica}
 
