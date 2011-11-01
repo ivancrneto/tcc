@@ -275,16 +275,62 @@ Outras funcionalidades extras do sistema incluem visualização do gráfico comp
 os vértices que pertencem a uma mesma comunidade de determinada cor (requisito 9); e também a possibilidade de exportar dados do projeto para
 gráficos em um formato de programas plotadores, utilizando-se de atributos de diversas classes, a depender do gráfico que se deseja (requisito 11).
 
-A seção seguinte explicará com mais detalhes como se dão os fluxos de execução do sistema para gerar, guardar e recuparar os dados necessários para a
+A seção seguinte explicará com mais detalhes como se dão os fluxos de execução do sistema para gerar, guardar e recuperar os dados necessários para a
 execução do método do FESC de análise filogenética usando Redes Complexas.
 
 \section{Dinâmica de Execução do Sistema} \label{sec:dinamica}
 
-bla
+Como foi dito anteriormente, a classe \textit{Project} é a classe principal do sistema, então após passar pela interface gráfica, qualquer interação do
+usuário chega primeiro nesta classe. Nesta seção serão abordados três importantes diagramas de sequência do Navi, com uma ligeira discussão sobre sua
+dinâmica. Outros diagramas de sequência podem ser encontrados no Apêndice.
 
+O primeiro diagrama de sequência, como pode ser visto na figura \ref{fig:new-project}, se refere à criação de um novo projeto. Primeiro, qualquer projeto
+que esteja em execução é finalizado e a classe \textit{Persistence} salva qualquer alteração nos objetos do sistema. Uma decisão de \textit{design} importante
+é que após a instanciação de uma nova classe \textit{Project} é criado também um novo objeto \textit{BioHandler}, que já filtra os dados passados pelo
+usuário, criando objetos \textit{Organism} e \textit{Sequence}. Após isto, \textit{Persistence} salva os dados do projeto.
+
+Em seguida o usuário escolherá as sequências com que a matriz de similaridades será gerada, onde \textit{BioHandler} passará as sequências, duas a duas,
+para que o pacote \textit{Blast} possa calcular as porcentagens, e então o primeiro possa montar a matriz de similaridades. Por fim, os dados do projeto
+são salvos em disco. \newline
+
+\begin{figure}
+\centering
+\includegraphics[scale=0.27]{new-project}
+\caption{Diagrama de sequências para o requisito 1: criar novo projeto.}
+\label{fig:new-project}
+\end{figure}
+
+Para gerar uma matriz de adjacências o usuário entra com um valor limiar (ou uma lista de limiares para o caso da geração de múltiplas matrizes). Haverá
+então um \textit{loop} na classe \textit{Project} que instanciará objetos da classe \textit{AdjacencyMatrix}, e então usará \textit{Persistence} para salvar
+novos dados em disco, conforme a figura \ref{fig:generate-adjacency-matrix}. \newline
+
+\begin{figure}
+\centering
+\includegraphics[scale=0.42]{generate-adjacency-matrix}
+\caption{Diagrama de sequências para o requisito 3: gerar matriz de adjacências de um limiar qualquer.}
+\label{fig:generate-adjacency-matrix}
+\end{figure}
+
+Para analisar limiares, o usuário precisa informar qual análise quer executar. O método do FESC de análise filogenética dispõe atualmente de dois métodos
+para a realização desta análise, mas existem vários outros e que podem ser adicionados ao Navi. Atualmente o usuário deve optar, então, pelo método de
+distâncias ou tamanho do maior cluster. A depender da escolha será instanciado pela classe \textit{Project} uma classe \textit{Distance} ou
+\textit{LargestCluster}, respectivamente. A análise é realizada passando-se a matriz de similaridades e, ao seu final, é invocada uma biblioteca gráfica
+para a exibição do gráfico para o usuário como resultado da análise. A figura \ref{fig:analyse-threshold} mostra seu diagrama de sequência. \newline
+
+\begin{figure}
+\centering
+\includegraphics[scale=0.34]{analyse-threshold}
+\caption{Diagrama de sequências para o requisito 6: analisar limiares.}
+\label{fig:analyse-threshold}
+\end{figure}
+
+O próximo capítulo mostrará os resultados deste trabalho, seu produto gerado, as ferramentas e o ambiente de execução utilizados, características
+de implementação e discutirá os resultados em relação aos objetivos propostos pelo trabalho.
 
 \chapter{Resultados}
 \label{cap:resultados}
+
+Neste capítulo são apresentadas de forma detalhada as técnicas utilizadas para o desenvolvimento da aplicação
 
 
 \section{Ambiente de execução} \label{sec:ambiente}
