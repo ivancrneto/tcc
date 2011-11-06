@@ -1,12 +1,25 @@
 \chapter{Introdução}
 
-A crescente evolução dos computadores e sua capacidadde de processamento vem influenciando diretamente as mais diversas áreas do conhecimento. A Biologia
+A crescente evolução dos computadores e sua capacidade de processamento vem influenciando diretamente as mais diversas áreas do conhecimento. A Biologia
 vem aproveitado o crescimento do poder computacional para realizar análises cada vez mais poderosas sobre espécies, organismos e sua carga genética.
 A possibilidade de comparação de grandes sequências de DNA em um curto intervalo de tempo possibilita resultados impossíveis de serem obtidos através
 de uma comparação manual.
 
-A Bioinformática é hoje uma das áreas multidisciplinares mais promissoras, que tem a Análise Filogenética através de comparação de sequências proteicas ou
-nucleotídicas, onde surgem diariamente métodos. \textbf{[NÃO ESTÁ COMPLETA]}
+A Bioinformática é hoje uma das áreas multidisciplinares mais promissoras, e a compração de sequências proteicas permite um impulso na área de Análise
+Filogenética, onde diversos métodos tem surgido. Outras áreas do conhecimento que têm se beneficiado bastante com a crescente evolução computacional são a
+Física e a Matemática que, assim como a Biologia, podem atingir resultados rapidamente antes impossíveis, e acabam gerando um leque de opções para pesquisa
+em computação aplicada.
+
+Hoje em dia a demanda por profissionais e pesquisadores de Ciência da Computação nestas áreas tem se mostrado muito grande, e a junção de duas ou mais destas
+áreas em um contexto multidisciplinar tem guiado as pesquisas a resultados espetaculares, além de gerar produtos e também ideias para novos projetos de
+pesquisa. Em um contexto de Física Estatística e Sistemas Complexos, aliando-se conceitos matemáticos \textbf{[CITAR]} e Teoria dos Grafos, foi possível o
+desenvolvimento de um Método para Análise Filogenética.
+
+Em três anos de pesquisa o foco maior foram os resultados, o que fez com que o processo para que se chegasse a eles ficasse prejudicado, necessitando uma
+curva de aprendizado grande para a sua execução, além de cuidados com relação a organização e nomenclatura de arquivos, configurações, formatação de dados
+de entrada e saída para o uso em diferentes programas. A partir do momento em que o método está concluído, testado e comparado com outros métodos, se faz
+necessário sua organização para diminuir esta curva de aprendizado, tanto no desenvolvimento quando na utilização, o que pode ser visto agora nas três
+seções que seguem: motivação, objetivos e contribuições.
 
 \section{Motivação}
 
@@ -16,15 +29,41 @@ Os resultados obtidos com a aplicação do método a dados biológicos abrem esp
 já existentes no contexto da pesquisa em Análise Filogenética. A partir do momento em que surge uma alternativa viável a métodos já conhecidos
 e bastante aplicados na Biologia com capacidade de mostrar resultados válidos e comparáveis às alternativas existentes, e valendo-se da vantagem
 de não necessitar de pressupostos biológicos, faz-se necessária a sua organização para que seja utilizado em larga escala, além de sua extensão,
-resultando em um ambiente em que haja a possibilidade de compartilhamento de resultados entre os diferentes métodos. \textbf{[REFAZER]}
+resultando em um ambiente em que haja a facilidade de uso, desenvolvimento, manutenção e extensão, além da possibilidade de compartilhamento de
+resultados entre os diferentes métodos existentes.
+
+Diversos trabalhos buscam fazer Análise Filogenética, mas geralmente utilizam de pressupostos biológicos para tal. O método do FESC tem um diferencial,
+que é o de somente utilizar as sequências propriamente ditas, o que torna importante sua organização para deixá-lo pronto para utilização.
 
 \section{Objetivos} \label{sec:objetivos}
 
-Texto de objetivos
+O objetivo deste trabalho foi fazer um levantamento das pesquisas realizadas nos últimos três anos com Análise Filogenética através de Redes Complexas
+por mim e pelo grupo no qual trabalhei, o FESC (Física Estatística e Sistemas Complexos) para entender o que era necessário para que se pudesse organizar
+os \textit{softwares} utilizados para se ter uma facilidade maior de execução e utilização por pesquisadores que detém de pouco ou quase nenhum conhecimento
+de desenvolvimento de software e ambientes UNIX, além de prover uma facilidade de manutenção e extensibilidade.
+
+Dentre os objetivos, então, estavam a definição de requisitos, modelagem e implementação do sistema, para que qualquer pessoa possa utilizá-lo facilmente e
+também qualquer desenvolvedor possa se tornar mantenedor do mesmo facilmente. Com essas ações, cresce bastante a possibilidade de o método e todo o arcabouço
+tecnológico que o envolve seja consequentemente sua aceito na comunidade acadêmica.
+
+\sigla{FESC}{Física Estatística e Sistemas Complexos - Instituto de Física - UFBA}
 
 \section{Contribuições}
 
-Texto de contribuição
+Este trabalho irá fornecer um pacote de \textit{software} funcional, com uma modelagem bem elaborada, incluindo requisitos e interações entre o usuário
+e o sistema (Diagrama de Casos de Uso), organização de dados e informações (Diagrama de Classes) e dinâmica de execução do sistema (Diagramas de Sequência).
+O trabalho de modelagem virá acompanhado de um protótipo de \textit{software} que inclui algumas das funcionalidades dispostas nos requisitos.
+
+Podemos dividir as contribuições em duas:
+
+\begin{itemize}
+  \item{\textbf{A primeira, para os desenvolvedores:} um protótipo de \textit{software} funcional e com uma documentação abrangente, permitindo a fácil
+manutenção, inclusão das funcionalidades levantadas nos requisitos e ainda não implementadas e extensão do sistema para novas necessidades}
+  \item{\textbf{A segunda, para os pesquisadores:} um ambiente de fácil utilização e execução de Análise Filogenética através de Redes Complexas, com
+geração de gráficos, armazenamento e organização de arquivos, salvamento e carregamento de projetos, incluindo possibilidade de uso por pesquisadores
+que não são da área de Ciência da Computação.}
+\end{itemize}
+
 
 \section{Estrutura do trabalho}
 
