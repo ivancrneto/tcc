@@ -470,26 +470,90 @@ class NeighbourhoodMatrix(Matrix):
         return data
 \end{lstlisting}
 
-visualizar grafico matriz cores
+A visualização do gráfico de matriz de cores se baseia nos dados da matriz de vizinhança e simplesmente os utiliza como entrada para a biblioteca
+\textit{Matplotlib} desenhar o gráfico na tela.
 
-analisar limiares
+Como explanado na seção \ref{sec:organizacao} do capítulo \ref{cap:navi}, a classe \textit{Analysis} tem a \textit{ThresholdAnalysis} como subclasse,
+que por sua vez tem como classes filhas classes que representam as diferentes formas de execução da análise de limiares. Isso permite uma exetensibilidade
+ao Navi, uma vez que basta acrescentar uma nova classe filha à \textit{ThresholdAnalysis} para se incluir um novo método de analisar limiares. A situação
+é análoga para a clusterização, com a classe \textit{Clustering} e sua filha \textit{NewmanGirvan}.
 
-executar clusterizacao
+\lstset{language=python}
+\lstset{commentstyle=\textit}
+\begin{lstlisting}[frame=trbl, caption=Clusterização usando o método de Newman e Girvan,label=lst:clustering]{}
+class NewmanGirvan(Clustering):
+    #[...]
+        
+    def clusterize(self, nbh_matrix):
+        self.threshold = nbh_matrix.threshold
+        similarity_array = nbh_matrix.data
+        matrix_str = '   '
+        for i in range(0, len(similarity_array)):
+            for j in range(0, len(similarity_array[i])):
+                matrix_str += str(similarity_array[i][j])
+                if j + 1 < len(similarity_array[i]):
+                    matrix_str += '   '
+            matrix_str += '\n'
+        
+        dendo_directory = tempfile.mkdtemp([...])
+        dendo_file = os.path.join([...])
+        shutil.copy(dendo_file, dendo_directory)
+        
+        #[...]
+        
+        olddir = os.getcwd()
+        os.chdir(dendo_directory)
+        matrix_file = open([...])
+        matrix_file.write(matrix_str)
+        matrix_file.flush()
+        
+        subprocess.check_call(
+            [os.path.join(dendo_directory, 'dendo')])
+        
+        dendrogram_file = open('d2matrixde4.dat', 'r')
+        for i in dendrogram_file.readlines():
+            data = [float(elem.strip('\n')) \
+                for elem in i.split()]
+            data = data[1:]
+            self.dendrogram.append(data)
+        
+        os.chdir(olddir)
+        
+        matrix_file.close()
+        f.close()
+        shutil.rmtree(dendo_directory)
+        
+        return True
+\end{lstlisting}
 
-definir modulos/comunidades
+Nesta versão do protótipo do Navi, apenas o método de distâncias foi implementado, por meio de invocação do módulo externo RedeCrítica por um método da
+classe \textit{Distance}, que é filha da classe \textit{ThresholdAnalysis}. Para a clusterização, o método de Newman e Girvan foi implementado por meio
+de invocação de um módulo externo feito em Fortran (Dendo). A invocação dos módulos Fortran foi feita utilizando chamadas de sistema da linguagem Python,
+que não permite uma integração perfeita, mas se utiliza do poder da linguagem de mapear as chamadas de sistema para a plataforma em que o \textit{software}
+está sendo executado. A listagem \ref{lst:clustering} mostra o trecho de código que trata da invocação do módulo externo. A figura \ref{fig:navi-dendrogram}
+mostra o dendrograma, resultado final do método, gerado pelo Navi.
 
-comparar/executar congruencia de redes de diferentes projetos
+A etapa de congruência foi modelada mas não foi implementada, devido a sua complexidade e à falta de tempo hábil. Mais informações sobre a congruência podem
+ser vistas em \textbf{[CITAR]}. Como o Navi não é capaz de gerar gráficos tão bons quanto uma suíte profissional dedicada à plotagem destinada a artigos e
+trabalhos científicos em geral, e há perda do controle do usuário sobre a localização e o formato dos dados gerados entre as diversas etapas do processo, se
+faz necessária a exportação desses arquivos para que o usuário os utilize como fonte para utilização em programas plotadores, como consta no requisito
+12. Esta funcionalidade, no entanto, não foi implementada no protótipo.
 
-visualizar grafico completo da rede
+Duas outras funcionalidades também não foram implementadas no protótipo, que são a definição de módulos/comunidades (requisito 8), onde o usuário define
+com base na matriz de cores e no dengrograma quais sequências pertencem a quais comunidades e com isso pode ser gerado o gréfico completo da rede (requisito
+10) para visualização, onde o usuário pode ver as comunidades separadas por cores, além de obter facilmente informações sobre as sequências clicando nos
+vértices.
 
-executar congruencia em relacao a um arquivo cadastrado em um formato padrao
-
-exportar dados do projeto para graficos em um formato de programas plotadores
-
-
-bindings fortran codigo mao
+\begin{figure}
+\centering
+\includegraphics[scale=0.38]{navi-dendrogram}
+\caption{Dendrograma mostrado pelo Navi.}
+\label{fig:navi-dendrogram}
+\end{figure}
 
 \section{Dificuldades} \label{sec:dificuldades}
+
+problemas com qt
 
 bla
 
