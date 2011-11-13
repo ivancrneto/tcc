@@ -330,21 +330,164 @@ de implementação e discutirá os resultados em relação aos objetivos propost
 \chapter{Resultados}
 \label{cap:resultados}
 
-Neste capítulo são apresentadas de forma detalhada as técnicas utilizadas para o desenvolvimento da aplicação
+Neste capítulo são apresentadas de forma detalhada as técnicas utilizadas para o desenvolvimento do Navi.
 
 
 \section{Ambiente de execução} \label{sec:ambiente}
 
-bla
-troca de banco de dados relacional para serialização de objetos
+O método como era desenvolvido e estava sendo executado exigia uma ambiente GNU/Linux, um compilador Fortran, um compilador C, pacotes para a execução
+de \textit{scripts} Perl e a biblioteca \textit{BioPerl}, além de um banco de dados relacional, neste caso o MySQL. Após o \textit{download} das sequências]
+a partir do banco de dados GenBank, as mesmas eram colocadas em um mesmo diretório, onde uma série de \textit{scripts} Perl eram executados, realizando os
+seguintes passos, nesta ordem:
+
+\begin{itemize}
+  \item{Listagem de arquivos com extenção .seq, sugerindo se tratarem de arquivos do GenBank;}
+  \item{Filtragem dos arquivos e armazenamento de informações importantes como Gi, locus, código da sequência na tabela SEQUENCIA do MySQL;}
+  \item{Leitura dos registros da tabela SEQUENCIA, dois a dois, e execução do Blast sobre os mesmos;}
+  \item{Armazenamento da porcentagem de similaridade das duas sequências na tabela SIMILARIDADE;}
+  \item{Leitura da tabela SIMILARIDADE e geração de um arquivo texto contendo a matriz de similaridades.}
+\end{itemize}
+
+De posse da matriz de similaridades, é necessária a execução de outro programa para a geração das redes de diversos limiares e análise dos mesmos para que
+fosse possível a escolha de um limiar crítico e então a continuação do método. Pela abordagem do tamanho do maior cluster, existe o programa achacluster,
+codificado em Fortran. Para a abordagem do método das distâncias o FESC dispõe de duas alternativas: (i) a utilização do GeraRedes e em seguida o
+Distância (ambos em C++); (ii) a utilização do RedeCrítica (Fortran). As duas opções têm como entrada a matriz de similaridades \footnote{O GeraRedes 
+também gera as matrizes de adjacência e vizinhança e as deixa em uma pasta.} e geram um arquivo cujo formato possibilita a geração de um gráfico de pontos,
+de onde é possível determinar o limiar crítico.
+
+Utilizando então a matriz de vizinhança da rede do limiar crítico, executamos o Dendo (Fortran) que aplica o cálculo do \textit{Betweenness}, gerando como
+resultado um dendrograma (histograma de remoção de arestas, indicando modularização da rede). O dendrograma, em conjunto com a matriz de cores e as sequências
+permitem análises biológicas sobre os resultados.
 
 \section{Ferramentas de Desenvolvimento} \label{sec:ferramentas}
 
-bla
+A área de Bioinformática hoje em dia tem utilizado bastante Python \cite{python} no lugar de Perl para comparações entre sequências, utilização de algoritmos
+genéticos, entre outras técnicas na pesquisa em geral. É uma linguagem bastante rica e poderosa, com uma grande facilidade de uso, compreensão e
+desenvolvimento, rapidez na implementação e prototipagem rápida, bibliotecas robustas para o desenvolvimento de \textit{software} científico, cálculos
+diversos e geração de gráficos, além de ser considerada uma ``linguagem cola'' por se comunicar facilmente com outras linguagens. Além disso, o autor do
+trabalho é bastante familiarizado com a mesma, constituindo-se então de uma boa escolha para o desenvolvimento do Navi.
+
+Para a criação das janelas foram testados o Tkinter (que vem com a linguagem Python), o Gtk e o Qt. O Qt foi escolhido pela sua quantidade de recursos,
+facilidade de utilização, desenvolvimento e manutenção, total suporte à linguagem Python através do PyQt \cite{pyqt}, além de fornecer o \textit{Designer},
+um bom \textit{software} para a criação de janelas e interface gráfica em geral (uma ilustração do mesmo pode ser vista na figura \ref{fig:designer}).
+A utilização de Qt também permite a possibilidade de execução do Navi em ambientes Windows e Mac, faltando apenas a adaptação do \textit{back-end} para um
+suporte completo a essas outras plataformas.
+
+\begin{figure}
+\centering
+\includegraphics[scale=0.38]{designer}
+\caption{Exemplo de criação de janela com o Qt4-Designer.}
+\label{fig:designer}
+\end{figure}
+
+Para a codificação, foi utilizado um simples editor de textos (Gedit). As bibliotecas necessárias e as mudanças, incluindo algumas decisões de implementação
+serão discutidas na próxima seção.
 
 \section{Discussão} \label{sec:discussao}
 
-bla
+A utilização da linguagem Python para o desenvolvimento do Navi acarretou certas consequências. Uma delas foi a substituição do \textit{BioPerl} pelo
+\textit{BioPython} \cite{biopython}, um conjunto de ferramentas para computação biológica feito em Python, equivalente ao \textit{BioPerl} para \textit{Perl}.
+Um dos gargalos na execução do método original é também a necessidade de observar gráficos e a partir deles tomar decisões relativas ao prosseguimento do
+processo. Como a execução dos diversos programas era feita em Linux e o programa plotador de gŕaficos, o Origin \cite{origin} roda em Windows, em várias
+situações era necessário reiniciar a máquina ou mudar de máquina para que se pudesser plotar os gráficos. Com o Matplotlib \cite{matplotlib}, biblioteca de 
+plotagem de gráficos para Python, esse trabalho passa a ser desnecessário.
+
+O \textit{BioPython} inclui o Blast2 e seus \textit{bindings} para Python. Como módulos externos, se fizeram necessários ainda o Madchar (geração de matrizes),
+o RedeCrítica (análise de limiares) e o Dendo (clusterização). Por serem codificados em Fortran foi necessário o pacote Gfortran.
+
+A primeira preocupação na implementação do Navi foi a questão inicial da filtragem e armazenamento dos dados. Um banco de dados relacional é uma exigência
+muito grande para um sistema que vai realizar certos cálculos e gráficos, e que será utilizado em larga escala em máquinas diversas e por pesquisadores de
+áreas como Biologia. Por isso, a primeira decisão foi a troca do banco de dados relacional por uma estrutura de armazenamento de dados através da serialização
+de objetos, sendo útil também na criação de um projeto (caso de uso 1) e o carregamento de um projeto existente no disco (caso de uso 2). A classe 
+\textit{Persistence} é responsável por isso, porém no protótipo o armazenamento não ficou tão bem estruturado, utilizando apenas o módulo \textit{Pickler}
+do Python para a serialização de todos os objetos do sistema em um único arquivo.
+
+Um arquivo .nav (extensão de arquivo do Navi) é simplesmente um pacote compactado que contém uma estrutura de diretórios, destinada a armazenar os arquivos
+necessários à execução de um projeto, e também fornece suporte a certas operações de execução. Quando necessário, a classe \textit{Persistence} descompacta
+o .nav em um diretório temporário, espera certas operações serem realizadas e então compacta novamente na localização original.
+
+A filtragem feita originalmente não incluía uma opção de escolha das sequências com que se desejasse trabalhar. No Navi, a criação de um novo projeto resulta
+na filtragem e armazenamento dos dados, e em seguida a possibilidade de escolha das sequências, como mostra a figura \ref{fig:choose-sequences}.
+
+\begin{figure}
+\centering
+\includegraphics[scale=0.38]{choose-sequences}
+\caption{Escolha das sequências no Navi após filtragem.}
+\label{fig:choose-sequences}
+\end{figure}
+
+A geração de matrizes de adjacência é feita na contrução de um objeto da classe \textit{AdjacencyMatrix}, pela própria camada de negócio do Navi, sem a
+necessidade de invocar módulos externos, pela simplicidade da operação. Já para gerar as matrizes de vizinhança, o módulo Madchar é invocado. A operação
+também é realizada durante a construção de um objeto da classe \textit{NeighbourhoodMatrix}, onde seu construtor invoca o método
+\textit{generate\_neighbourhood\_values}, que pode ser visto na listagem \ref{lst:gennbhvalues}.
+
+\lstset{language=python}
+\lstset{commentstyle=\textit}
+\begin{lstlisting}[frame=trbl, caption=Geração de Matriz de Adjacências,label=lst:gennbhvalues]{}
+class NeighbourhoodMatrix(Matrix):
+    def __init__(self, similarity_matrix, threshold):
+        
+        #[...]
+                    
+        data = self.generate_neighbourhood_values(data)
+                    
+        #[...]
+        
+    def generate_neighbourhood_values(self, adj_matrix):
+        madchar_directory = tempfile.mkdtemp([...])
+        
+        madchar_file = os.path.join([...])
+        shutil.copy(madchar_file, madchar_directory)
+        
+        #[...]
+        
+        olddir = os.getcwd()
+        os.chdir(madchar_directory)
+        matrix_file = open([...])
+        matrix_str = ''
+        for i in adj_matrix:
+            for j in i:
+                matrix_str += '%s' % j
+            matrix_str += '\n'
+        matrix_file.write(matrix_str)
+        matrix_file.flush()
+        subprocess.check_call(
+            [os.path.join(madchar_directory,'madchar')])
+        raw_nbh_matrix = open(os.path.join(madchar_directory,
+            'madcharresult_11.dat'), 'r')
+        os.chdir(olddir)
+        
+        data = raw_nbh_matrix.readlines()
+        data = data[2:]
+        for i in range(0, len(data)):
+            data[i] = [int(j) for j in data[i].split()]
+        
+        raw_nbh_matrix.close()
+        matrix_file.close()
+        f.close()
+        shutil.rmtree(madchar_directory)
+        
+        return data
+\end{lstlisting}
+
+visualizar grafico matriz cores
+
+analisar limiares
+
+executar clusterizacao
+
+definir modulos/comunidades
+
+comparar/executar congruencia de redes de diferentes projetos
+
+visualizar grafico completo da rede
+
+executar congruencia em relacao a um arquivo cadastrado em um formato padrao
+
+exportar dados do projeto para graficos em um formato de programas plotadores
+
+
+bindings fortran codigo mao
 
 \section{Dificuldades} \label{sec:dificuldades}
 
@@ -353,6 +496,8 @@ bla
 
 
 \section{Listagens} \label{sec:listagens}
+
+\textbf{[ESSA PARTE AQUI É SUJEIRA. SÓ ESTÁ AQUI PORQUE TEM CERTOS COMANDOS QUE EU POSSO PRECISAR MAIS ADIANTE.]}
 
 Nonono nonnono onononono \cite{fowler2000}.
 

@@ -5,6 +5,7 @@ python-matplotlib
 blast2
 gfortran
 madchar.f compiled as madchar in vendors/madchar folder
+dendo.f compiled as dendo in vendors/madchar folder
 
 
 anotacoes:
