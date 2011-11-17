@@ -12,18 +12,26 @@ em computação aplicada.
 
 Hoje em dia a demanda por profissionais e pesquisadores de Ciência da Computação nestas áreas tem se mostrado muito grande, e a junção de duas ou mais destas
 áreas em um contexto multidisciplinar tem guiado as pesquisas a resultados espetaculares, além de gerar produtos e também ideias para novos projetos de
-pesquisa. Em um contexto de Física Estatística e Sistemas Complexos, aliando-se conceitos matemáticos \textbf{[CITAR]} e Teoria dos Grafos, foi possível o
-desenvolvimento de um Método para Análise Filogenética.
+pesquisa. Em um contexto de Física Estatística e Sistemas Complexos, aliando-se conceitos matemáticos \cite{andrade2009} e Teoria dos Grafos, foi possível o
+desenvolvimento de um método para Análise Filogenética pelo FESC, que obteve bons resultados na comparação com outros métodos existentes \cite{andrade2011}.
 
-Em três anos de pesquisa o foco maior foram os resultados, o que fez com que o processo para que se chegasse a eles ficasse prejudicado, necessitando uma
-curva de aprendizado grande para a sua execução, além de cuidados com relação a organização e nomenclatura de arquivos, configurações, formatação de dados
-de entrada e saída para o uso em diferentes programas. A partir do momento em que o método está concluído, testado e comparado com outros métodos, se faz
-necessário sua organização para diminuir esta curva de aprendizado, tanto no desenvolvimento quando na utilização, o que pode ser visto agora nas três
-seções que seguem: motivação, objetivos e contribuições.
+
+Acho que o ponto principal não esta claro. Como seu foco é em engenharia de software, esse é um exemplo de construção de software sem metodologia.
+De destaque ao seu trabalho em levar engenharia de software ao sistema atual, controlando o que ja existe e permitindo extensibilidade, sem perder
+o codigo legado.
+
+
+Nos três anos de pesquisa e desenvolvimento do método, houve uma maior atenção voltada para resultados, o que fez com que o processo para que se chegasse
+a eles ficasse prejudicado, representando um exemplo de construção de software sem metodologia, e com isso necessitando de uma curva de aprendizado grande
+para a sua execução, além de cuidados com relação a organização e nomenclatura de arquivos, configurações, formatação de dados de entrada e saída para o
+uso em diferentes programas. A partir do momento em que o método está concluído, testado e comparado com outros métodos, se faz necessário sua organização
+para diminuir esta curva de aprendizado, levando Engenharia de Software ao sistema atual a partir de (i) concepção de uma arquitetura que permita uma
+separação em camadas de interação com o usuário, lógica de negócio e persistência; (ii) controle de execução do processo; (iii) possibilidade de
+extensibilidade; (iv) utilização de código legado.
 
 \section{Motivação}
 
-A proposta deste trabalho surgiu a partir do início deste projeto em 2007, quando o grupo de Física Estatística e Sistemas Complexos (FESC),
+A proposta deste trabalho surgiu a partir do início de 2007, quando o grupo de Física Estatística e Sistemas Complexos (FESC),
 do Instituto de Física da Universidade Federal da Bahia, resolveu utilizar sua experiência com Redes Complexas aplicando-a a Análise Filogenética.
 Os resultados obtidos com a aplicação do método a dados biológicos abrem espaço para a utilização do mesmo como uma alternativa aos métodos
 já existentes no contexto da pesquisa em Análise Filogenética. A partir do momento em que surge uma alternativa viável a métodos já conhecidos
@@ -32,35 +40,31 @@ de não necessitar de pressupostos biológicos, faz-se necessária a sua organiz
 resultando em um ambiente em que haja a facilidade de uso, desenvolvimento, manutenção e extensão, além da possibilidade de compartilhamento de
 resultados entre os diferentes métodos existentes.
 
-Diversos trabalhos buscam fazer Análise Filogenética, mas geralmente utilizam de pressupostos biológicos para tal. O método do FESC tem um diferencial,
-que é o de somente utilizar as sequências propriamente ditas, o que torna importante sua organização para deixá-lo pronto para utilização.
-
 \section{Objetivos} \label{sec:objetivos}
 
-O objetivo deste trabalho foi fazer um levantamento das pesquisas realizadas nos últimos três anos com Análise Filogenética através de Redes Complexas
-por mim e pelo grupo no qual trabalhei, o FESC (Física Estatística e Sistemas Complexos) para entender o que era necessário para que se pudesse organizar
-os \textit{softwares} utilizados para se ter uma facilidade maior de execução e utilização por pesquisadores que detém de pouco ou quase nenhum conhecimento
-de desenvolvimento de software e ambientes UNIX, além de prover uma facilidade de manutenção e extensibilidade.
+O objetivo deste trabalho é aplicar Engenharia de Software sobre um conjunto de ferramentas e códigos legados desenvolvidos por mim e diversos outros
+pesquisadores do FESC (Física Estatística e Sistemas Complexos), desenvolvidos com pouca metodologia, seguido de um levantamento do era necessário para que
+se pudesse organizar os \textit{softwares} utilizados objetivando uma melhor execução e experiência de utilização por pesquisadores que detém de pouco
+ou quase nenhum conhecimento de desenvolvimento de software e ambientes Linux, além de permitir sua evolução e extensibilidade.
 
-Dentre os objetivos, então, estavam a definição de requisitos, modelagem e implementação do sistema, para que qualquer pessoa possa utilizá-lo facilmente e
-também qualquer desenvolvedor possa se tornar mantenedor do mesmo facilmente. Com essas ações, cresce bastante a possibilidade de o método e todo o arcabouço
-tecnológico que o envolve seja consequentemente sua aceito na comunidade acadêmica.
+As práticas de Engenharia de Software, como a definição de requisitos, modelagem e implementação do sistema estão entre os objetivos por serem essenciais
+para garantir um bom projeto de \textit{software}, que consequentemente possar ser utilizado, mantido, extendido e evoluído facilmente.
 
 \sigla{FESC}{Física Estatística e Sistemas Complexos - Instituto de Física - UFBA}
 
 \section{Contribuições}
 
-Este trabalho irá fornecer um pacote de \textit{software} funcional, com uma modelagem bem elaborada, incluindo requisitos e interações entre o usuário
+Este trabalho irá fornecer um pacote de \textit{software} com uma modelagem bem elaborada, incluindo requisitos e interações entre o usuário
 e o sistema (Diagrama de Casos de Uso), organização de dados e informações (Diagrama de Classes) e dinâmica de execução do sistema (Diagramas de Sequência).
 O trabalho de modelagem virá acompanhado de um protótipo de \textit{software} que inclui algumas das funcionalidades dispostas nos requisitos.
 
-Podemos dividir as contribuições em duas:
+Podemos dividir as contribuições:
 
 \begin{itemize}
-  \item{\textbf{A primeira, para os desenvolvedores:} um protótipo de \textit{software} funcional e com uma documentação abrangente, permitindo a fácil
+  \item{\textbf{Para os desenvolvedores:} o protótipo, com uma documentação abrangente, permitindo a fácil
 manutenção, inclusão das funcionalidades levantadas nos requisitos e ainda não implementadas e extensão do sistema para novas necessidades}
-  \item{\textbf{A segunda, para os pesquisadores:} um ambiente de fácil utilização e execução de Análise Filogenética através de Redes Complexas, com
-geração de gráficos, armazenamento e organização de arquivos, salvamento e carregamento de projetos, incluindo possibilidade de uso por pesquisadores
+  \item{\textbf{Para os pesquisadores:} um ambiente de fácil utilização e execução de Análise Filogenética através de Redes Complexas, com
+geração de gráficos, armazenamento e organização de arquivos, salvamento e carregamento de projetos, possibilitando o uso por pesquisadores
 que não são da área de Ciência da Computação.}
 \end{itemize}
 
@@ -69,18 +73,18 @@ que não são da área de Ciência da Computação.}
 
 Esta monografia está organizada da seguinte maneira:
 
-\begin{itemize}
-  \item{No capítulo \ref{cap:analisefilo} apresenta-se a fundamentação teórica com seus principais conceitos
-e os passos para a execução do método de Análise Filogenética através de Redes Complexas: escolha das sequências proteicas (seção \ref{sec:escseq}),
-similaridade (seção \ref{sec:similaridade}), construção e caracterização de redes (seção \ref{sec:conscarac}), limiar crítico (seção \ref{sec:limcrit})
-e entremeação e centralidade (seção \ref{sec:entremeacao}).}
-  \item{No capítulo \ref{cap:navi}, mostra-se o projeto do sistema propriamente dito, e suas questões
-de escopo (seção \ref{sec:escopo}), organização das informações (seção \ref{sec:organizacao}) e sua dinâmica de execução (seção \ref{sec:dinamica}).}
-  \item{No capítulo \ref{cap:resultados} são mostrados detalhes de implementação, ambiente de execução (seção \ref{sec:ambiente}), ferramentas de
-desenvolvimento (seção \ref{sec:ferramentas}), além de discutidos quais os objetivos foram alcançados (seção \ref{sec:discussao}) e levantadas
-outras questões importantes e dificuldades encontradas (seção \ref{sec:dificuldades})}
-  \item{Por fim, é apresentada a conclusão do trabalho e os trabalhos futuros (capítulo \ref{cap:conclusao}), além de anexos e referências bibliográficas.}
-\end{itemize}
+No capítulo \ref{cap:analisefilo} apresenta-se a fundamentação teórica com seus principais conceitos
+e os passos para a execução do método de Análise Filogenética através de Redes Complexas: escolha das sequências proteicas,
+similaridade, construção e caracterização de redes, limiar crítico e entremeação e centralidade.
+
+No capítulo \ref{cap:navi}, mostra-se o projeto do sistema propriamente dito, e suas questões
+de escopo, organização das informações e sua dinâmica de execução.
+
+No capítulo \ref{cap:resultados} são mostrados detalhes de implementação, ambiente de execução, ferramentas de
+desenvolvimento, além de discutidos quais os objetivos foram alcançados , e levantadas
+outras questões importantes e dificuldades encontradas.
+
+Por fim, é apresentada a conclusão do trabalho e os trabalhos futuros (capítulo \ref{cap:conclusao}), além de anexos e referências bibliográficas.
 
 % use sua propria estrutura
 
