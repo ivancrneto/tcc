@@ -40,35 +40,50 @@ uma rota metabólica, separando as sequências pela enzima que as produzem na ro
 Esta é uma etapa manual, onde são feitas buscas por data e são realizadas determinadas filtragens no site do NCBI para obter as sequências desejadas. O
 sistema desenvolvido neste trabalho leva em consideração que as sequências já foram escolhidas e as recebe como entrada inicial. O resultado desta etapa
 são arquivos no formato GenBank (NCBI) que são filtrados e organizados para facilitar a identificação de organismos em etapas posteriores e proporcionar
-a execução da similaridade.
+a execução da similaridade. Um requisito importante então é a capacidade de receber um ou mais arquivos naquele formato e a partir deles realizar uma
+filtragem e gerar a matriz de similaridades.
 
 \section{Similaridade} \label{sec:similaridade}
 
-Para executar a similaridade, primeiro os dados no formato GenBank são filtrados e armazenados em um banco de dados relacional. Então é utilizado o BLAST
-(Basic Alignment Search Tool) \cite{blast1997} para comparação entre as sequências. O BLAST trabalha tanto com sequências nucleotídicas quanto proteicas.
-O interesse do uso do BLAST para o método em questão está na comparação de sequências proteicas utilizando o alinhamento local, que compara duas sequências
-isoladamente e retorna uma porcentagem de similaridade entre elas.
+Para executar a análise de similaridades entre as sequências proteicas, a partir da filtragem realizada no passo anterior e o armazenamento em um banco
+de dados relacional, é utilizada ferramenta BLAST (Basic Alignment Search Tool) \cite{blast1997} para comparação entre as sequências. O BLAST trabalha
+tanto com sequências nucleotídicas quanto proteicas. O interesse do uso do BLAST para o método em questão está na comparação de sequências proteicas
+utilizando o alinhamento local, que compara duas sequências isoladamente e retorna uma porcentagem de similaridade entre elas.
 
 \sigla{BLAST}{Basic Alignment Search Tool}
 
-A partir do resultado do BLAST, pode-se construir uma matriz de similaridades \cite{andrade2006}, onde as linhas e colunas são as sequências e
-a relação é a similaridade entre elas. Desta matriz são construídas as redes que caracterizam as sequências, que serão descritas na próxima seção.
+A partir do resultado do BLAST, pode-se construir uma matriz de similaridades \cite{andrade2006}, onde as linhas e colunas representam as sequências e
+uma posição $(i, j)$ da matriz armazena a similaridade entre elas. Desta matriz são construídas as redes que caracterizam as sequências, que serão
+descritas na próxima seção.
 
 \section{Construção e Caracterização das Redes} \label{sec:conscarac}
 
-O conceito de rede está associado ao de um grafo. É um conjunto de vértices e arestas conectando-os. Podemos dizer que o estudo de uma rede é o
-estudo de um grafo, mas em uma escala maior. Redes podem ser tidas como grafos muito grandes e complexos, em que se torne mais preciso o uso de
-técnicas estatísticas para a sua análise \cite{bessa2008}. Na literatura de Redes Complexas, em geral, precisamos encontrar uma rede de determinado
-conjunto que melhor caracterize este conjunto. Essa escolha se dá pela relação entre ruído e informação \cite{barabasi2004}.
+O conceito de rede está associado ao de um grafo, que é um par $G = (V, E)$ de conjuntos onde $E \subseteq [V]^2$, então os elementos de $E$
+são subconjuntos de 2 elementos de $V$. Para evitar ambiguidades de notação, devemos assumir que $V \cap E = \O{}$. Os elementos de $V$ são os vértices
+(ou nós ou pontos) e os elementos são suas arestas (ou linhas) \cite{reinhard2010}.
 
-Partindo da matriz de similaridades, podemos construir até 101 matrizes de adjacência, se levarmos em consideração que podemos escolher um valor
-limiar e construir a rede baseada nele. Por exemplo, se escolhermos o valor 60 como limiar, construiremos uma rede onde haverá uma aresta aresta entre
-dois vértices (sequências) se e somente se a similaridade entre eles em questão for maior ou igual a 60. Uma rede com limiar muito baixo apresenta muito
-ruído e uma rede com limiar muito alto apresenta pouca informação.
+Podemos dizer que o estudo de uma rede é o estudo de um grafo, mas em uma escala maior. Redes podem ser tidas como grafos muito grandes e complexos,
+em que se torne mais preciso o uso de técnicas estatísticas para a sua análise \cite{bessa2008}. Na literatura de Redes Complexas, em geral, precisamos
+encontrar uma rede de determinado conjunto que melhor caracterize este conjunto. Essa escolha se dá pela relação entre ruído e informação \cite{barabasi2004}.
+
+Partindo da matriz de similaridades, podemos construir até 101 (similaridade 0\%-100\%) matrizes de adjacência, se levarmos em consideração que podemos
+escolher um valor limiar e construir a rede baseada nele. Por exemplo, se escolhermos o valor 60 como limiar, construiremos uma rede onde haverá uma aresta
+entre dois vértices (sequências) se e somente se a similaridade entre eles em questão for maior ou igual a 60. Uma rede com limiar muito baixo apresenta muito
+ruído (muitas arestas, pouca possibilidade de identificação de suas características) e uma rede com limiar muito alto apresenta pouca informação (poucas
+arestas, também pouca possibilidade de identificação de suas características).
+
+Como resultado, temos 101 redes (grafos) representados pelas matrizes de adjacência, que foram geradas a partir da conexão de pares de vértices que
+têm uma similaridade maior ou igual a um valor limiar.
 
 Partindo das matrizes de adjacência podemos também criar matrizes de vizinhança \cite{andrade2009}, que podem ser obtidas calculando-se os caminhos mínimos
 \cite{bessa2008} entre os vértices da rede ou através da multiplicação booleana de matrizes de adjacência de ordens consecutivas \cite{andrade2006}. Na figura 
-\ref{fig:matriz-vizinhanca}, temos um exemplo de matriz de vizinhança (com os números em forma de cor).
+\ref{fig:matriz-vizinhanca}, temos um exemplo de matriz de vizinhança, onde cada cor representa um valor de distância entre dois vértices. Pela figura, temos
+que se a distância entre dois vértices é 1, o ponto que representa a relação entre eles recebe a cor azul escura. Se for 7, por exemplo, receberá a cor
+amarela.
+
+Alguns \textit{softwares} utilizados geram as matrizes em memória e as excluem após determinados cálculos, e outros simplesmente as salvam em certa estrutura
+de diretórios. A possibilidade de dar ao usuário o poder de gerenciar essas matrizes e realizar operações diversas, como compará-las ou visualizar gráficos
+a partir delas dentro de um projeto é algo importante que deve estar incluído no modelo.
 
 \begin{figure}
 \centering
@@ -77,21 +92,22 @@ Partindo das matrizes de adjacência podemos também criar matrizes de vizinhan�
 \label{fig:matriz-vizinhanca}
 \end{figure}
 
-Para a execução desta etapa, é utilizado o programa \textit{Rede Crítica}, desenvolvido na linguagem Fortran. As matrizes de vizinhança são importantes para
-etapas posteriores do processo, inclusive a etapa seguinte, que é a determinação do limiar crítico.
-
 \section{Limiar Crítico} \label{sec:limcrit}
 
 Já se sabe que o limiar crítico de uma rede revela a melhor relação entre ruído e informação. Existem diversas maneiras de se determinar o limiar
-crítico da rede. Uma delas, utilizada pelo FESC, é o método das distâncias. Nele, calcula-se a distância euclidiana entre matrizes de vizinhança
-de limiares consecutivos \cite{andrade2008}. A matriz que apresentar a maior distância entre a de limiar conscutivo
+crítico da rede. Uma delas, utilizada pelo FESC, é o método das distâncias \cite{andrade2011}. Nele, calcula-se a distância euclidiana entre matrizes de
+vizinhança de limiares consecutivos \cite{andrade2008}. A matriz que apresentar a maior distância entre a de limiar conscutivo
 ao seu será a escolhida como a matriz do limiar crítico, para representar a rede. É necessário escolher a melhor rede que representa o conjunto.
 A rede do limiar crítico cumpre bem este papel.
 
-Para a execução desta etapa, é utilizado o programa \textit{Rede Crítica}, desenvolvido na linguagem Fortran. Na figura \ref{fig:distancia}, temos o
-exemplo de um resultado do cálculo das distâncias entre matrizes de vizinhança, onde o limiar crítico é representado pelo pico do gráfico, ou seja,
-o valor 51. A rede que representa todo o conjunto é então a rede do limiar 51, que será utilizada na última etapa do processo, que é a clusterização,
-que utiliza um conceito chamado entremeação.
+Na figura \ref{fig:distancia}, temos o exemplo de um resultado do cálculo das distâncias entre matrizes de vizinhança, onde o limiar crítico é representado
+pelo pico do gráfico, ou seja, o valor 51. A rede que representa todo o conjunto é então a rede do limiar 51, que será utilizada na última etapa do processo,
+que é a clusterização, que utiliza um conceito chamado entremeação.
+
+O método das distâncias pode ser utilizado para a determinação do limiar crítico, mas isto pode ser feito através de outros métodos, como a verificação da
+variação do tamanho do maior \textit{cluster} da rede em função da variação do limiar. O processo poderia fornecer a possibilidade de escolha do método de
+análise dos limiares. Além disso, é importante a geração dos gráficos dos resultados destas execuções e exibição para o usuário, eliminando a possibilidade
+de trocas de contexto (como reinicialização da máquina, mudança de sistema operacional ou de \textit{software}) que atrasam o prosseguimento do processo.
 
 \begin{figure}
 \centering
@@ -107,9 +123,16 @@ de comunidades de Newman e Girvan \cite{newman2004} para identificar a estrutura
 da rede – aquela por onde passa a maior quantidade de caminhos mínimos de cada par de vértices por toda a rede – e eliminá-la, repetindo a operação
 até que não existam mais arestas na rede.
 
-Para a execução desta etapa, é utilizado o programa \textit{Dendo}, em Fortran. Conforme a operação é feita, é possível construir um histograma de remoção
-de arestas (dendrograma), que auxilia na identificação de comunidades e propicia as análises biológicas dos resultados, além da comparação com outros
-métodos da Biologia. A figura \ref{fig:dendrograma} mostra com detalhes um exemplo de dendrograma para o limiar crítico 51.\newline
+Conforme a operação é feita, é possível construir um histograma de remoção de arestas ou dendrograma, que começa com uma linha representando toda a rede
+e à medida em que a rede vai aumentando o número de partes desconexas da mesma com a remoção de arestas, a linha relativa à parte da rede que se quebrou
+se subdivide em duas. O dendrograma auxilia na identificação de comunidades e propicia as análises biológicas dos resultados, além da comparação com outros
+métodos da Biologia, visto que seu formato de árvore em que as linhas mais à direita representam cada uma das sequências proteicas (vértices da rede)
+é também o formado de saída dos outros métodos de Análise Filogenética. A figura \ref{fig:dendrograma} mostra com detalhes um exemplo de dendrograma
+para o limiar crítico 51.\newline
+
+Para a geração do dendrograma é necessária a escolha do limiar pelo usuário, e seu algoritmo recebe como entrada a matriz de vizinhança referente a este
+limiar, que em um sistema deve estar armazenada. A execução desta etapa é a mais demorada, variando de cinco minutos a mais de três meses, a depender do
+tamanho da rede. 
 
 \begin{figure}
 \centering
@@ -118,12 +141,29 @@ métodos da Biologia. A figura \ref{fig:dendrograma} mostra com detalhes um exem
 \label{fig:dendrograma}
 \end{figure}
 
-O método em questão é explicado com mais detalhes em \cite{goesneto2010} e \cite{andrade2011}. Ele utiliza uma determinada quantidade de programas,
+O método completo em questão é explicado com mais detalhes em \cite{goesneto2010} e \cite{andrade2011}. Ele utiliza uma determinada quantidade de programas,
 cada um seguindo certos padrões de entrada e saída, além de arquivos de configuração.
 Tais características dificultam sua utilização por pesquisadores de outras áreas que não Física ou Ciência da Computação, além de trazê-los uma preocupação
 desnecessária com localização e distribuição de arquivos. Para um melhor aproveitamento do método, seria mais interessante que o controle do processo de
 execução fosse realizado por um sistema, dispondo de um ambiente de fácil utilização e que realizasse o gerenciamento das informações por meio de uma camada
 de persistência, deixando a questão da organização dos dados transparente para o pesquisador.
+
+
+``
+Pelo que entendi esse paragrafo esta fechando o capitulo. 
+
+Acho que aqui voce pode então fazer um resumo das caracteristicas gerais do processo destacando os requisitos gerais, tipo:
+
+1) Controle de parametro de simulação
+2) persistencia de resultados intermediários
+3) produzir resultados visuais para analises;
+4) etc…..
+
+E ai entraria a tabela 2.1. Sendo que aqui acho que não cabe falar em Criar projeto, Abrir Projeto, ou coisas do genero, e sim requisitos mais gerais.
+
+A partir deles é que voce no proximo capitulo vai transformar em casos de uso.
+''
+
 
 A tabela \ref{tab:requisitos} mostra os requisitos necessários para a construção do Navi - Sistema para Gerenciamento de Informações e Execuções de Análise
 Filogenética Através de Redes Complexas.
@@ -155,6 +195,12 @@ Exportar dados do projeto para gráficos em um formato de programas plotadores \
 \end{tabular}
 \label{tab:requisitos}
 \end{table} 
+
+
+
+``Falta um paragrafo fechando o capítulo indicando que a partir desses requisitos o sistema NAVI será modelado no proximo capitulo.''
+
+
 
 \chapter{Navi - Sistema para Gerenciamento de Informações e Execuções de Análise Filogenética Através de Redes Complexas}
 \label{cap:navi}
