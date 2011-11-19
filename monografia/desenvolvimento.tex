@@ -59,8 +59,8 @@ descritas na próxima seção.
 \section{Construção e Caracterização das Redes} \label{sec:conscarac}
 
 O conceito de rede está associado ao de um grafo, que é um par $G = (V, E)$ de conjuntos onde $E \subseteq [V]^2$, então os elementos de $E$
-são subconjuntos de 2 elementos de $V$. Para evitar ambiguidades de notação, devemos assumir que $V \cap E = \O{}$. Os elementos de $V$ são os vértices
-(ou nós ou pontos) e os elementos são suas arestas (ou linhas) \cite{reinhard2010}.
+são subconjuntos de dois elementos de $V$. Para evitar ambiguidades de notação, devemos assumir que $V \cap E = \O{}$. Os elementos de $V$ são os vértices
+(ou nós ou pontos) e os elementos de $E$ são suas arestas (ou linhas) \cite{reinhard2010}.
 
 Podemos dizer que o estudo de uma rede é o estudo de um grafo, mas em uma escala maior. Redes podem ser tidas como grafos muito grandes e complexos,
 em que se torne mais preciso o uso de técnicas estatísticas para a sua análise \cite{bessa2008}. Na literatura de Redes Complexas, em geral, precisamos
@@ -148,93 +148,90 @@ desnecessária com localização e distribuição de arquivos. Para um melhor ap
 execução fosse realizado por um sistema, dispondo de um ambiente de fácil utilização e que realizasse o gerenciamento das informações por meio de uma camada
 de persistência, deixando a questão da organização dos dados transparente para o pesquisador.
 
-
-``
-Pelo que entendi esse paragrafo esta fechando o capitulo. 
-
-Acho que aqui voce pode então fazer um resumo das caracteristicas gerais do processo destacando os requisitos gerais, tipo:
-
-1) Controle de parametro de simulação
-2) persistencia de resultados intermediários
-3) produzir resultados visuais para analises;
-4) etc…..
-
-E ai entraria a tabela 2.1. Sendo que aqui acho que não cabe falar em Criar projeto, Abrir Projeto, ou coisas do genero, e sim requisitos mais gerais.
-
-A partir deles é que voce no proximo capitulo vai transformar em casos de uso.
-''
-
-
-A tabela \ref{tab:requisitos} mostra os requisitos necessários para a construção do Navi - Sistema para Gerenciamento de Informações e Execuções de Análise
+O processo pode então ser resumido tecnicamente como uma série de execuções de programas que recebem arquivos de entrada em determinado formato, realizam um
+processamento e geram um arquivo de saída. Os requisitos mais importantes, portanto, são a eliminação da necessidade de organização de arquivos intermediários
+pelos usuários e a conversão de formatos entre as execuções. Para agilizar aa execução, é importante também a geração de gráficos em determinadas etapas. A
+tabela \ref{tab:requisitos} mostra os requisitos necessários para a construção do Navi - Sistema para Gerenciamento de Informações e Execuções de Análise
 Filogenética Através de Redes Complexas.
 
 \begin{table}
 \centering
 \caption{Tabela de requisitos do Navi} % igual ao ambiente figura
-\begin{tabular}{c} % com este comando dizemos quantas colunas terá nossa tabela e a posição do texto dentro de cada coluna. Aqui temos três colunas (pois são três "c" dentre {}) e o texto estará centralizado em todas elas (indicado pelo "c", se quisermos alinhados à esquerda "l" ou direita "r"
+\begin{tabular}{p{5cm}p{10cm}} % com este comando dizemos quantas colunas terá nossa tabela e a posição do texto dentro de cada coluna. Aqui temos três colunas (pois são três "c" dentre {}) e o texto estará centralizado em todas elas (indicado pelo "c", se quisermos alinhados à esquerda "l" ou direita "r"
 \hline 
 %Requisito & Pontos & Classificação \\
-Requisito \\ 
+Requisito & Descrição \\ 
 \hline
 \hline
 %Cruzeiro & 52 & 1 \\
 %Sao Paulo & 50 & 2 \\
 %Gremio Barueri & 47 & 3 \\
-Criar novo projeto \\
-Abrir projeto existente \\
-Gerar matriz de adjacências de um limiar qualquer \\
-Gerar matriz de vizinhança de um limiar qualquer \\
-Visualizar o gráfico de matriz de vizinhança qualquer em forma de matriz de cores \\
-Analisar limiares \\
-Executar clusterização \\
-Comparar/executar congruência de redes de diferentes projetos \\
-Visualizar gráfico completo da rede \\
-Executar congruência em relação a um arquivo cadastrado em um formato padrão \\
-Exportar dados do projeto para gráficos em um formato de programas plotadores \\
-\hline
+Filtragem de arquivos no formato GenBank & O sistema deve receber um diretório e ler dele arquivos no formato do GenBank, e a partir deles criar os organismos,
+as sequências com nome, identificador, código e outras informações\\ \hline
+Controle do projeto & O sistema deve prover ao usuário a possibilidade de criar, salvar ou carregar um projeto. \\ \hline
+Salvar os organismos e sequências & O sistema deve salvar os organismos e as sequências para posterior consulta. Deve ser criada uma estrutura de
+armazenamento que livre o usuário da necessidade de instalar sistemas de bancos de dados relacionais \\ \hline
+Escolha de sequências & O sistema deve permitir a escolha de sequências para a geração da matriz de similaridades \\ \hline
+Gerar matrizes de adjacência & O sistema deve gerar matrizes de adjacência com base no limiar fornecido pelo usuário, também mostrando o gráfico de uma
+forma opcional \\ \hline
+Gerar matrizes de vizinhança & O sistema deve gerar matrizes de vizinhança com base no limiar fornecido pelo usuário, também mostrando o gráfico de uma
+forma opcional \\ \hline
+Analisar limiares & O sistema deve fornecer opções de métodos para a análise de limiares, mostrando obrigatoriamente o gráfico como resultado\\ \hline
+Executar clusterização & O sistema deve fornecer opções de métodos de clusterização, que depende da escolha de um limiar pelo usuário, além de mostrar o
+gráfico de seu resultado quando requisitado \\ \hline
+Visualizar gráfico completo da rede & O sistema deve permitir a visualização do gráfico completo da rede, após a escolha das comunidades, recuperando as
+informações salvas durante o processo de salvamento das sequências e organismos \\ \hline
+Congruência & O sistema deve permitir a comparação do resultado do método com o resultado de outros métodos de análise filogenética, além da comparação
+com o resultado pelo próprio método com outro conjunto de dados \\ \hline
+Exportar dados & O sistema deve permitir a exportação de dados necessários à geração de gráficos para o uso pelos usuários de ferramentas profissionais de
+plotagem \\ \hline
 \end{tabular}
 \label{tab:requisitos}
 \end{table} 
 
+A partir desses requisitos gerais, o sistema Navi será modelado, o que é mostrado no próximo capítulo.
 
 
-``Falta um paragrafo fechando o capítulo indicando que a partir desses requisitos o sistema NAVI será modelado no proximo capitulo.''
-
-
-
-\chapter{Navi - Sistema para Gerenciamento de Informações e Execuções de Análise Filogenética Através de Redes Complexas}
+\chapter{Modelagem do Navi - Sistema para Gerenciamento de Informações e Execuções de Análise Filogenética Através de Redes Complexas}
 \label{cap:navi}
 
-O desenvolvimento de um sistema para gerenciar o método de Análise Filogenética por Redes Complexas descrito anteriormente precisa seguir três importantes
-pilares: usabilidade, organização e transparência. O uso de diversos programas em variadas linguagens, com diferentes padrões de entrada e saída, e formas
-de configuração dificulta bastante sua execução por pesquisadores da área de Biologia, por exemplo, que são os principais utilizadores de métodos de Análise
-Filogenética.
+O processo descriito no capitulo anterior envolve diversos modulos independentes com diferentes padrões de entrada e saída, e formas de configuração. Tal
+fato dificulta bastante sua execução e o controle dos diversos conjuntos de dados gerados em cada etapa do processo, bem como dos parametros que os originaram.
+Portanto, o desenvolvimento de um sistema para gerenciar o método de Análise Filogenética por Redes Complexas descrito anteriormente precisa seguir três
+importantes pilares:
 
-Usabilidade é um fator importante por tornar o método passível de utilização por pessoas com pouco ou quase nenhum conhecimento de programação neste caso
-específico, e para gerar uma boa experiência do usuário e fazer com que seu uso seja agradável no caso geral. Segundo \cite{nielsen1993}, interfaces de
+\begin{itemize}
+ \item{Usabilidade é um fator importante por tornar o método passível de utilização por pessoas com pouco ou quase nenhum conhecimento de programação neste
+caso específico, e para gerar uma boa experiência do usuário e fazer com que seu uso seja agradável no caso geral. Segundo \cite{nielsen1993}, interfaces de
 usuário são uma parte muito mais importante para computadores em geral do que já foram um dia, e hoje respondem por mais de 45\% do código-fonte de um
-\textit{software}. Organização torna possível a criação, importação e exportação de projetos contendo as execuções necessárias para as análises,
+\textit{software}.}
+  \item{Organização torna possível a criação, importação e exportação de projetos contendo as execuções necessárias para as análises,
 onde os dados podem ser agrupados em um formato de arquivo possível de ser transportado entre múltiplas máquinas e contendo todas as informações
-necessárias para a retomada de execuções. Transparência, não menos importante, permite que as pessoas que estão executando o método não precisem se
+necessárias para a retomada de execuções.}
+  \item{Transparência, não menos importante, permite que as pessoas que estão executando o método não precisem se
 preocupar com detalhes de mais baixo nível de execução, como os locais em que os arquivos estão dispostos e situações relacionadas a conversão de
-formatos e adaptações diversas de dados.
+formatos e adaptações diversas de dados.}
+\end{itemize}
 
 Este trabalho seguiu o fluxo natural de projetos de Engenharia de Software \cite{softeng2005}, onde:
 
 \begin{itemize}
-  \item{Foi definido o escopo do sistema e levantamento de requisitos, baseado nos \textit{softwares} existentes e nos objetivos do projeto,
+  \item{Foi definido o levantamento de requisitos e o escopo do sistema, baseado nos objetivos do projeto,
 dispostos na seção \ref{sec:objetivos} da Introdução;}
-  \item{Foram estruturados os dados e as informações, e feita a organização em camadas e classes, além de definida a forma como o \textit{software}
+  \item{Foram estruturados os dados e as informações, e feita a organização em classes, além de definida a forma como o \textit{software}
 se comunicaria com os módulos externos, e também de definida a forma como o sistema organizaria e realizaria a persistência de seus dados, levando
-em consideração os requisitos pré-definidos;}
-  \item{Por fim, foram realizados os passos necessários à dinâmica de execução do sistema, o último passo antes da implementação. }
+em consideração os requisitos definidos;}
+  \item{Foram realizados os passos necessários à dinâmica de execução do sistema. }
+  \item{O sistema foi implementado e testado.}
 \end{itemize}
 
-\section{Escopo do Sistema} \label{sec:escopo}
+Este capítulo tratará das etapas de modelagem, a implementação e os testes serão tratados nos capítulos subsequentes.
+
+\section{Requisitos e Decisões de Modelagem} \label{sec:escopo}
 
 O método originalmente utiliza um banco de dados relacional para armazenamento de informações sobre as sequências proteicas. Isto força o usuário a instalar
-um banco de dados e configurá-lo corretamente. Um dos requisitos importantes é a retirada desta necessidade e, por consequência, a criação de uma nova forma
-de organização e disposição dos dados.
+um banco de dados e configurá-lo corretamente. Um dos requisitos importantes, como visto no capítulo anterior, é a retirada desta necessidade e,
+por consequência, a criação de uma nova forma de organização e disposição dos dados.
 
 Uma necessidade importante é se trabalhar com projetos, ou seja, dar a possibilidade aos usuários de criar novos projetos, importar projetos e salvar os
 projetos correntes. Isto permite uma interoperabilidade entre máquinas importante, e a organização de um arquivo que possa conter os dados necessários
@@ -264,19 +261,19 @@ informações sobre a sequência e o organismo a que o vértice está representa
 \label{fig:casos-uso}
 \end{figure}
 
-Outro requisito importante é a possibilidade de comparação entre o método e os outros métodos já consolidados de análise filogenética (através do fornecimento
+Outro detalhe importante é a possibilidade de comparação entre o método e os outros métodos já consolidados de análise filogenética (através do fornecimento
 de alguma arquivo em determinado formato), além de poder comparar com outro projeto criado pelo próprio sistema. A figura \ref{fig:casos-uso} exibe os casos
-de uso definidos para o Navi. Para atender ao escopo agora definido, se faz necessária a organização das informações através de um diagrama de classes,
+de uso definidos para o Navi. Para prosseguir com a modelagem, se faz necessária a organização das informações através de um diagrama de classes,
 mostrado na próxima seção.
 
 \section{Organização das Informações} \label{sec:organizacao}
 
-A organização das informações do sistema é um passo importante para que se tenha qualidade e se atenda aos requisitos propostos. Dentro de um boa modelagem,
-é imprescindível a criação de um diagrama de classes para definir entidades e suas responsabilidades, além de seus aspectos funcionais e os dados (e formatos)
-em que cada uma é responsável.
+A organização das informações do sistema é um passo importante para que se tenha qualidade e se atenda aos requisitos propostos. É imprescindível, portanto,
+a criação de um diagrama de classes para definir entidades e suas responsabilidades, além de seus aspectos funcionais e os dados (e formatos) em que cada uma
+é responsável.
 
-Para um melhor entendimento desta etapa, foi criado um diagrama de classes simplificado, como pode ser visto na figura \ref{fig:diagrama-classes-simplificado}.
-O diagrama de classes completo pode ser encontrado no Apêndice.
+Como resultado da etapa de modelagem de dados, foi criado um diagrama de classes simplificado, como pode ser visto na figura
+\ref{fig:diagrama-classes-simplificado}. O diagrama de classes completo pode ser encontrado no Apêndice.
 
 \begin{figure}
 \centering
@@ -287,21 +284,26 @@ O diagrama de classes completo pode ser encontrado no Apêndice.
 
 A classe principal do Navi é a classe \textit{Project}. Todas as interações do usuário com a \textbf{GUI} passam por ela, que controlará operações com
 matrizes, análises, tratamento das informações biológicas e dos dados de entrada. Através dela é possível criar novo projeto, abrir projeto existente e
-salvar projeto corrente (requisitos 1 e 2). A classe também lida com o módulo \textit{Persistence}, que cuida do salvamento dos dados em disco. Não houve
-preocupação direta com o módulo \textit{Persistence}, então sua função é basicamente serializar e desserializar os objetos do sistema, além de prover
+salvar projeto corrente (casos de uso 1 e 2). Um projeto para o sistema reúne todos os dados de informações de execução de um conjunto de dados, desde a
+a escolha de sequências, geração de matriz de similaridade, matrizes de adjacência e vizinhança, gráficos, definição de comunidades, clusterização,
+congruência. A classe \textit{Project} também lida com o módulo \textit{Persistence}, que mapeia as classes do sistemas onde é necessário
+persistir a estruturas de dados e armazenamento em disco. Sua função inclui serializar e desserializar os objetos do sistema, além de prover
 a organização dos dados do projeto e compressão em um arquivo de extensão própria (.nav).
 
 \sigla{GUI}{Graphical User Interface}
 
-A filtragem do banco de dados biológico (sequências proteicas é realizada pela classe \textit{BioHandler}, que a partir desta operação instancia objetos
-da classe \textit{Organism} e da classe \textit{Sequence}, ou seja, cria organismo e associa sequências a eles. Então ela utiliza o pacote \textit{Blast},
-que realiza as comparações entre sequências, para gerar e instanciar a matriz de similaridades.
+A filtragem do banco de dados biológico (sequências proteicas que estão em vários arquivos no diretório especificado pelo usuário) é realizada pela classe
+\textit{BioHandler}, que a partir desta operação instancia objetosda classe \textit{Organism} e da classe \textit{Sequence}, ou seja, cria organismo e associa
+sequências a eles. Então ela utiliza o pacote \textit{Blast}, que realiza as comparações entre sequências, para gerar e instanciar a matriz de similaridades.
 
 O Navi possui três matrizes, representadas pelas classes \textit{SimilarityMatrix}, \textit{AdjacencyMatrix} e \textit{NeighbourhoodMatrix}. As três herdam
-da classe \textit{Matrix} por conterem características em comum. Só é possível ter uma matriz de similaridades por projeto. Em relação às demais, é permitido
-haver mais de uma. Se pesquisas posteriores desenvolverem outro tipo de matriz, ela poderá ser facilmente incorporada ao sistema através da adição de uma
-nova classe que será uma especificação da classe \textit{Matrix}. É possível gerar matrizes de adjacência ou de vizinhança, além da visualização de seus
-respectivos gráficos a qualquer momento após a escolha das sequências e geração da matriz de similaridades, de acordo com os requisitos 3, 4 e 5.
+da classe \textit{Matrix} por conterem características em comum. Só é possível ter uma matriz de similaridades por projeto, pois como um projeto está associado
+a execuções de determinado conjunto de sequências escolhido pelo usuário, há apenas uma matriz de similaridades possível para qualquer conjunto de sequências.
+Em relação às demais (adjacência e vizinhança), é possível haver mais de uma. Se pesquisas posteriores desenvolverem outro tipo de matriz, ela poderá ser
+facilmente incorporada ao sistema através da adição de uma nova classe que será uma especificação da classe \textit{Matrix}, o que explica o fato de a classe
+\textit{Matrix} ser um classe abstrata. É possível gerar matrizes de adjacência ou de vizinhança, além da visualização de seus respectivos gráficos a qualquer
+momento após a escolha das sequências e geração da matriz de similaridades, de acordo com os casos de uso 3, 4 e 5. A classe \textit{Project} contém métodos
+para a geração das matrizes, o que pode ser visto no diagrama de classes completo. Após a geração das matrizes, a camada de persistência as salva em disco.
 
 A classe \textit{Analysis} é uma classe abstrata que concentra todos os tipos de análises que podem ser feitas sobre as matrizes relacionadas às redes
 proteicas. Existem três tipos de análises: Análise de Limiares (classe \textit{ThresholdAnalysis}), Clusterização (classe \textit{Clustering}) e
@@ -309,33 +311,35 @@ Congruência (class \textit{Congruence}). Como descrito anteriormente, existem d
 \textit{Distance}) e tamanho do maior cluster (\textit{LargestCluster}). Elas são subclasses de \textit{ThresholdAnalysis}, que também é abstrata. Essa
 abordagem permite que outros métodos de análise de limiares possam ser adicionados de forma facilitada por meio de herança. O mesmo acontece com a
 clusterização: a classe \textit{Clustering} é abstrata, e tem \textit{NewmanGirvan} como classe filha, que implementa o único método de clusterização
-usado no processo até o momento. Os requisitos 6 e 7 são atendidos com esta abordagem.
+usado no processo até o momento (casos de uso 6 e 7).
 
 A análise de congruência permite a comparação da divisão de comunidades entre diversos projetos executados sob o Navi, como também entre outros métodos de
 análise filogenética, através do fornecimento de um arquivo em um formato padrão. Isso é possível graças à classe \textit{Congruence}, que herda da classe
-\textit{Analysis}, atendendo aos requisitos 8 e 10.
+\textit{Analysis} (casos de uso 8 e 10).
 
 Outras funcionalidades extras do sistema incluem visualização do gráfico completo da rede, que utiliza a classe \textit{CommunityMap} para desenhar
-os vértices que pertencem a uma mesma comunidade de determinada cor (requisito 9); e também a possibilidade de exportar dados do projeto para
-gráficos em um formato de programas plotadores, utilizando-se de atributos de diversas classes, a depender do gráfico que se deseja (requisito 11).
+os vértices que pertencem a uma mesma comunidade de determinada cor (caso de uso 9); e também a possibilidade de exportar dados do projeto para
+gráficos em um formato de programas plotadores, utilizando-se de atributos de diversas classes, a depender do gráfico que se deseja (caso de uso 11).
 
 A seção seguinte explicará com mais detalhes como se dão os fluxos de execução do sistema para gerar, guardar e recuperar os dados necessários para a
 execução do método do FESC de análise filogenética usando Redes Complexas.
 
 \section{Dinâmica de Execução do Sistema} \label{sec:dinamica}
 
-Como foi dito anteriormente, a classe \textit{Project} é a classe principal do sistema, então após passar pela interface gráfica, qualquer interação do
-usuário chega primeiro nesta classe. Nesta seção serão abordados três importantes diagramas de sequência do Navi, com uma ligeira discussão sobre sua
-dinâmica. Outros diagramas de sequência podem ser encontrados no Apêndice.
+Como discutido na seção anterior, a classe \textit{Project} é a classe principal do sistema, para onde os eventos captados pela interface gráfica são
+enviados. Nesta seção serão abordados três importantes diagramas de sequência do Navi: criar novo projeto, gerar matriz de adjacência de um limiar qualquer
+e analisar limiares. Outros casos de uso são bastante simples, ou são análogos a um dos três mostrados aqui, ou até mesmo não foram implementados. Será
+apresentada uma ligeira discussão sobre sua dinâmica. Outros diagramas de sequência podem ser encontrados no Apêndice \textbf{[COLOCO TODOS OS OUTROS
+DIAGRAMAS NO APENDICE?]}.
 
 O primeiro diagrama de sequência, como pode ser visto na figura \ref{fig:new-project}, se refere à criação de um novo projeto. Primeiro, qualquer projeto
-que esteja em execução é finalizado e a classe \textit{Persistence} salva qualquer alteração nos objetos do sistema. Uma decisão de \textit{design} importante
+que esteja em execução é finalizado e a classe \textit{Persistence} salva qualquer alteração nos objetos do sistema. Uma decisão de projeto importante
 é que após a instanciação de uma nova classe \textit{Project} é criado também um novo objeto \textit{BioHandler}, que já filtra os dados passados pelo
 usuário, criando objetos \textit{Organism} e \textit{Sequence}. Após isto, \textit{Persistence} salva os dados do projeto.
 
 Em seguida o usuário escolherá as sequências com que a matriz de similaridades será gerada, onde \textit{BioHandler} passará as sequências, duas a duas,
 para que o pacote \textit{Blast} possa calcular as porcentagens, e então o primeiro possa montar a matriz de similaridades. Por fim, os dados do projeto
-são salvos em disco. \newline
+são salvos em disco pela classe de persistência. \newline
 
 \begin{figure}
 \centering
@@ -377,12 +381,12 @@ de implementação e discutirá os resultados em relação aos objetivos propost
 Neste capítulo são apresentadas de forma detalhada as técnicas utilizadas para o desenvolvimento do Navi.
 
 
-\section{Ambiente de execução} \label{sec:ambiente}
+\section{Ambiente de execução do processo antigo} \label{sec:ambiente}
 
-O método como era desenvolvido e estava sendo executado exigia uma ambiente GNU/Linux, um compilador Fortran, um compilador C, pacotes para a execução
-de \textit{scripts} Perl e a biblioteca \textit{BioPerl}, além de um banco de dados relacional, neste caso o MySQL. Após o \textit{download} das sequências]
-a partir do banco de dados GenBank, as mesmas eram colocadas em um mesmo diretório, onde uma série de \textit{scripts} Perl eram executados, realizando os
-seguintes passos, nesta ordem:
+O ambiente operacional atual envolve uma série de ferramentas e linguagens: exige um ambiente GNU/Linux, um compilador Fortran, um compilador C, pacotes para
+a execução de \textit{scripts} Perl e a biblioteca \textit{BioPerl}, além de um banco de dados relacional, neste caso o MySQL. Após o \textit{download} das
+sequências a partir do banco de dados GenBank, as mesmas eram colocadas em um mesmo diretório, onde uma série de \textit{scripts} Perl eram executados,
+realizando os seguintes passos, nesta ordem:
 
 \begin{itemize}
   \item{Listagem de arquivos com extenção .seq, sugerindo se tratarem de arquivos do GenBank;}
@@ -396,24 +400,26 @@ De posse da matriz de similaridades, é necessária a execução de outro progra
 fosse possível a escolha de um limiar crítico e então a continuação do método. Pela abordagem do tamanho do maior cluster, existe o programa achacluster,
 codificado em Fortran. Para a abordagem do método das distâncias o FESC dispõe de duas alternativas: (i) a utilização do GeraRedes e em seguida o
 Distância (ambos em C++); (ii) a utilização do RedeCrítica (Fortran). As duas opções têm como entrada a matriz de similaridades \footnote{O GeraRedes 
-também gera as matrizes de adjacência e vizinhança e as deixa em uma pasta.} e geram um arquivo cujo formato possibilita a geração de um gráfico de pontos,
+gera também as matrizes de adjacência e vizinhança e as deixa em uma pasta.} e geram um arquivo cujo formato possibilita a geração de um gráfico de pontos,
 de onde é possível determinar o limiar crítico.
 
 Utilizando então a matriz de vizinhança da rede do limiar crítico, executamos o Dendo (Fortran) que aplica o cálculo do \textit{Betweenness}, gerando como
 resultado um dendrograma (histograma de remoção de arestas, indicando modularização da rede). O dendrograma, em conjunto com a matriz de cores e as sequências
 permitem análises biológicas sobre os resultados.
 
+Os módulos permanecem os mesmos, mas o controle do processo é todo gerenciado pela GUI e classes \textit{Project} e \textit{Persistence}, com auxílio de
+outras classes na execução e comunicação dos módulos externos. A seção \ref{sec:discussao} detalha como se dá este gerenciamento.
+
 \section{Ferramentas de Desenvolvimento} \label{sec:ferramentas}
 
 A área de Bioinformática hoje em dia tem utilizado bastante Python \cite{python} no lugar de Perl para comparações entre sequências, utilização de algoritmos
 genéticos, entre outras técnicas na pesquisa em geral. É uma linguagem bastante rica e poderosa, com uma grande facilidade de uso, compreensão e
 desenvolvimento, rapidez na implementação e prototipagem rápida, bibliotecas robustas para o desenvolvimento de \textit{software} científico, cálculos
-diversos e geração de gráficos, além de ser considerada uma ``linguagem cola'' por se comunicar facilmente com outras linguagens. Além disso, o autor do
-trabalho é bastante familiarizado com a mesma, constituindo-se então de uma boa escolha para o desenvolvimento do Navi.
+diversos e geração de gráficos, além de ser considerada uma ``linguagem cola'' por se comunicar facilmente com outras linguagens.
 
 Para a criação das janelas foram testados o Tkinter (que vem com a linguagem Python), o Gtk e o Qt. O Qt foi escolhido pela sua quantidade de recursos,
 facilidade de utilização, desenvolvimento e manutenção, total suporte à linguagem Python através do PyQt \cite{pyqt}, além de fornecer o \textit{Designer},
-um bom \textit{software} para a criação de janelas e interface gráfica em geral (uma ilustração do mesmo pode ser vista na figura \ref{fig:designer}).
+um bom ambiente de autoria para a criação de janelas e interface gráfica em geral (uma ilustração do mesmo pode ser vista na figura \ref{fig:designer}).
 A utilização de Qt também permite a possibilidade de execução do Navi em ambientes Windows e Mac, faltando apenas a adaptação do \textit{back-end} para um
 suporte completo a essas outras plataformas.
 
@@ -424,10 +430,13 @@ suporte completo a essas outras plataformas.
 \label{fig:designer}
 \end{figure}
 
-Para a codificação, foi utilizado um simples editor de textos (Gedit). As bibliotecas necessárias e as mudanças, incluindo algumas decisões de implementação
-serão discutidas na próxima seção.
+As bibliotecas necessárias e as mudanças, incluindo algumas decisões de implementação serão discutidas na próxima seção.
 
 \section{Discussão} \label{sec:discussao}
+
+``
+Na discussão acho mais importante voce destacar as mudanças que tornam a execução de uma simulação um processo mais simples e controlado,
+o que era o objetivo principal do trabalho desde o inicio!!''
 
 A utilização da linguagem Python para o desenvolvimento do Navi acarretou certas consequências. Uma delas foi a substituição do \textit{BioPerl} pelo
 \textit{BioPython} \cite{biopython}, um conjunto de ferramentas para computação biológica feito em Python, equivalente ao \textit{BioPerl} para \textit{Perl}.
@@ -464,6 +473,11 @@ A geração de matrizes de adjacência é feita na contrução de um objeto da c
 necessidade de invocar módulos externos, pela simplicidade da operação. Já para gerar as matrizes de vizinhança, o módulo Madchar é invocado. A operação
 também é realizada durante a construção de um objeto da classe \textit{NeighbourhoodMatrix}, onde seu construtor invoca o método
 \textit{generate\_neighbourhood\_values}, que pode ser visto na listagem \ref{lst:gennbhvalues}.
+
+``
+Acho desnecessário mostrar codigo !!
+
+Mais interessante voce mostrar a interface em vários momentos do processo.''
 
 \lstset{language=python}
 \lstset{commentstyle=\textit}
@@ -577,15 +591,15 @@ que não permite uma integração perfeita, mas se utiliza do poder da linguagem
 está sendo executado. A listagem \ref{lst:clustering} mostra o trecho de código que trata da invocação do módulo externo. A figura \ref{fig:navi-dendrogram}
 mostra o dendrograma, resultado final do método, gerado pelo Navi.
 
-A etapa de congruência foi modelada mas não foi implementada, devido a sua complexidade e à falta de tempo hábil. Mais informações sobre a congruência podem
+A etapa de congruência foi modelada mas não foi implementada no protótipo por questões de tempo. Mais informações sobre a congruência podem
 ser vistas em \textbf{[CITAR]}. Como o Navi não é capaz de gerar gráficos tão bons quanto uma suíte profissional dedicada à plotagem destinada a artigos e
 trabalhos científicos em geral, e há perda do controle do usuário sobre a localização e o formato dos dados gerados entre as diversas etapas do processo, se
-faz necessária a exportação desses arquivos para que o usuário os utilize como fonte para utilização em programas plotadores, como consta no requisito
+faz necessária a exportação desses arquivos para que o usuário os utilize como fonte para utilização em programas plotadores, como consta no caso de uso
 12. Esta funcionalidade, no entanto, não foi implementada no protótipo.
 
-Duas outras funcionalidades também não foram implementadas no protótipo, que são a definição de módulos/comunidades (requisito 8), onde o usuário define
-com base na matriz de cores e no dengrograma quais sequências pertencem a quais comunidades e com isso pode ser gerado o gréfico completo da rede (requisito
-10) para visualização, onde o usuário pode ver as comunidades separadas por cores, além de obter facilmente informações sobre as sequências clicando nos
+Duas outras funcionalidades também não foram implementadas no protótipo, que são a definição de módulos/comunidades (caso de uso 8), onde o usuário define
+com base na matriz de cores e no dengrograma quais sequências pertencem a quais comunidades e com isso pode ser gerado o gréfico completo da rede (caso de
+uso 10) para visualização, onde o usuário pode ver as comunidades separadas por cores, além de obter facilmente informações sobre as sequências clicando nos
 vértices.
 
 \begin{figure}
