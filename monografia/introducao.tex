@@ -12,16 +12,16 @@ em computação aplicada.
 
 Hoje em dia a demanda por profissionais e pesquisadores de Ciência da Computação nestas áreas tem se mostrado muito grande, e a junção de duas ou mais destas
 áreas em um contexto multidisciplinar tem guiado as pesquisas a resultados espetaculares, além de gerar produtos e também ideias para novos projetos de
-pesquisa. Em um contexto de Física Estatística e Sistemas Complexos, aliando-se conceitos matemáticos \cite{andrade2009} e Teoria dos Grafos, foi possível o
-desenvolvimento de um método para Análise Filogenética pelo FESC, que obteve bons resultados na comparação com outros métodos existentes \cite{andrade2011}.
+pesquisa. Em um contexto de Física Estatística e Sistemas Complexos, aliando-se conceitos matemáticos e Teoria dos Grafos, foi possível o
+desenvolvimento de um método para Análise Filogenética, que obteve bons resultados na comparação com outros métodos existentes \cite{andrade2011}.
 
 Nos três anos de pesquisa e desenvolvimento do método, houve uma maior atenção voltada para resultados, o que fez com que o processo para que se chegasse
 a eles ficasse prejudicado, representando um exemplo de construção de software sem metodologia, e com isso necessitando de uma curva de aprendizado grande
 para a sua execução, além de cuidados com relação a organização e nomenclatura de arquivos, configurações, formatação de dados de entrada e saída para o
 uso em diferentes programas. A partir do momento em que o método está concluído, testado e comparado com outros métodos, se faz necessário sua organização
-para diminuir esta curva de aprendizado, levando Engenharia de Software ao sistema atual a partir de (i) concepção de uma arquitetura que permita uma
-separação em camadas de interação com o usuário, lógica de negócio e persistência; (ii) controle de execução do processo; (iii) possibilidade de
-extensibilidade; (iv) utilização de código legado.
+para diminuir esta curva de aprendizado. A aplicação de uma metodologia de Engenharia de Software ao sistema atual se dá a partir de (i) concepção de uma
+arquitetura que permita uma separação em camadas de interação com o usuário, lógica de negócio e persistência; (ii) controle de execução do processo;
+(iii) possibilidade de extensibilidade; (iv) utilização de código legado.
 
 \section{Motivação}
 
@@ -37,31 +37,26 @@ resultados entre os diferentes métodos existentes.
 \section{Objetivos} \label{sec:objetivos}
 
 O objetivo deste trabalho é aplicar Engenharia de Software sobre um conjunto de ferramentas e códigos legados desenvolvidos por mim e diversos outros
-pesquisadores do FESC (Física Estatística e Sistemas Complexos), desenvolvidos com pouca metodologia, seguido de um levantamento do era necessário para que
-se pudesse organizar os \textit{softwares} utilizados objetivando uma melhor execução e experiência de utilização por pesquisadores que detém de pouco
-ou quase nenhum conhecimento de desenvolvimento de software e ambientes Linux, além de permitir sua evolução e extensibilidade.
+pesquisadores do FESC (Física Estatística e Sistemas Complexos), utilizando-se de pouca metodologia, seguido de um levantamento do que era necessário para que
+se pudesse organizar os programas e \textit{scripts} utilizados objetivando uma melhor execução e experiência de utilização por pesquisadores que detém de
+pouco ou quase nenhum conhecimento de desenvolvimento de software e ambientes Linux, além de permitir sua evolução e extensibilidade.
 
-As práticas de Engenharia de Software, como a definição de requisitos, modelagem e implementação do sistema estão entre os objetivos específicos por serem
-essenciais para garantir um bom projeto de \textit{software}, que consequentemente possar ser utilizado, mantido, extendido e evoluído facilmente.
+A utilização de uma metodologia tradicional de Engenharia de Software, com a definição de requisitos, modelagem e implementação do sistema estão entre os
+objetivos específicos por serem essenciais para garantir um bom projeto de \textit{software}, que consequentemente possar ser utilizado, mantido, extendido
+e evoluído facilmente.
 
 \sigla{FESC}{Física Estatística e Sistemas Complexos - Instituto de Física - UFBA}
 
 \section{Contribuições}
 
-Este trabalho irá fornecer um pacote de \textit{software} com uma modelagem bem elaborada, incluindo requisitos e interações entre o usuário
+Este trabalho irá propor um pacote de \textit{software} com uma modelagem bem elaborada, incluindo requisitos e interações entre o usuário
 e o sistema (Diagrama de Casos de Uso), organização de dados e informações (Diagrama de Classes) e dinâmica de execução do sistema (Diagramas de Sequência).
-O trabalho de modelagem virá acompanhado de um protótipo de \textit{software} que inclui algumas das funcionalidades dispostas nos requisitos.
+O trabalho de modelagem virá acompanhado de um protótipo que inclui algumas das funcionalidades dispostas nos requisitos.
 
-Podemos dividir as contribuições pelos dois grupos de usuários deste sistema:
-
-\begin{itemize}
-  \item{\textbf{Para os desenvolvedores:} um modelo de sistema, com uma documentação abrangente, permitindo a fácil
-manutenção, inclusão das funcionalidades levantadas nos requisitos e ainda não implementadas e extensão do modelo para novos requisitos}
-  \item{\textbf{Para os pesquisadores:} um ambiente de fácil utilização e execução de Análise Filogenética através de Redes Complexas, com
-geração de gráficos, armazenamento e organização de arquivos, salvamento e carregamento de projetos, direcionado para pesquisadores
-que não são da área de Ciência da Computação.}
-\end{itemize}
-
+O sistema beneficiará dois grupos de usuários: (i) desenvolvedores, com um modelo de sistema e uma documentação abrangente, permitindo a fácil
+manutenção, inclusão das funcionalidades levantadas nos requisitos e ainda não implementadas e extensão do modelo para novos requisitos; (ii) pesquisadores,
+com um ambiente de fácil utilização e execução de Análise Filogenética através de Redes Complexas, com geração de gráficos, armazenamento e organização de
+arquivos, salvamento e carregamento de projetos, direcionado para pesquisadores que não são da área de Ciência da Computação.
 
 \section{Estrutura do trabalho}
 
@@ -69,14 +64,13 @@ Esta monografia está organizada da seguinte maneira:
 
 No capítulo \ref{cap:analisefilo} apresenta-se a fundamentação teórica com seus principais conceitos
 e os passos para a execução do método de Análise Filogenética através de Redes Complexas: escolha das sequências proteicas,
-similaridade, construção e caracterização de redes, limiar crítico e entremeação e centralidade.
+similaridade, construção e caracterização de redes, limiar crítico e entremeação e centralidade, incluindo requisitos e a proposta.
 
 No capítulo \ref{cap:navi}, mostra-se o projeto do sistema propriamente dito, e suas questões
-de escopo, organização das informações e sua dinâmica de execução.
+de escopo, organização das informações, casos de uso, modelagem de dados e sua dinâmica de execução.
 
 No capítulo \ref{cap:resultados} são mostrados detalhes de implementação, ambiente de execução, ferramentas de
-desenvolvimento, além de discutidos quais os objetivos foram alcançados , e levantadas
-outras questões importantes e dificuldades encontradas.
+desenvolvimento, além de discutidos quais os objetivos foram alcançados, e levantadas outras questões importantes e dificuldades encontradas.
 
 Por fim, é apresentada a conclusão do trabalho e os trabalhos futuros (capítulo \ref{cap:conclusao}), além de anexos e referências bibliográficas.
 

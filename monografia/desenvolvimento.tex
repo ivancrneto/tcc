@@ -13,11 +13,8 @@ determinadas rotas metabólicas permite o desenvolvimento de um método que não
 A área de Física Estatística atualmente apresenta forte caráter interdisciplinar, permitindo a modelagem e análise de diversos sistemas
 que englobam outras áreas de conhecimento. A aplicação da Teoria das Redes Complexas em Bioinformática, apoiada pela Teoria dos Grafos,
 juntamente com conhecimentos de Física, Matemática e Biologia vem se mostrando como uma alternativa interessante na modelagem de sistemas biológicos,
-e serviu para que o FESC (Física Estatística e Sistemas Complexos - Instituto de Física - UFBA) desenvolvesse um método para Análise Filogenética.
-
-Como foi dito anteriormente, o objetivo deste trabalho é controlar o processo e fornecer um ambiente para o armazenamento de informações em relação às
-execuções, além de uma interface de fácil utilização para um pesquisador da área de Biologia. A figura \ref{fig:fluxograma} mostra o fluxograma geral
-sobre os passos da execução do método. As seções que seguem explicam estes passos com mais detalhes.
+e serviu para que o FESC desenvolvesse um método para Análise Filogenética. A figura \ref{fig:fluxograma} mostra o fluxograma geral sobre os passos da
+execução do método. As seções que seguem explicam estes passos com mais detalhes.
 
 \begin{figure}
 \centering
@@ -37,24 +34,25 @@ uma rota metabólica, separando as sequências pela enzima que as produzem na ro
 
 \sigla{NCBI}{National Center for Biotechnology Information}
 
-Esta é uma etapa manual, onde são feitas buscas por data e são realizadas determinadas filtragens no site do NCBI para obter as sequências desejadas. O
-sistema desenvolvido neste trabalho leva em consideração que as sequências já foram escolhidas e as recebe como entrada inicial. O resultado desta etapa
-são arquivos no formato GenBank (NCBI) que são filtrados e organizados para facilitar a identificação de organismos em etapas posteriores e proporcionar
-a execução da similaridade. Um requisito importante então é a capacidade de receber um ou mais arquivos naquele formato e a partir deles realizar uma
-filtragem e gerar a matriz de similaridades.
+Esta é uma etapa manual, onde são feitas buscas por data e são realizadas determinadas filtragens no site do NCBI para obter as sequências desejadas, 
+resultando em arquivos no formato GenBank (NCBI). Um requisito importante é a capacidade de receber um ou mais arquivos neste formato e a partir deles
+realizar uma filtragem e gerar a matriz de similaridades. O sistema desenvolvido neste trabalho leva em consideração que as sequências já foram escolhidas
+e as recebe como entrada inicial. O resultado desta etapa são arquivos filtrados e organizados para facilitar a identificação de organismos em etapas
+posteriores e proporcionar a execução da similaridade.
 
 \section{Similaridade} \label{sec:similaridade}
 
-Para executar a análise de similaridades entre as sequências proteicas, a partir da filtragem realizada no passo anterior e o armazenamento em um banco
-de dados relacional, é utilizada ferramenta BLAST (Basic Alignment Search Tool) \cite{blast1997} para comparação entre as sequências. O BLAST trabalha
-tanto com sequências nucleotídicas quanto proteicas. O interesse do uso do BLAST para o método em questão está na comparação de sequências proteicas
+Uma vez selecionadas as sequências, o próximo passo é executar a análise de similaridades entre as sequências proteicas e o armazenamento em um banco
+de dados relacional. Para isso é utilizada ferramenta BLAST (Basic Alignment Search Tool) \cite{blast1997} para comparação entre as sequências. O BLAST
+trabalha tanto com sequências nucleotídicas quanto proteicas. O interesse do uso do BLAST para o método em questão está na comparação de sequências proteicas
 utilizando o alinhamento local, que compara duas sequências isoladamente e retorna uma porcentagem de similaridade entre elas.
 
 \sigla{BLAST}{Basic Alignment Search Tool}
 
-A partir do resultado do BLAST, pode-se construir uma matriz de similaridades \cite{andrade2006}, onde as linhas e colunas representam as sequências e
-uma posição $(i, j)$ da matriz armazena a similaridade entre elas. Desta matriz são construídas as redes que caracterizam as sequências, que serão
-descritas na próxima seção.
+A capacidade de operar com o BLAST é um requisito de grande importância neste contexto, tanto no envio das sequências para comparação quanto no recebimento
+e tratamento de seus resultados. A partir deles, pode-se construir uma matriz de similaridades \cite{andrade2006}, onde as linhas e colunas representam as
+sequências e uma posição $(i, j)$ da matriz armazena a similaridade entre elas. Desta matriz são construídas as redes que caracterizam as sequências, que
+serão descritas na próxima seção.
 
 \section{Construção e Caracterização das Redes} \label{sec:conscarac}
 
@@ -64,16 +62,13 @@ são subconjuntos de dois elementos de $V$. Para evitar ambiguidades de notaçã
 
 Podemos dizer que o estudo de uma rede é o estudo de um grafo, mas em uma escala maior. Redes podem ser tidas como grafos muito grandes e complexos,
 em que se torne mais preciso o uso de técnicas estatísticas para a sua análise \cite{bessa2008}. Na literatura de Redes Complexas, em geral, precisamos
-encontrar uma rede de determinado conjunto que melhor caracterize este conjunto. Essa escolha se dá pela relação entre ruído e informação \cite{barabasi2004}.
+encontrar uma rede de determinado conjunto que melhor o caracterize. Essa escolha se dá pela relação entre ruído e informação \cite{barabasi2004}.
 
-Partindo da matriz de similaridades, podemos construir até 101 (similaridade 0\%-100\%) matrizes de adjacência, se levarmos em consideração que podemos
-escolher um valor limiar e construir a rede baseada nele. Por exemplo, se escolhermos o valor 60 como limiar, construiremos uma rede onde haverá uma aresta
-entre dois vértices (sequências) se e somente se a similaridade entre eles em questão for maior ou igual a 60. Uma rede com limiar muito baixo apresenta muito
-ruído (muitas arestas, pouca possibilidade de identificação de suas características) e uma rede com limiar muito alto apresenta pouca informação (poucas
-arestas, também pouca possibilidade de identificação de suas características).
-
-Como resultado, temos 101 redes (grafos) representados pelas matrizes de adjacência, que foram geradas a partir da conexão de pares de vértices que
-têm uma similaridade maior ou igual a um valor limiar.
+Partindo da matriz de similaridades, podemos construir até 101 matrizes de adjacência, relacionando a uma escala de similaridade de 0\% a 100\%, se levarmos
+em consideração que podemos escolher um valor limiar e construir a rede baseada nele. Por exemplo, se escolhermos o valor 60 como limiar, construiremos uma
+rede onde haverá uma aresta entre dois vértices (sequências) se e somente se a similaridade entre eles em questão for maior ou igual a 60. Uma rede com limiar
+muito baixo apresenta muito ruído, ou seja, muitas arestas, o que leva a pouca possibilidade de identificação de suas características. Por outro lado, uma
+rede com limiar muito alto apresenta pouca informação, ou seja, poucas arestas, levando também a pouca possibilidade de identificação de suas características.
 
 Partindo das matrizes de adjacência podemos também criar matrizes de vizinhança \cite{andrade2009}, que podem ser obtidas calculando-se os caminhos mínimos
 \cite{bessa2008} entre os vértices da rede ou através da multiplicação booleana de matrizes de adjacência de ordens consecutivas \cite{andrade2006}. Na figura 
@@ -81,9 +76,9 @@ Partindo das matrizes de adjacência podemos também criar matrizes de vizinhan�
 que se a distância entre dois vértices é 1, o ponto que representa a relação entre eles recebe a cor azul escura. Se for 7, por exemplo, receberá a cor
 amarela.
 
-Alguns \textit{softwares} utilizados geram as matrizes em memória e as excluem após determinados cálculos, e outros simplesmente as salvam em certa estrutura
+Alguns programas utilizados geram as matrizes em memória e as excluem após determinados cálculos, e outros simplesmente as salvam em certa estrutura
 de diretórios. A possibilidade de dar ao usuário o poder de gerenciar essas matrizes e realizar operações diversas, como compará-las ou visualizar gráficos
-a partir delas dentro de um projeto é algo importante que deve estar incluído no modelo.
+a partir delas dentro de um projeto é algo importante que deve estar incluído em um ambiente integrado de análise filogenética.
 
 \begin{figure}
 \centering
@@ -95,19 +90,19 @@ a partir delas dentro de um projeto é algo importante que deve estar incluído 
 \section{Limiar Crítico} \label{sec:limcrit}
 
 Já se sabe que o limiar crítico de uma rede revela a melhor relação entre ruído e informação. Existem diversas maneiras de se determinar o limiar
-crítico da rede. Uma delas, utilizada pelo FESC, é o método das distâncias \cite{andrade2011}. Nele, calcula-se a distância euclidiana entre matrizes de
-vizinhança de limiares consecutivos \cite{andrade2008}. A matriz que apresentar a maior distância entre a de limiar conscutivo
+crítico da rede. Uma delas, é o método das distâncias \cite{andrade2011}. Nele, calcula-se a distância euclidiana entre matrizes de
+vizinhança de limiares consecutivos \cite{andrade2008}. A matriz que apresentar a maior distância entre a matriz de limiar conscutivo
 ao seu será a escolhida como a matriz do limiar crítico, para representar a rede. É necessário escolher a melhor rede que representa o conjunto.
 A rede do limiar crítico cumpre bem este papel.
 
 Na figura \ref{fig:distancia}, temos o exemplo de um resultado do cálculo das distâncias entre matrizes de vizinhança, onde o limiar crítico é representado
-pelo pico do gráfico, ou seja, o valor 51. A rede que representa todo o conjunto é então a rede do limiar 51, que será utilizada na última etapa do processo,
-que é a clusterização, que utiliza um conceito chamado entremeação.
+pelo pico do gráfico, ou seja, o valor 51. A rede que representa todo o conjunto é então a rede do limiar 51, que será utilizada na última etapa do processo:
+a clusterização.
 
 O método das distâncias pode ser utilizado para a determinação do limiar crítico, mas isto pode ser feito através de outros métodos, como a verificação da
-variação do tamanho do maior \textit{cluster} da rede em função da variação do limiar. O processo poderia fornecer a possibilidade de escolha do método de
-análise dos limiares. Além disso, é importante a geração dos gráficos dos resultados destas execuções e exibição para o usuário, eliminando a possibilidade
-de trocas de contexto (como reinicialização da máquina, mudança de sistema operacional ou de \textit{software}) que atrasam o prosseguimento do processo.
+variação do tamanho do maior \textit{cluster} da rede em função da variação do limiar. Portanto, um ambiente integrado deve fornecer a possibilidade de
+escolha do método de análise dos limiares. Além disso, é importante a geração dos gráficos dos resultados destas execuções e exibição para o usuário,
+eliminando a necessidade de trocas de contexto (como sistema operacional ou aplicação) que atrasam o prosseguimento do processo.
 
 \begin{figure}
 \centering
@@ -118,17 +113,18 @@ de trocas de contexto (como reinicialização da máquina, mudança de sistema o
 
 \section{Entremeação e Centralidade} \label{sec:entremeacao}
 
-A Matriz de Vizinhança da rede do limiar crítico é a entrada necessária para a realização da clusterização, que é feita através do método de detecção
+A matriz de vizinhança da rede do limiar crítico é a entrada necessária para a realização da clusterização, que é feita através do método de detecção
 de comunidades de Newman e Girvan \cite{newman2004} para identificar a estrutura modular da rede. O método consiste em determinar a aresta mais importante
 da rede – aquela por onde passa a maior quantidade de caminhos mínimos de cada par de vértices por toda a rede – e eliminá-la, repetindo a operação
 até que não existam mais arestas na rede.
 
 Conforme a operação é feita, é possível construir um histograma de remoção de arestas ou dendrograma, que começa com uma linha representando toda a rede
-e à medida em que a rede vai aumentando o número de partes desconexas da mesma com a remoção de arestas, a linha relativa à parte da rede que se quebrou
-se subdivide em duas. O dendrograma auxilia na identificação de comunidades e propicia as análises biológicas dos resultados, além da comparação com outros
+e à medida em que as arestas são removidas a rede vai se repartindo em módulos e a linha inicial vai sofrendo bifurcações. Observando a figura
+\ref{fig:dendrograma}, por exemplo, entre o vértice 100 e 120 há uma bifurcação, indicando a divisão de um módulo em dois.
+
+O dendrograma auxilia na identificação de comunidades (módulos) e propicia as análises biológicas dos resultados, além da comparação com outros
 métodos da Biologia, visto que seu formato de árvore em que as linhas mais à direita representam cada uma das sequências proteicas (vértices da rede)
-é também o formado de saída dos outros métodos de Análise Filogenética. A figura \ref{fig:dendrograma} mostra com detalhes um exemplo de dendrograma
-para o limiar crítico 51.\newline
+é também o formado de saída dos outros métodos de Análise Filogenética. 
 
 Para a geração do dendrograma é necessária a escolha do limiar pelo usuário, e seu algoritmo recebe como entrada a matriz de vizinhança referente a este
 limiar, que em um sistema deve estar armazenada. A execução desta etapa é a mais demorada, variando de cinco minutos a mais de três meses, a depender do
@@ -141,22 +137,24 @@ tamanho da rede.
 \label{fig:dendrograma}
 \end{figure}
 
-O método completo em questão é explicado com mais detalhes em \cite{goesneto2010} e \cite{andrade2011}. Ele utiliza uma determinada quantidade de programas,
-cada um seguindo certos padrões de entrada e saída, além de arquivos de configuração.
-Tais características dificultam sua utilização por pesquisadores de outras áreas que não Física ou Ciência da Computação, além de trazê-los uma preocupação
-desnecessária com localização e distribuição de arquivos. Para um melhor aproveitamento do método, seria mais interessante que o controle do processo de
-execução fosse realizado por um sistema, dispondo de um ambiente de fácil utilização e que realizasse o gerenciamento das informações por meio de uma camada
-de persistência, deixando a questão da organização dos dados transparente para o pesquisador.
+O método completo em questão é explicado com mais detalhes em \cite{goesneto2010} e \cite{andrade2011}. Ele utiliza uma série de programas, cada um
+seguindo padrões de entrada e saída e arquivos de configuração particulares. Tais características dificultam sua utilização por pesquisadores de outras
+áreas que não Física ou Ciência da Computação, além de causá-los uma preocupação desnecessária com localização e distribuição de arquivos. Para otimizar
+o processo, seria mais interessante que o seu controle de execução fosse realizado por um sistema, dispondo de um ambiente de fácil utilização e que
+realizasse o gerenciamento das informações por meio de uma camada de persistência, deixando a questão da organização dos dados transparente para o
+pesquisador.
 
-O processo pode então ser resumido tecnicamente como uma série de execuções de programas que recebem arquivos de entrada em determinado formato, realizam um
-processamento e geram um arquivo de saída. Os requisitos mais importantes, portanto, são a eliminação da necessidade de organização de arquivos intermediários
-pelos usuários e a conversão de formatos entre as execuções. Para agilizar aa execução, é importante também a geração de gráficos em determinadas etapas. A
-tabela \ref{tab:requisitos} mostra os requisitos necessários para a construção do Navi - Sistema para Gerenciamento de Informações e Execuções de Análise
-Filogenética Através de Redes Complexas.
+\section{A Proposta} \label{sec:proposta}
+
+O processo pode ser resumido tecnicamente como uma série de execuções de programas que recebem arquivos de entrada em determinado formato, realizam um
+processamento e geram um arquivo de saída. Os requisitos mais importantes, portanto, são a eliminação da necessidade de organização de arquivos
+intermediários pelos usuários e a conversão de formatos entre as execuções. Para agilizar aa execução, é importante também a geração de gráficos em
+determinadas etapas. A tabela \ref{tab:requisitos} mostra os requisitos necessários para a construção do AIAF - Ambiente Integrado de Análise Filogenética
+Através de Redes Complexas.
 
 \begin{table}
 \centering
-\caption{Tabela de requisitos do Navi} % igual ao ambiente figura
+\caption{Tabela de requisitos do AIAF} % igual ao ambiente figura
 \begin{tabular}{p{5cm}p{10cm}} % com este comando dizemos quantas colunas terá nossa tabela e a posição do texto dentro de cada coluna. Aqui temos três colunas (pois são três "c" dentre {}) e o texto estará centralizado em todas elas (indicado pelo "c", se quisermos alinhados à esquerda "l" ou direita "r"
 \hline 
 %Requisito & Pontos & Classificação \\
@@ -166,46 +164,47 @@ Requisito & Descrição \\
 %Cruzeiro & 52 & 1 \\
 %Sao Paulo & 50 & 2 \\
 %Gremio Barueri & 47 & 3 \\
-Filtragem de arquivos no formato GenBank & O sistema deve receber um diretório e ler dele arquivos no formato do GenBank, e a partir deles criar os organismos,
-as sequências com nome, identificador, código e outras informações\\ \hline
+Filtragem de arquivos no formato GenBank & O sistema deve receber um diretório e ler dele arquivos no formato do GenBank, e a partir deles criar os
+organismos, as sequências com nome, identificador, código e outras informações\\ \hline
 Controle do projeto & O sistema deve prover ao usuário a possibilidade de criar, salvar ou carregar um projeto. \\ \hline
-Salvar os organismos e sequências & O sistema deve salvar os organismos e as sequências para posterior consulta. Deve ser criada uma estrutura de
+Salvamento de organismos e sequências & O sistema deve salvar os organismos e as sequências para posterior consulta. Deve ser criada uma estrutura de
 armazenamento que livre o usuário da necessidade de instalar sistemas de bancos de dados relacionais \\ \hline
 Escolha de sequências & O sistema deve permitir a escolha de sequências para a geração da matriz de similaridades \\ \hline
-Gerar matrizes de adjacência & O sistema deve gerar matrizes de adjacência com base no limiar fornecido pelo usuário, também mostrando o gráfico de uma
+Geração matrizes de adjacência & O sistema deve gerar matrizes de adjacência com base no limiar fornecido pelo usuário, também mostrando o gráfico de uma
 forma opcional \\ \hline
-Gerar matrizes de vizinhança & O sistema deve gerar matrizes de vizinhança com base no limiar fornecido pelo usuário, também mostrando o gráfico de uma
+Geração matrizes de vizinhança & O sistema deve gerar matrizes de vizinhança com base no limiar fornecido pelo usuário, também mostrando o gráfico de uma
 forma opcional \\ \hline
-Analisar limiares & O sistema deve fornecer opções de métodos para a análise de limiares, mostrando obrigatoriamente o gráfico como resultado\\ \hline
-Executar clusterização & O sistema deve fornecer opções de métodos de clusterização, que depende da escolha de um limiar pelo usuário, além de mostrar o
-gráfico de seu resultado quando requisitado \\ \hline
-Visualizar gráfico completo da rede & O sistema deve permitir a visualização do gráfico completo da rede, após a escolha das comunidades, recuperando as
-informações salvas durante o processo de salvamento das sequências e organismos \\ \hline
+Análise de limiares & O sistema deve fornecer opções de métodos para a análise de limiares, mostrando obrigatoriamente o gráfico como resultado\\ \hline
+Execução da clusterização & O sistema deve fornecer opções de métodos de clusterização, que depende da escolha de um limiar pelo usuário, além de mostrar
+o gráfico de seu resultado quando requisitado \\ \hline
+Visualização do gráfico completo da rede & O sistema deve permitir a visualização do gráfico completo da rede, após a escolha das comunidades,
+recuperando as informações salvas durante o processo de salvamento das sequências e organismos \\ \hline
 Congruência & O sistema deve permitir a comparação do resultado do método com o resultado de outros métodos de análise filogenética, além da comparação
 com o resultado pelo próprio método com outro conjunto de dados \\ \hline
-Exportar dados & O sistema deve permitir a exportação de dados necessários à geração de gráficos para o uso pelos usuários de ferramentas profissionais de
-plotagem \\ \hline
+Exportação de dados & O sistema deve permitir a exportação de dados necessários à geração de gráficos para o uso pelos usuários de ferramentas
+profissionais de plotagem \\ \hline
 \end{tabular}
 \label{tab:requisitos}
 \end{table} 
 
-A partir desses requisitos gerais, o sistema Navi será modelado, o que é mostrado no próximo capítulo.
+A partir desses requisitos gerais, o sistema AIAF será modelado, o que é mostrado no próximo capítulo.
 
 
-\chapter{Modelagem do Navi - Sistema para Gerenciamento de Informações e Execuções de Análise Filogenética Através de Redes Complexas}
+\chapter{Modelagem do AIAF - Ambiente Integrado de Análise Filogenética Através de Redes Complexas}
 \label{cap:navi}
 
-O processo descriito no capitulo anterior envolve diversos modulos independentes com diferentes padrões de entrada e saída, e formas de configuração. Tal
-fato dificulta bastante sua execução e o controle dos diversos conjuntos de dados gerados em cada etapa do processo, bem como dos parametros que os originaram.
-Portanto, o desenvolvimento de um sistema para gerenciar o método de Análise Filogenética por Redes Complexas descrito anteriormente precisa seguir três
-importantes pilares:
+\sigla{AIAF}{Ambiente Integrado de Análise Filogenética Através de Redes Complexas}
+
+A partir dos requisitos identificados no capitulo anterior, podemos propor um ambiente integrado para gerenciar o método de Análise Filogenética por
+Redes Complexas descrito anteriormente. Para garantir o controle das etapas do processo e ao mesmo tempo permitir uma fácil utilização e evitar problemas
+com padrões e arquivos de configuração, o sistema precisa seguir três importantes pilares:
 
 \begin{itemize}
- \item{Usabilidade é um fator importante por tornar o método passível de utilização por pessoas com pouco ou quase nenhum conhecimento de programação neste
-caso específico, e para gerar uma boa experiência do usuário e fazer com que seu uso seja agradável no caso geral. Segundo \cite{nielsen1993}, interfaces de
-usuário são uma parte muito mais importante para computadores em geral do que já foram um dia, e hoje respondem por mais de 45\% do código-fonte de um
-\textit{software}.}
-  \item{Organização torna possível a criação, importação e exportação de projetos contendo as execuções necessárias para as análises,
+ \item{\textbf{Usabilidade:} é um fator importante por tornar o método passível de utilização por pessoas com pouco ou quase nenhum conhecimento de
+programação neste caso específico, e para gerar uma boa experiência do usuário e fazer com que seu uso seja agradável no caso geral. Segundo
+\cite{nielsen1993}, interfaces de usuário são uma parte muito mais importante para computadores em geral do que já foram um dia, e hoje respondem por mais
+de 45\% do código-fonte de um \textit{software}.}
+  \item{\textbf{Gerenciamento da Informação:} torna possível a criação, importação e exportação de dados contendo as execuções necessárias para as análises,
 onde os dados podem ser agrupados em um formato de arquivo possível de ser transportado entre múltiplas máquinas e contendo todas as informações
 necessárias para a retomada de execuções.}
   \item{Transparência, não menos importante, permite que as pessoas que estão executando o método não precisem se
@@ -213,7 +212,7 @@ preocupar com detalhes de mais baixo nível de execução, como os locais em que
 formatos e adaptações diversas de dados.}
 \end{itemize}
 
-Este trabalho seguiu o fluxo natural de projetos de Engenharia de Software \cite{softeng2005}, onde:
+Este trabalho seguiu uma metodologia tradicional de projetos de Engenharia de Software \cite{softeng2005}, onde:
 
 \begin{itemize}
   \item{Foi definido o levantamento de requisitos e o escopo do sistema, baseado nos objetivos do projeto,
@@ -257,13 +256,13 @@ informações sobre a sequência e o organismo a que o vértice está representa
 \begin{figure}
 \centering
 \includegraphics[scale=0.52]{diagrama-casos-de-uso}
-\caption{Diagrama de casos de uso do Navi.}
+\caption{Diagrama de casos de uso do AIAF.}
 \label{fig:casos-uso}
 \end{figure}
 
 Outro detalhe importante é a possibilidade de comparação entre o método e os outros métodos já consolidados de análise filogenética (através do fornecimento
 de alguma arquivo em determinado formato), além de poder comparar com outro projeto criado pelo próprio sistema. A figura \ref{fig:casos-uso} exibe os casos
-de uso definidos para o Navi. Para prosseguir com a modelagem, se faz necessária a organização das informações através de um diagrama de classes,
+de uso definidos para o AIAF. Para prosseguir com a modelagem, se faz necessária a organização das informações através de um diagrama de classes,
 mostrado na próxima seção.
 
 \section{Organização das Informações} \label{sec:organizacao}
@@ -278,11 +277,11 @@ Como resultado da etapa de modelagem de dados, foi criado um diagrama de classes
 \begin{figure}
 \centering
 \includegraphics[scale=0.52]{diagrama-classes-simplificado}
-\caption{Diagrama de classes simplificado do Navi.}
+\caption{Diagrama de classes simplificado do AIAF.}
 \label{fig:diagrama-classes-simplificado}
 \end{figure}
 
-A classe principal do Navi é a classe \textit{Project}. Todas as interações do usuário com a \textbf{GUI} passam por ela, que controlará operações com
+A classe principal do AIAF é a classe \textit{Project}. Todas as interações do usuário com a \textbf{GUI} passam por ela, que controlará operações com
 matrizes, análises, tratamento das informações biológicas e dos dados de entrada. Através dela é possível criar novo projeto, abrir projeto existente e
 salvar projeto corrente (casos de uso 1 e 2). Um projeto para o sistema reúne todos os dados de informações de execução de um conjunto de dados, desde a
 a escolha de sequências, geração de matriz de similaridade, matrizes de adjacência e vizinhança, gráficos, definição de comunidades, clusterização,
@@ -296,7 +295,7 @@ A filtragem do banco de dados biológico (sequências proteicas que estão em v�
 \textit{BioHandler}, que a partir desta operação instancia objetosda classe \textit{Organism} e da classe \textit{Sequence}, ou seja, cria organismo e associa
 sequências a eles. Então ela utiliza o pacote \textit{Blast}, que realiza as comparações entre sequências, para gerar e instanciar a matriz de similaridades.
 
-O Navi possui três matrizes, representadas pelas classes \textit{SimilarityMatrix}, \textit{AdjacencyMatrix} e \textit{NeighbourhoodMatrix}. As três herdam
+O AIAF possui três matrizes, representadas pelas classes \textit{SimilarityMatrix}, \textit{AdjacencyMatrix} e \textit{NeighbourhoodMatrix}. As três herdam
 da classe \textit{Matrix} por conterem características em comum. Só é possível ter uma matriz de similaridades por projeto, pois como um projeto está associado
 a execuções de determinado conjunto de sequências escolhido pelo usuário, há apenas uma matriz de similaridades possível para qualquer conjunto de sequências.
 Em relação às demais (adjacência e vizinhança), é possível haver mais de uma. Se pesquisas posteriores desenvolverem outro tipo de matriz, ela poderá ser
@@ -313,7 +312,7 @@ abordagem permite que outros métodos de análise de limiares possam ser adicion
 clusterização: a classe \textit{Clustering} é abstrata, e tem \textit{NewmanGirvan} como classe filha, que implementa o único método de clusterização
 usado no processo até o momento (casos de uso 6 e 7).
 
-A análise de congruência permite a comparação da divisão de comunidades entre diversos projetos executados sob o Navi, como também entre outros métodos de
+A análise de congruência permite a comparação da divisão de comunidades entre diversos projetos executados sob o AIAF, como também entre outros métodos de
 análise filogenética, através do fornecimento de um arquivo em um formato padrão. Isso é possível graças à classe \textit{Congruence}, que herda da classe
 \textit{Analysis} (casos de uso 8 e 10).
 
@@ -327,7 +326,7 @@ execução do método do FESC de análise filogenética usando Redes Complexas.
 \section{Dinâmica de Execução do Sistema} \label{sec:dinamica}
 
 Como discutido na seção anterior, a classe \textit{Project} é a classe principal do sistema, para onde os eventos captados pela interface gráfica são
-enviados. Nesta seção serão abordados três importantes diagramas de sequência do Navi: criar novo projeto, gerar matriz de adjacência de um limiar qualquer
+enviados. Nesta seção serão abordados três importantes diagramas de sequência do AIAF: criar novo projeto, gerar matriz de adjacência de um limiar qualquer
 e analisar limiares. Outros casos de uso são bastante simples, ou são análogos a um dos três mostrados aqui, ou até mesmo não foram implementados. Será
 apresentada uma ligeira discussão sobre sua dinâmica. Outros diagramas de sequência podem ser encontrados no Apêndice \textbf{[COLOCO TODOS OS OUTROS
 DIAGRAMAS NO APENDICE?]}.
@@ -344,7 +343,7 @@ são salvos em disco pela classe de persistência. \newline
 \begin{figure}
 \centering
 \includegraphics[scale=0.27]{new-project}
-\caption{Diagrama de sequências para o requisito 1: criar novo projeto.}
+\caption{Diagrama de sequências para o caso de uso 1: criar novo projeto.}
 \label{fig:new-project}
 \end{figure}
 
@@ -355,12 +354,12 @@ novos dados em disco, conforme a figura \ref{fig:generate-adjacency-matrix}. \ne
 \begin{figure}
 \centering
 \includegraphics[scale=0.42]{generate-adjacency-matrix}
-\caption{Diagrama de sequências para o requisito 3: gerar matriz de adjacências de um limiar qualquer.}
+\caption{Diagrama de sequências para o caso de uso 3: gerar matriz de adjacências de um limiar qualquer.}
 \label{fig:generate-adjacency-matrix}
 \end{figure}
 
 Para analisar limiares, o usuário precisa informar qual análise quer executar. O método do FESC de análise filogenética dispõe atualmente de dois métodos
-para a realização desta análise, mas existem vários outros e que podem ser adicionados ao Navi. Atualmente o usuário deve optar, então, pelo método de
+para a realização desta análise, mas existem vários outros e que podem ser adicionados ao AIAF. Atualmente o usuário deve optar, então, pelo método de
 distâncias ou tamanho do maior cluster. A depender da escolha será instanciado pela classe \textit{Project} uma classe \textit{Distance} ou
 \textit{LargestCluster}, respectivamente. A análise é realizada passando-se a matriz de similaridades e, ao seu final, é invocada uma biblioteca gráfica
 para a exibição do gráfico para o usuário como resultado da análise. A figura \ref{fig:analyse-threshold} mostra seu diagrama de sequência. \newline
@@ -368,7 +367,7 @@ para a exibição do gráfico para o usuário como resultado da análise. A figu
 \begin{figure}
 \centering
 \includegraphics[scale=0.34]{analyse-threshold}
-\caption{Diagrama de sequências para o requisito 6: analisar limiares.}
+\caption{Diagrama de sequências para o caso de uso 6: analisar limiares.}
 \label{fig:analyse-threshold}
 \end{figure}
 
@@ -378,7 +377,7 @@ de implementação e discutirá os resultados em relação aos objetivos propost
 \chapter{Resultados}
 \label{cap:resultados}
 
-Neste capítulo são apresentadas de forma detalhada as técnicas utilizadas para o desenvolvimento do Navi.
+Neste capítulo são apresentadas de forma detalhada as técnicas utilizadas para o desenvolvimento do AIAF.
 
 
 \section{Ambiente de execução do processo antigo} \label{sec:ambiente}
@@ -420,7 +419,7 @@ diversos e geração de gráficos, além de ser considerada uma ``linguagem cola
 Para a criação das janelas foram testados o Tkinter (que vem com a linguagem Python), o Gtk e o Qt. O Qt foi escolhido pela sua quantidade de recursos,
 facilidade de utilização, desenvolvimento e manutenção, total suporte à linguagem Python através do PyQt \cite{pyqt}, além de fornecer o \textit{Designer},
 um bom ambiente de autoria para a criação de janelas e interface gráfica em geral (uma ilustração do mesmo pode ser vista na figura \ref{fig:designer}).
-A utilização de Qt também permite a possibilidade de execução do Navi em ambientes Windows e Mac, faltando apenas a adaptação do \textit{back-end} para um
+A utilização de Qt também permite a possibilidade de execução do AIAF em ambientes Windows e Mac, faltando apenas a adaptação do \textit{back-end} para um
 suporte completo a essas outras plataformas.
 
 \begin{figure}
@@ -438,7 +437,7 @@ As bibliotecas necessárias e as mudanças, incluindo algumas decisões de imple
 Na discussão acho mais importante voce destacar as mudanças que tornam a execução de uma simulação um processo mais simples e controlado,
 o que era o objetivo principal do trabalho desde o inicio!!''
 
-A utilização da linguagem Python para o desenvolvimento do Navi acarretou certas consequências. Uma delas foi a substituição do \textit{BioPerl} pelo
+A utilização da linguagem Python para o desenvolvimento do AIAF acarretou certas consequências. Uma delas foi a substituição do \textit{BioPerl} pelo
 \textit{BioPython} \cite{biopython}, um conjunto de ferramentas para computação biológica feito em Python, equivalente ao \textit{BioPerl} para \textit{Perl}.
 Um dos gargalos na execução do método original é também a necessidade de observar gráficos e a partir deles tomar decisões relativas ao prosseguimento do
 processo. Como a execução dos diversos programas era feita em Linux e o programa plotador de gŕaficos, o Origin \cite{origin} roda em Windows, em várias
@@ -448,28 +447,28 @@ plotagem de gráficos para Python, esse trabalho passa a ser desnecessário.
 O \textit{BioPython} inclui o Blast2 e seus \textit{bindings} para Python. Como módulos externos, se fizeram necessários ainda o Madchar (geração de matrizes),
 o RedeCrítica (análise de limiares) e o Dendo (clusterização). Por serem codificados em Fortran foi necessário o pacote Gfortran.
 
-A primeira preocupação na implementação do Navi foi a questão inicial da filtragem e armazenamento dos dados. Um banco de dados relacional é uma exigência
+A primeira preocupação na implementação do AIAF foi a questão inicial da filtragem e armazenamento dos dados. Um banco de dados relacional é uma exigência
 muito grande para um sistema que vai realizar certos cálculos e gráficos, e que será utilizado em larga escala em máquinas diversas e por pesquisadores de
 áreas como Biologia. Por isso, a primeira decisão foi a troca do banco de dados relacional por uma estrutura de armazenamento de dados através da serialização
 de objetos, sendo útil também na criação de um projeto (caso de uso 1) e o carregamento de um projeto existente no disco (caso de uso 2). A classe 
 \textit{Persistence} é responsável por isso, porém no protótipo o armazenamento não ficou tão bem estruturado, utilizando apenas o módulo \textit{Pickler}
 do Python para a serialização de todos os objetos do sistema em um único arquivo.
 
-Um arquivo .nav (extensão de arquivo do Navi) é simplesmente um pacote compactado que contém uma estrutura de diretórios, destinada a armazenar os arquivos
+Um arquivo .nav (extensão de arquivo do AIAF) é simplesmente um pacote compactado que contém uma estrutura de diretórios, destinada a armazenar os arquivos
 necessários à execução de um projeto, e também fornece suporte a certas operações de execução. Quando necessário, a classe \textit{Persistence} descompacta
 o .nav em um diretório temporário, espera certas operações serem realizadas e então compacta novamente na localização original.
 
-A filtragem feita originalmente não incluía uma opção de escolha das sequências com que se desejasse trabalhar. No Navi, a criação de um novo projeto resulta
+A filtragem feita originalmente não incluía uma opção de escolha das sequências com que se desejasse trabalhar. No AIAF, a criação de um novo projeto resulta
 na filtragem e armazenamento dos dados, e em seguida a possibilidade de escolha das sequências, como mostra a figura \ref{fig:choose-sequences}.
 
 \begin{figure}
 \centering
 \includegraphics[scale=0.38]{choose-sequences}
-\caption{Escolha das sequências no Navi após filtragem.}
+\caption{Escolha das sequências no AIAF após filtragem.}
 \label{fig:choose-sequences}
 \end{figure}
 
-A geração de matrizes de adjacência é feita na contrução de um objeto da classe \textit{AdjacencyMatrix}, pela própria camada de negócio do Navi, sem a
+A geração de matrizes de adjacência é feita na contrução de um objeto da classe \textit{AdjacencyMatrix}, pela própria camada de negócio do AIAF, sem a
 necessidade de invocar módulos externos, pela simplicidade da operação. Já para gerar as matrizes de vizinhança, o módulo Madchar é invocado. A operação
 também é realizada durante a construção de um objeto da classe \textit{NeighbourhoodMatrix}, onde seu construtor invoca o método
 \textit{generate\_neighbourhood\_values}, que pode ser visto na listagem \ref{lst:gennbhvalues}.
@@ -533,7 +532,7 @@ A visualização do gráfico de matriz de cores se baseia nos dados da matriz de
 
 Como explanado na seção \ref{sec:organizacao} do capítulo \ref{cap:navi}, a classe \textit{Analysis} tem a \textit{ThresholdAnalysis} como subclasse,
 que por sua vez tem como classes filhas classes que representam as diferentes formas de execução da análise de limiares. Isso permite uma exetensibilidade
-ao Navi, uma vez que basta acrescentar uma nova classe filha à \textit{ThresholdAnalysis} para se incluir um novo método de analisar limiares. A situação
+ao AIAF, uma vez que basta acrescentar uma nova classe filha à \textit{ThresholdAnalysis} para se incluir um novo método de analisar limiares. A situação
 é análoga para a clusterização, com a classe \textit{Clustering} e sua filha \textit{NewmanGirvan}.
 
 \lstset{language=python}
@@ -584,15 +583,15 @@ class NewmanGirvan(Clustering):
         return True
 \end{lstlisting}
 
-Nesta versão do protótipo do Navi, apenas o método de distâncias foi implementado, por meio de invocação do módulo externo RedeCrítica por um método da
+Nesta versão do protótipo do AIAF, apenas o método de distâncias foi implementado, por meio de invocação do módulo externo RedeCrítica por um método da
 classe \textit{Distance}, que é filha da classe \textit{ThresholdAnalysis}. Para a clusterização, o método de Newman e Girvan foi implementado por meio
 de invocação de um módulo externo feito em Fortran (Dendo). A invocação dos módulos Fortran foi feita utilizando chamadas de sistema da linguagem Python,
 que não permite uma integração perfeita, mas se utiliza do poder da linguagem de mapear as chamadas de sistema para a plataforma em que o \textit{software}
 está sendo executado. A listagem \ref{lst:clustering} mostra o trecho de código que trata da invocação do módulo externo. A figura \ref{fig:navi-dendrogram}
-mostra o dendrograma, resultado final do método, gerado pelo Navi.
+mostra o dendrograma, resultado final do método, gerado pelo AIAF.
 
 A etapa de congruência foi modelada mas não foi implementada no protótipo por questões de tempo. Mais informações sobre a congruência podem
-ser vistas em \textbf{[CITAR]}. Como o Navi não é capaz de gerar gráficos tão bons quanto uma suíte profissional dedicada à plotagem destinada a artigos e
+ser vistas em \textbf{[CITAR]}. Como o AIAF não é capaz de gerar gráficos tão bons quanto uma suíte profissional dedicada à plotagem destinada a artigos e
 trabalhos científicos em geral, e há perda do controle do usuário sobre a localização e o formato dos dados gerados entre as diversas etapas do processo, se
 faz necessária a exportação desses arquivos para que o usuário os utilize como fonte para utilização em programas plotadores, como consta no caso de uso
 12. Esta funcionalidade, no entanto, não foi implementada no protótipo.
@@ -605,7 +604,7 @@ vértices.
 \begin{figure}
 \centering
 \includegraphics[scale=0.38]{navi-dendrogram}
-\caption{Dendrograma mostrado pelo Navi.}
+\caption{Dendrograma mostrado pelo AIAF.}
 \label{fig:navi-dendrogram}
 \end{figure}
 
@@ -614,77 +613,3 @@ vértices.
 problemas com qt
 
 bla
-
-
-
-\section{Listagens} \label{sec:listagens}
-
-\textbf{[ESSA PARTE AQUI É SUJEIRA. SÓ ESTÁ AQUI PORQUE TEM CERTOS COMANDOS QUE EU POSSO PRECISAR MAIS ADIANTE.]}
-
-Nonono nonnono onononono \cite{fowler2000}.
-
-Modelo de monografia usando as normas ABNT (Associao Brasileira de Normas
-Tenicas) \sigla{ABNT}{Associao Brasileira de Normas Tenicas}
-e adaptao personalizada 
-do padro do Departamento de Cincia da Computao (DCC) da Universidade
-Federal da Bahia (UFBA).
-\sigla{DCC}{Departamento de Cincia da Computao}
-\sigla{UFBA}{Universidade Federal da Bahia}
-Fontes latex cedidos pela ABNT e disponibilizados por 
-Maurcio Vieira. (Valeu Maurix!). Adaptado por Abelmon Bastos por solicitao
-da \profa\ Dbora Abdalla para o semestre 2005.1.
-Adaptado por Rodrigo Rocha por solicitao da \profa\ Dbora Abdalla no fim
-do semestre 2007.1.
-
-Na listagem \ref{lst:testjUnit} 
-e mostrado o teste do metodo \texttt{Engine.initialize()}:
-
-\lstset{language=java}
-\lstset{commentstyle=\textit}
-\begin{lstlisting}[frame=trbl, caption=Classe Factory2D,label=lst:testjUnit]{}
-public class EngineTest
-// JUnitDoclet begin extends_implements
-extends TestCase
-// JUnitDoclet end extends_implements
-{
-  //...
-  public void testInitialize() throws Exception {
-   // JUnitDoclet begin method initialize
-   EngineState engineState = (EngineState) PrivateAccessor.
-    getField(engine,"engineState");
-   engine.initialize();
-   assertEquals(engineState, new InitState());
-   // JUnitDoclet end method initialize
-  }
-  ...
-}
-\end{lstlisting}
-
-Como visto no capitulo \ref{cap:analisefilo}, no nonno\footnote{Isto e uma nota
-de rodape.} no nonon onono:
-\begin{itemize}
-  \item{nononoo}
-  \item{nononono}
-  \item{no}
-\end{itemize}
-
-
-\section{Figuras} \label{sec:figuras}
-
-E possivel usar imagens vetoriais no \cite{andrade2006} formato PDF, como pode ser visto
-na figura \ref{fig:ufba}, ou imagens \emph{bitmap} no formato PNG, como
-a da figura \ref{fig:ufba2}.
-
-\begin{figure}
-\centering
-\includegraphics{brasaoUFBA2}
-\caption{Brasao da UFBA (vetorial)}
-\label{fig:ufba}
-\end{figure}
-
-\begin{figure}
-\centering
-\includegraphics[width=0.3\textwidth]{brasaoUFBA}
-\caption{Brasao da UFBA (\emph{bitmap})}
-\label{fig:ufba2}
-\end{figure}
