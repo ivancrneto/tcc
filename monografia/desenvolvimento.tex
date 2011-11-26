@@ -215,43 +215,56 @@ formatos e adaptações diversas de dados.}
 Este trabalho seguiu uma metodologia tradicional de projetos de Engenharia de Software \cite{softeng2005}, onde:
 
 \begin{itemize}
-  \item{Foi definido o levantamento de requisitos e o escopo do sistema, baseado nos objetivos do projeto,
+  \item{A partir do levantamento de requisitos seu escopo do foi definido, baseado nos objetivos do projeto,
 dispostos na seção \ref{sec:objetivos} da Introdução;}
-  \item{Foram estruturados os dados e as informações, e feita a organização em classes, além de definida a forma como o \textit{software}
-se comunicaria com os módulos externos, e também de definida a forma como o sistema organizaria e realizaria a persistência de seus dados, levando
+  \item{Foram estruturados os dados e as informações, e feita a organização em classes, além de definida a forma como o ambiente
+se comunicaria com os módulos externos. Também foi definida a forma como o sistema organizaria e realizaria a persistência de seus dados, levando
 em consideração os requisitos definidos;}
-  \item{Foram realizados os passos necessários à dinâmica de execução do sistema. }
-  \item{O sistema foi implementado e testado.}
+  \item{Foram construídos os diagramas que representam a dinâmica de execução do sistema. }
+  \item{O protótipo foi implementado e testado.}
 \end{itemize}
 
-Este capítulo tratará das etapas de modelagem, a implementação e os testes serão tratados nos capítulos subsequentes.
+Foi adotado o modelo de desenvolvimento em espiral, onde há ciclos de planejamento de requisitos, com concepção de requisitos e operações, criação
+de um protótipo, verificação, validação e novo planejamento de requisitos, continuando o ciclo \cite{boehm1986}. Neste trabalho, no entanto, apenas uma
+parte da espiral foi percorrida.
 
-\section{Requisitos e Decisões de Modelagem} \label{sec:escopo}
+Este capítulo tratará das etapas de modelagem, que foi realizada utilizando a linguagem UML \cite{uml}. A implementação do protótipo e os testes serão
+tratados no capítulo 4.
+
+\section{Casos de Uso} \label{sec:escopo}
 
 O método originalmente utiliza um banco de dados relacional para armazenamento de informações sobre as sequências proteicas. Isto força o usuário a instalar
 um banco de dados e configurá-lo corretamente. Um dos requisitos importantes, como visto no capítulo anterior, é a retirada desta necessidade e,
 por consequência, a criação de uma nova forma de organização e disposição dos dados.
 
-Uma necessidade importante é se trabalhar com projetos, ou seja, dar a possibilidade aos usuários de criar novos projetos, importar projetos e salvar os
-projetos correntes. Isto permite uma interoperabilidade entre máquinas importante, e a organização de um arquivo que possa conter os dados necessários
-para o carregamento de um projeto salvo torna-se essencial.
+Diversos ambientes de \textit{software} trabalham com o conceito de projeto, representa as operações que podem ser feitas durante a execução do sistema,
+podendo-se salvar e recuperar o andamento das atividades. Tal fato é possível a partir de uma estruturação de dados para um correto procedimento de
+salvamento e posterior recuperação das informações. Trabalhar com projeto é uma necessidade importante, ou seja, dar a possibilidade aos usuários de criar
+novos projetos, importar projetos e salvar os projetos correntes. Isto permite uma interoperabilidade entre máquinas importante, e a organização de um arquivo
+que possa conter os dados necessários para o carregamento de um projeto salvo torna-se essencial. O sistema então permitirá aos seus usuários a criação de
+novos projetos e o carregamento de projetos existentes (casos de uso 1 e 2).
 
 A comunicação com módulos externos deve ser transparente e a organização de classes deve fornecer alternativas viáveis para a a inclusão de novos
 tipos de análises (como por exemplo, a escolha do limiar crítico é feita por uma análise de distâncias, mas poderia ser feita por uma análise do tamanho
 do maior \textit{cluster} da rede \textbf{[CITAR]}), ou seja, o sistema deve suportar extensibilidade e a fácil troca de módulos externos, mantendo
 os padrões de comunicação.
 
+A partir de certo momento do processo, passa-se a trabalhar apenas com matrizes. Há a perda de informações com relação aos organismos e sequências em que
+se está trabalhando. É necessário, então, que o sistema guarde estas informações e possa exibir para os usuários gráficos mais ricos, contendo informações
+sobre sequências e espécies com que se está trabalhando. Por exemplo, na exibição da rede (grafo), o sistema pode exibir, ao se passar o mouse sobre um vértice,
+informações sobre a sequência e o organismo a que o vértice está representando (caso de uso 10). O usuário poderá também gerar matrizes de adjacência e
+vizinhança a qualquer momento (casos de uso 3 e 4), além de ver o gráfico de qualquer matriz de vizinhança em formato de matriz de cores (caso de uso 5).
+
 Em várias etapas da execução do método, é necessário mudar de ambiente (Linux para Windows) para visualizar certos gráficos em programas específicos (Origin),
 que são necessários para certas tomadas de decisões que influenciam em quais dados serão escolhidos para a execução das próximas etapas do mesmo. Isto é
 prejudicial pois gera uma troca de contexto. O sistema, então, pode gerar esses gráficos (matrizes de vizinhança em forma de matrizes de cores, matrizes de
 adjacências em forma de grafos, gráficos de resultados de análises como distâncias, gráfico do dengrograma), mesmo que com qualidade um pouco inferior,
-para que a continuação do processo se dê de forma mais rápida. Ao mesmo tempo, pode fornecer como opção de exportação os arquivos que são utilizados por
-programas profissionais de plotagem, essenciais para a utilização em artigos científicos e afins.
+para que a continuação do processo se dê de forma mais rápida. Esta funcionalidade não está relacionada a nenhum requisito, é apenas um extra para
+facilitar o processo. Ao mesmo tempo, o sistema pode fornecer como opção de exportação os arquivos que são utilizados por
+programas profissionais de plotagem, essenciais para a utilização em artigos científicos e afins (caso de uso 12).
 
-A partir de certo momento do processo, passa-se a trabalhar apenas com matrizes. Há a perda de informações com relação aos organismos e sequências em que se
-está trabalhando. É necessário, então, que o sistema guarde estas informações e possa exibir para os usuários gráficos mais ricos, contendo informações sobre
-sequências e espécies com que se está trabalhando. Por exemplo, na exibição da rede (grafo), o sistema pode exibir, ao se passar o mouse sobre um vértice,
-informações sobre a sequência e o organismo a que o vértice está representando.
+A análise de limiares (caso de uso 6) resulta na geração de um gráfico que será utilizado como base para a definição do limiar crítico e o prosseguimento
+do processo, com a clusterização (caso de uso 7) e a definição de comunidaes (caso de uso 8).
 
 \begin{figure}
 \centering
@@ -261,15 +274,15 @@ informações sobre a sequência e o organismo a que o vértice está representa
 \end{figure}
 
 Outro detalhe importante é a possibilidade de comparação entre o método e os outros métodos já consolidados de análise filogenética (através do fornecimento
-de alguma arquivo em determinado formato), além de poder comparar com outro projeto criado pelo próprio sistema. A figura \ref{fig:casos-uso} exibe os casos
-de uso definidos para o AIAF. Para prosseguir com a modelagem, se faz necessária a organização das informações através de um diagrama de classes,
-mostrado na próxima seção.
+de alguma arquivo em determinado formato), além de poder comparar com outro projeto criado pelo próprio sistema (casos de uso 9 e 11). A figura
+\ref{fig:casos-uso} exibe os casos de uso definidos para o AIAF. Para prosseguir com a modelagem, se faz necessária a organização das informações através
+de um diagrama de classes, mostrado na próxima seção.
 
-\section{Organização das Informações} \label{sec:organizacao}
+\section{Modelagem dos Dados} \label{sec:organizacao}
 
-A organização das informações do sistema é um passo importante para que se tenha qualidade e se atenda aos requisitos propostos. É imprescindível, portanto,
-a criação de um diagrama de classes para definir entidades e suas responsabilidades, além de seus aspectos funcionais e os dados (e formatos) em que cada uma
-é responsável.
+A organização das informações do sistema é um passo importante para que se tenha qualidade e se atenda aos requisitos propostos. Por conta da metodologia
+adotada, é imprescindível a criação de um diagrama de classes para definir entidades e suas responsabilidades, além de seus aspectos funcionais e os dados
+(e formatos) em que cada uma é responsável.
 
 Como resultado da etapa de modelagem de dados, foi criado um diagrama de classes simplificado, como pode ser visto na figura
 \ref{fig:diagrama-classes-simplificado}. O diagrama de classes completo pode ser encontrado no Apêndice.
@@ -281,19 +294,19 @@ Como resultado da etapa de modelagem de dados, foi criado um diagrama de classes
 \label{fig:diagrama-classes-simplificado}
 \end{figure}
 
-A classe principal do AIAF é a classe \textit{Project}. Todas as interações do usuário com a \textbf{GUI} passam por ela, que controlará operações com
+A classe principal do AIAF é a classe \textit{Project}. Todas as interações do usuário com a \textit{GUI} passam por ela, que controlará operações com
 matrizes, análises, tratamento das informações biológicas e dos dados de entrada. Através dela é possível criar novo projeto, abrir projeto existente e
-salvar projeto corrente (casos de uso 1 e 2). Um projeto para o sistema reúne todos os dados de informações de execução de um conjunto de dados, desde a
+salvar projeto corrente (casos de uso 1 e 2). Um projeto para o sistema reúne todos os dados de informações de execução de um conjunto de dados, desde
 a escolha de sequências, geração de matriz de similaridade, matrizes de adjacência e vizinhança, gráficos, definição de comunidades, clusterização,
-congruência. A classe \textit{Project} também lida com o módulo \textit{Persistence}, que mapeia as classes do sistemas onde é necessário
+congruência. A classe \textit{Project} também lida com o pacote \textit{Persistence}, que mapeia as classes do sistemas onde é necessário
 persistir a estruturas de dados e armazenamento em disco. Sua função inclui serializar e desserializar os objetos do sistema, além de prover
 a organização dos dados do projeto e compressão em um arquivo de extensão própria (.nav).
 
 \sigla{GUI}{Graphical User Interface}
 
 A filtragem do banco de dados biológico (sequências proteicas que estão em vários arquivos no diretório especificado pelo usuário) é realizada pela classe
-\textit{BioHandler}, que a partir desta operação instancia objetosda classe \textit{Organism} e da classe \textit{Sequence}, ou seja, cria organismo e associa
-sequências a eles. Então ela utiliza o pacote \textit{Blast}, que realiza as comparações entre sequências, para gerar e instanciar a matriz de similaridades.
+\textit{BioHandler}, que a partir desta operação instancia objetos da classe \textit{Organism} e da classe \textit{Sequence}, ou seja, cria organismo e associa
+sequências a eles. Ela utiliza o pacote \textit{Blast}, que realiza as comparações entre sequências, para gerar e instanciar a matriz de similaridades.
 
 O AIAF possui três matrizes, representadas pelas classes \textit{SimilarityMatrix}, \textit{AdjacencyMatrix} e \textit{NeighbourhoodMatrix}. As três herdam
 da classe \textit{Matrix} por conterem características em comum. Só é possível ter uma matriz de similaridades por projeto, pois como um projeto está associado
