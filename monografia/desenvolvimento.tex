@@ -280,6 +280,8 @@ de um diagrama de classes, mostrado na próxima seção.
 
 \section{Modelagem dos Dados} \label{sec:organizacao}
 
+\textbf{explicar composição}
+
 A organização das informações do sistema é um passo importante para que se tenha qualidade e se atenda aos requisitos propostos. Por conta da metodologia
 adotada, é imprescindível a criação de um diagrama de classes para definir entidades e suas responsabilidades, além de seus aspectos funcionais e os dados
 (e formatos) em que cada uma é responsável.
@@ -429,11 +431,11 @@ genéticos, entre outras técnicas na pesquisa em geral. É uma linguagem bastan
 desenvolvimento, rapidez na implementação e prototipagem rápida, bibliotecas robustas para o desenvolvimento de \textit{software} científico, cálculos
 diversos e geração de gráficos, além de ser considerada uma ``linguagem cola'' por se comunicar facilmente com outras linguagens.
 
-Para a criação das janelas foram testados o Tkinter (que vem com a linguagem Python), o Gtk e o Qt. O Qt foi escolhido pela sua quantidade de recursos,
-facilidade de utilização, desenvolvimento e manutenção, total suporte à linguagem Python através do PyQt \cite{pyqt}, além de fornecer o \textit{Designer},
-um bom ambiente de autoria para a criação de janelas e interface gráfica em geral (uma ilustração do mesmo pode ser vista na figura \ref{fig:designer}).
-A utilização de Qt também permite a possibilidade de execução do AIAF em ambientes Windows e Mac, faltando apenas a adaptação do \textit{back-end} para um
-suporte completo a essas outras plataformas.
+Para a modelagem foi utilizado o Astah Community \cite{astah}. Para a criação das janelas foram testados o Tkinter (que vem com a linguagem Python), o Gtk
+e o Qt. O Qt foi escolhido pela sua quantidade de recursos, facilidade de utilização, desenvolvimento e manutenção, total suporte à linguagem Python através
+do PyQt \cite{pyqt}, além de fornecer o \textit{Designer}, um bom ambiente de autoria para a criação de janelas e interface gráfica em geral (uma ilustração
+do mesmo pode ser vista na figura \ref{fig:designer}). A utilização de Qt também permite a possibilidade de execução do AIAF em ambientes Windows e Mac,
+faltando apenas a adaptação do \textit{back-end} para um suporte completo a essas outras plataformas.
 
 \begin{figure}
 \centering
@@ -623,6 +625,11 @@ vértices.
 
 \section{Dificuldades} \label{sec:dificuldades}
 
-problemas com qt
+Uma das principais dificuldades, sem dúvida, foi conseguir pensar em um sistema que pudesse ser ao mesmo tempo extensível, garantisse uma facilidade de uso,
+se mostrasse rápido, de fácil manutenção, seguindo as boas práticas de modelagem e programação, sem perder a integração com o código legado. Tais
+características exigiram um pensamento integrado na modelagem, implementação e processo de desenvolvimento, sem fugir aos requisitos a aos interesses dos dois
+grupos de usuários: os pesquisadores e os desenvolvedores.
 
-bla
+Ao longo do trabalho, houve complicações nas decisões de projeto e na modelagem. Na parte da implementação, a migração de alguns códigos originalmente em Perl
+para Python e a opção de abandonar um banco de dados relacional tomaram uma boa parte do tempo, como também o aprendizado de PyQt e o desenvolvimento da
+interface gráfica.
