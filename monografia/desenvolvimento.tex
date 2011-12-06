@@ -1,14 +1,19 @@
 \chapter{Análise Filogenética através de Redes Complexas} \label{cap:analisefilo}
 
-Análise Filogenética é uma área da Biologia que tem despertado bastante interesse pelos pesquisadores. A evolução do poder de processamento dos computadores
+Análise Filogenética é uma área da Biologia que tem crescido consideravelmente e despertado bastante interesse pelos pesquisadores. Inicialmente usada para
+elucidar relações hierárquicas (Classificação e Taxonomia), a filogenética se expandiu, sendo usada hoje com inúmeros objetivos: criar novos grupos
+taxonômicos; reconstruir filogenias de organismos com representantes de diferentes áreas geográficas; buscar
+relações de ramificação com áreas de endemismo (Biogeografia histórica); investigar a evolução de espécies que interagem entre si, tais como hospedeiros
+e parasitas ou simbiontes, co-evolução de insetos e plantas; estudar evolução de caracteres em si mesmo, compreender melhor a dinâmica de populações, entre
+outros \cite{schneider2007}.
+
+A evolução do poder de processamento dos computadores
 permitiu que se pudesse comparar sequências proteicas ou nucleotídicas muito rapidamente, gerando um poder de análise abrangente no que tange as relações entre
 proteinas, enzimas, rotas metabólicas e consequentemente seres vivos. Essas análises, por conseguinte, geraram descobertas importantes que influenciaram o
 modo como enxergamos a evolução das espécies e a relação entre elas em geral.
 
-Atualmente existem quatro métodos bem aceitos na literatura para Análise Filogenética: Análise Bayesiana \textbf{[CITAR]}, Análise de Parcimônia
-\textbf{[CITAR]}, Análise de Distâncias \textbf{[CITAR]} e Análise por Verossimilhança \textbf{[CITAR]}. Estas análises partem de alguns pressopostos
-biológicos, que são informações iniciais necessárias a sua realização. O uso da Física Estatística para tratar os dados referentes a proteinas de
-determinadas rotas metabólicas permite o desenvolvimento de um método que não necessite desses pressupostos.
+Atualmente existem quatro métodos bem aceitos na literatura para Análise Filogenética: Análise Bayesiana, Análise de Parcimônia,
+Análise de Distâncias e Análise por Verossimilhança. Para uma compreensão sobre eles sugere-se a leitura de \cite{marcelo2010} e \cite{schneider2007}.
 
 A área de Física Estatística atualmente apresenta forte caráter interdisciplinar, permitindo a modelagem e análise de diversos sistemas
 que englobam outras áreas de conhecimento. A aplicação da Teoria das Redes Complexas em Bioinformática, apoiada pela Teoria dos Grafos,
@@ -18,7 +23,7 @@ execução do método. As seções que seguem explicam estes passos com mais det
 
 \begin{figure}
 \centering
-\includegraphics{brasaoUFBA2}
+\includegraphics[scale=0.43]{fluxograma}
 \caption{Fluxograma com os passos da execução do método de análise filogenética desenvolvido pelo FESC.}
 \label{fig:fluxograma}
 \end{figure}
@@ -27,29 +32,33 @@ execução do método. As seções que seguem explicam estes passos com mais det
 \section{Escolha de Sequências Proteicas} \label{sec:escseq}
 
 A primeira etapa do método consiste na escolha das sequências que serão utilizadas para a construção e caracterização da rede.
-Usualmente a escolha é feita a partir de um banco de dados biológico, disponível livremente pela web. Durante todo o trabalho na utilização
-do método, as sequências escolhidas vieram do NCBI \cite{ncbi}, um banco de dados bastante utilizado no meio biológico, que contém dados de sequências
+Usualmente a escolha é feita a partir de um banco de dados biológico, disponível livremente na \textit{web}. Durante o trabalho que necessitou na utilização
+do método, as sequências escolhidas vieram do NCBI (\textit{National Center for Biotechnology Information}) \cite{ncbi},
+um banco de dados bastante utilizado no
+meio biológico, que contém dados de sequências
 nucleotídicas e sequências proteicas, entre várias outras informações. A escolha das sequências proteicas é feita utilizando como critério
 uma rota metabólica, separando as sequências pela enzima que as produzem na rota.
 
-\sigla{NCBI}{National Center for Biotechnology Information}
+\sigla{NCBI}{\textit{National Center for Biotechnology Information}}
 
 Esta é uma etapa manual, onde são feitas buscas por data e são realizadas determinadas filtragens no site do NCBI para obter as sequências desejadas, 
-resultando em arquivos no formato GenBank (NCBI). Um requisito importante é a capacidade de receber um ou mais arquivos neste formato e a partir deles
-realizar uma filtragem e gerar a matriz de similaridades. O sistema desenvolvido neste trabalho leva em consideração que as sequências já foram escolhidas
-e as recebe como entrada inicial. O resultado desta etapa são arquivos filtrados e organizados para facilitar a identificação de organismos em etapas
+resultando em arquivos em um formato chamado GenBank. Um requisito importante para o sistema é a capacidade de receber um ou mais arquivos neste formato e
+a partir deles
+realizar uma filtragem e gerar a matriz de similaridades. O sistema deve levar em consideração que as sequências já foram escolhidas
+e as receber como entrada inicial. O resultado desta etapa devem ser arquivos filtrados e organizados para facilitar a identificação de organismos em etapas
 posteriores e proporcionar a execução da similaridade.
 
 \section{Similaridade} \label{sec:similaridade}
 
 Uma vez selecionadas as sequências, o próximo passo é executar a análise de similaridades entre as sequências proteicas e o armazenamento em um banco
-de dados relacional. Para isso é utilizada ferramenta BLAST (Basic Alignment Search Tool) \cite{blast1997} para comparação entre as sequências. O BLAST
-trabalha tanto com sequências nucleotídicas quanto proteicas. O interesse do uso do BLAST para o método em questão está na comparação de sequências proteicas
+de dados relacional. Para isso é utilizada a ferramenta BLAST (\textit{Basic Alignment Search Tool}) \cite{blast1997} para comparação entre as sequências.
+A BLAST
+trabalha tanto com sequências nucleotídicas quanto proteicas. O interesse do uso da BLAST para o método em questão está na comparação de sequências proteicas
 utilizando o alinhamento local, que compara duas sequências isoladamente e retorna uma porcentagem de similaridade entre elas.
 
-\sigla{BLAST}{Basic Alignment Search Tool}
+\sigla{BLAST}{\textit{Basic Alignment Search Tool}}
 
-A capacidade de operar com o BLAST é um requisito de grande importância neste contexto, tanto no envio das sequências para comparação quanto no recebimento
+A capacidade de operar com a BLAST é um requisito de grande importância neste contexto, tanto no envio das sequências para comparação quanto no recebimento
 e tratamento de seus resultados. A partir deles, pode-se construir uma matriz de similaridades \cite{andrade2006}, onde as linhas e colunas representam as
 sequências e uma posição $(i, j)$ da matriz armazena a similaridade entre elas. Desta matriz são construídas as redes que caracterizam as sequências, que
 serão descritas na próxima seção.
@@ -61,12 +70,13 @@ são subconjuntos de dois elementos de $V$. Para evitar ambiguidades de notaçã
 (ou nós ou pontos) e os elementos de $E$ são suas arestas (ou linhas) \cite{reinhard2010}.
 
 Podemos dizer que o estudo de uma rede é o estudo de um grafo, mas em uma escala maior. Redes podem ser tidas como grafos muito grandes e complexos,
-em que se torne mais preciso o uso de técnicas estatísticas para a sua análise \cite{bessa2008}. Na literatura de Redes Complexas, em geral, precisamos
+onde se torna necessário o uso de técnicas estatísticas para a sua análise \cite{bessa2008}. Na literatura de Redes Complexas, em geral, precisamos
 encontrar uma rede de determinado conjunto que melhor o caracterize. Essa escolha se dá pela relação entre ruído e informação \cite{barabasi2004}.
 
-Partindo da matriz de similaridades, podemos construir até 101 matrizes de adjacência, relacionando a uma escala de similaridade de 0\% a 100\%, se levarmos
+Partindo da matriz de similaridades, podemos construir até 101 matrizes de adjacência, relacionando cada matriz a uma escala de similaridade
+de 0\% a 100\%, se levarmos
 em consideração que podemos escolher um valor limiar e construir a rede baseada nele. Por exemplo, se escolhermos o valor 60 como limiar, construiremos uma
-rede onde haverá uma aresta entre dois vértices (sequências) se e somente se a similaridade entre eles em questão for maior ou igual a 60. Uma rede com limiar
+rede onde haverá uma aresta entre dois vértices (sequências) se e somente se a similaridade entre eles for maior ou igual a 60. Uma rede com limiar
 muito baixo apresenta muito ruído, ou seja, muitas arestas, o que leva a pouca possibilidade de identificação de suas características. Por outro lado, uma
 rede com limiar muito alto apresenta pouca informação, ou seja, poucas arestas, levando também a pouca possibilidade de identificação de suas características.
 
@@ -78,7 +88,7 @@ amarela.
 
 Alguns programas utilizados geram as matrizes em memória e as excluem após determinados cálculos, e outros simplesmente as salvam em certa estrutura
 de diretórios. A possibilidade de dar ao usuário o poder de gerenciar essas matrizes e realizar operações diversas, como compará-las ou visualizar gráficos
-a partir delas dentro de um projeto é algo importante que deve estar incluído em um ambiente integrado de análise filogenética.
+a partir delas ao longo de um procedimento de análise é algo importante que deve estar incluído em um ambiente integrado de análise filogenética.
 
 \begin{figure}
 \centering
@@ -89,20 +99,20 @@ a partir delas dentro de um projeto é algo importante que deve estar incluído 
 
 \section{Limiar Crítico} \label{sec:limcrit}
 
-Já se sabe que o limiar crítico de uma rede revela a melhor relação entre ruído e informação. Existem diversas maneiras de se determinar o limiar
-crítico da rede. Uma delas, é o método das distâncias \cite{andrade2011}. Nele, calcula-se a distância euclidiana entre matrizes de
-vizinhança de limiares consecutivos \cite{andrade2008}. A matriz que apresentar a maior distância entre a matriz de limiar conscutivo
-ao seu será a escolhida como a matriz do limiar crítico, para representar a rede. É necessário escolher a melhor rede que representa o conjunto.
+Já se sabe que o limiar crítico de uma rede revela a melhor relação entre ruído e informação. Existem diversas maneiras de se determiná-lo.
+Uma delas é o método das distâncias \cite{andrade2011}. Nele, calcula-se a distância euclidiana entre matrizes de
+vizinhança de limiares consecutivos \cite{andrade2008}. A matriz que apresentar a maior distância entre a matriz de limiar consecutivo
+ao seu será a escolhida como a matriz do limiar crítico, para representar a rede. A literatura de relacionada a Redes Complexas mostra que é necessário
+escolher a melhor rede que representa o conjunto.
 A rede do limiar crítico cumpre bem este papel.
 
-Na figura \ref{fig:distancia}, temos o exemplo de um resultado do cálculo das distâncias entre matrizes de vizinhança, onde o limiar crítico é representado
-pelo pico do gráfico, ou seja, o valor 51. A rede que representa todo o conjunto é então a rede do limiar 51, que será utilizada na última etapa do processo:
+Na figura \ref{fig:distancia}, temos um exemplo de resultado do cálculo das distâncias entre matrizes de vizinhança, onde o limiar crítico é representado
+pelo pico do gráfico, ou seja, o valor 51. A rede que representa todo o conjunto é então a rede limiar 51, que será utilizada na última etapa do processo:
 a clusterização.
 
 O método das distâncias pode ser utilizado para a determinação do limiar crítico, mas isto pode ser feito através de outros métodos, como a verificação da
 variação do tamanho do maior \textit{cluster} da rede em função da variação do limiar. Portanto, um ambiente integrado deve fornecer a possibilidade de
-escolha do método de análise dos limiares. Além disso, é importante a geração dos gráficos dos resultados destas execuções e exibição para o usuário,
-eliminando a necessidade de trocas de contexto (como sistema operacional ou aplicação) que atrasam o prosseguimento do processo.
+escolha do método de análise dos limiares.
 
 \begin{figure}
 \centering
@@ -118,7 +128,7 @@ de comunidades de Newman e Girvan \cite{newman2004} para identificar a estrutura
 da rede – aquela por onde passa a maior quantidade de caminhos mínimos de cada par de vértices por toda a rede – e eliminá-la, repetindo a operação
 até que não existam mais arestas na rede.
 
-Conforme a operação é feita, é possível construir um histograma de remoção de arestas ou dendrograma, que começa com uma linha representando toda a rede
+Conforme esta operação é feita, é possível construir um histograma de remoção de arestas ou dendrograma, que começa com uma linha representando toda a rede
 e à medida em que as arestas são removidas a rede vai se repartindo em módulos e a linha inicial vai sofrendo bifurcações. Observando a figura
 \ref{fig:dendrograma}, por exemplo, entre o vértice 100 e 120 há uma bifurcação, indicando a divisão de um módulo em dois.
 
@@ -127,7 +137,7 @@ métodos da Biologia, visto que seu formato de árvore em que as linhas mais à 
 é também o formado de saída dos outros métodos de Análise Filogenética. 
 
 Para a geração do dendrograma é necessária a escolha do limiar pelo usuário, e seu algoritmo recebe como entrada a matriz de vizinhança referente a este
-limiar, que em um sistema deve estar armazenada. A execução desta etapa é a mais demorada, variando de cinco minutos a mais de três meses, a depender do
+limiar. A execução desta etapa é a mais demorada, variando de cinco minutos a mais de três meses, a depender do
 tamanho da rede. 
 
 \begin{figure}
@@ -139,17 +149,21 @@ tamanho da rede.
 
 O método completo em questão é explicado com mais detalhes em \cite{goesneto2010} e \cite{andrade2011}. Ele utiliza uma série de programas, cada um
 seguindo padrões de entrada e saída e arquivos de configuração particulares. Tais características dificultam sua utilização por pesquisadores de outras
-áreas que não Física ou Ciência da Computação, além de causá-los uma preocupação desnecessária com localização e distribuição de arquivos. Para otimizar
-o processo, seria mais interessante que o seu controle de execução fosse realizado por um sistema, dispondo de um ambiente de fácil utilização e que
-realizasse o gerenciamento das informações por meio de uma camada de persistência, deixando a questão da organização dos dados transparente para o
+áreas que não Física ou Ciência da Computação, além de deixar a seu cargo a tarefa de localizar, distribuir e organizar os arquivos. Para otimizar
+o processo, seria mais interessante que o seu gerenciamento fosse realizado por um ambiente de fácil utilização e que
+mantivesse disponíveis as informações por meio de uma camada de persistência, deixando a questão da organização dos dados transparente para o
 pesquisador.
 
 \section{A Proposta} \label{sec:proposta}
 
-O processo pode ser resumido tecnicamente como uma série de execuções de programas que recebem arquivos de entrada em determinado formato, realizam um
-processamento e geram um arquivo de saída. Os requisitos mais importantes, portanto, são a eliminação da necessidade de organização de arquivos
-intermediários pelos usuários e a conversão de formatos entre as execuções. Para agilizar aa execução, é importante também a geração de gráficos em
-determinadas etapas. A tabela \ref{tab:requisitos} mostra os requisitos necessários para a construção do AIAF - Ambiente Integrado de Análise Filogenética
+Da forma como está estruturado atualmente, o processo de análise filogenética através de redes complexas pode ser resumido como uma série de execuções
+de programas independentes entre si que recebem arquivos
+de entrada em determinados formatos, realizam seu
+processamento e geram outros arquivos de saída. Os requisitos mais importantes, portanto, são a eliminação da necessidade de organização de arquivos
+intermediários pelos usuários e a conversão de formatos entre as execuções. Para agilizar a execução, é importante também a geração de gráficos em
+determinadas etapas. A tabela \ref{tab:requisitos} mostra de forma consolidada os requisitos levantados e que devem ser satisfeitos no processo de
+modelagem e construção de um AIAF -
+Ambiente Integrado de Análise Filogenética
 Através de Redes Complexas.
 
 \begin{table}
@@ -166,7 +180,7 @@ Requisito & Descrição \\
 %Gremio Barueri & 47 & 3 \\
 Filtragem de arquivos no formato GenBank & O sistema deve receber um diretório e ler dele arquivos no formato do GenBank, e a partir deles criar os
 organismos, as sequências com nome, identificador, código e outras informações\\ \hline
-Controle do projeto & O sistema deve prover ao usuário a possibilidade de criar, salvar ou carregar um projeto. \\ \hline
+Controle da análise & O sistema deve prover ao usuário a possibilidade de criar, salvar ou carregar uma análise \\ \hline
 Salvamento de organismos e sequências & O sistema deve salvar os organismos e as sequências para posterior consulta. Deve ser criada uma estrutura de
 armazenamento que livre o usuário da necessidade de instalar sistemas de bancos de dados relacionais \\ \hline
 Escolha de sequências & O sistema deve permitir a escolha de sequências para a geração da matriz de similaridades \\ \hline
@@ -187,7 +201,7 @@ profissionais de plotagem \\ \hline
 \label{tab:requisitos}
 \end{table} 
 
-A partir desses requisitos gerais, o sistema AIAF será modelado, o que é mostrado no próximo capítulo.
+A partir desses requisitos gerais, apresentamos no próximo capítulo a proposta de modelagem que pretende atendê-los.
 
 
 \chapter{Modelagem do AIAF - Ambiente Integrado de Análise Filogenética Através de Redes Complexas}
@@ -195,7 +209,7 @@ A partir desses requisitos gerais, o sistema AIAF será modelado, o que é mostr
 
 \sigla{AIAF}{Ambiente Integrado de Análise Filogenética Através de Redes Complexas}
 
-A partir dos requisitos identificados no capitulo anterior, podemos propor um ambiente integrado para gerenciar o método de Análise Filogenética por
+A partir dos requisitos identificados no capítulo anterior, podemos propor um ambiente integrado para gerenciar o método de Análise Filogenética por
 Redes Complexas descrito anteriormente. Para garantir o controle das etapas do processo e ao mesmo tempo permitir uma fácil utilização e evitar problemas
 com padrões e arquivos de configuração, o sistema precisa seguir três importantes pilares:
 
@@ -203,68 +217,33 @@ com padrões e arquivos de configuração, o sistema precisa seguir três import
  \item{\textbf{Usabilidade:} é um fator importante por tornar o método passível de utilização por pessoas com pouco ou quase nenhum conhecimento de
 programação neste caso específico, e para gerar uma boa experiência do usuário e fazer com que seu uso seja agradável no caso geral. Segundo
 \cite{nielsen1993}, interfaces de usuário são uma parte muito mais importante para computadores em geral do que já foram um dia, e hoje respondem por mais
-de 45\% do código-fonte de um \textit{software}.}
+de 45\% do código-fonte de um \textit{software}. Podemos também enquadrar aqui as interfaces de programação, levando a uma fácil manutenção e possibilitando
+extensibilidade.}
   \item{\textbf{Gerenciamento da Informação:} torna possível a criação, importação e exportação de dados contendo as execuções necessárias para as análises,
 onde os dados podem ser agrupados em um formato de arquivo possível de ser transportado entre múltiplas máquinas e contendo todas as informações
 necessárias para a retomada de execuções.}
-  \item{Transparência, não menos importante, permite que as pessoas que estão executando o método não precisem se
+  \item{\textbf{Transparência:} não menos importante, permite que as pessoas que estão executando o método não precisem se
 preocupar com detalhes de mais baixo nível de execução, como os locais em que os arquivos estão dispostos e situações relacionadas a conversão de
 formatos e adaptações diversas de dados.}
 \end{itemize}
 
-Este trabalho seguiu uma metodologia tradicional de projetos de Engenharia de Software \cite{softeng2005}, onde:
-
-\begin{itemize}
-  \item{A partir do levantamento de requisitos seu escopo do foi definido, baseado nos objetivos do projeto,
-dispostos na seção \ref{sec:objetivos} da Introdução;}
-  \item{Foram estruturados os dados e as informações, e feita a organização em classes, além de definida a forma como o ambiente
-se comunicaria com os módulos externos. Também foi definida a forma como o sistema organizaria e realizaria a persistência de seus dados, levando
-em consideração os requisitos definidos;}
-  \item{Foram construídos os diagramas que representam a dinâmica de execução do sistema. }
-  \item{O protótipo foi implementado e testado.}
-\end{itemize}
-
-Foi adotado o modelo de desenvolvimento em espiral, onde há ciclos de planejamento de requisitos, com concepção de requisitos e operações, criação
-de um protótipo, verificação, validação e novo planejamento de requisitos, continuando o ciclo \cite{boehm1986}. Neste trabalho, no entanto, apenas uma
+Para satisfazer a todos os requisitos e possuir as características citadas acima, este trabalho seguiu uma metodologia tradicional de projetos
+de Engenharia de Software \cite{softeng2005} e foi adotado o modelo de desenvolvimento em espiral, onde há ciclos de planejamento de requisitos,
+com concepção de requisitos, criação
+de um protótipo, verificação, validação e novo planejamento de requisitos, continuando o ciclo \cite{boehm1986}. Neste trabalho apenas uma
 parte da espiral foi percorrida.
 
-Este capítulo tratará das etapas de modelagem, que foi realizada utilizando a linguagem UML \cite{uml}. A implementação do protótipo e os testes serão
+No levantamento de requisitos, foram determinados os objetivos e alternativas e definido o escopo do sistema baseado nos objetivos do projeto,
+dispostos na seção \ref{sec:objetivos}. Em seguida foi realizada a modelagem, com os diagramas de casos de uso, classes e sequência.
+Também foi definida a forma como o sistema organizaria e realizaria a persistência de seus dados, levando em consideração os requisitos definidos.
+A última etapa do primeiro ciclo da espiral consistiu no planejamento do desenvolvimento, implementação do protótipo e testes.
+
+Este capítulo tratará das etapas de modelagem, que foram realizadas utilizando a linguagem UML \cite{uml}. A implementação do protótipo e os testes serão
 tratados no capítulo 4.
 
 \section{Casos de Uso} \label{sec:escopo}
 
-O método originalmente utiliza um banco de dados relacional para armazenamento de informações sobre as sequências proteicas. Isto força o usuário a instalar
-um banco de dados e configurá-lo corretamente. Um dos requisitos importantes, como visto no capítulo anterior, é a retirada desta necessidade e,
-por consequência, a criação de uma nova forma de organização e disposição dos dados.
-
-Diversos ambientes de \textit{software} trabalham com o conceito de projeto, representa as operações que podem ser feitas durante a execução do sistema,
-podendo-se salvar e recuperar o andamento das atividades. Tal fato é possível a partir de uma estruturação de dados para um correto procedimento de
-salvamento e posterior recuperação das informações. Trabalhar com projeto é uma necessidade importante, ou seja, dar a possibilidade aos usuários de criar
-novos projetos, importar projetos e salvar os projetos correntes. Isto permite uma interoperabilidade entre máquinas importante, e a organização de um arquivo
-que possa conter os dados necessários para o carregamento de um projeto salvo torna-se essencial. O sistema então permitirá aos seus usuários a criação de
-novos projetos e o carregamento de projetos existentes (casos de uso 1 e 2).
-
-A comunicação com módulos externos deve ser transparente e a organização de classes deve fornecer alternativas viáveis para a a inclusão de novos
-tipos de análises (como por exemplo, a escolha do limiar crítico é feita por uma análise de distâncias, mas poderia ser feita por uma análise do tamanho
-do maior \textit{cluster} da rede \textbf{[CITAR]}), ou seja, o sistema deve suportar extensibilidade e a fácil troca de módulos externos, mantendo
-os padrões de comunicação.
-
-A partir de certo momento do processo, passa-se a trabalhar apenas com matrizes. Há a perda de informações com relação aos organismos e sequências em que
-se está trabalhando. É necessário, então, que o sistema guarde estas informações e possa exibir para os usuários gráficos mais ricos, contendo informações
-sobre sequências e espécies com que se está trabalhando. Por exemplo, na exibição da rede (grafo), o sistema pode exibir, ao se passar o mouse sobre um vértice,
-informações sobre a sequência e o organismo a que o vértice está representando (caso de uso 10). O usuário poderá também gerar matrizes de adjacência e
-vizinhança a qualquer momento (casos de uso 3 e 4), além de ver o gráfico de qualquer matriz de vizinhança em formato de matriz de cores (caso de uso 5).
-
-Em várias etapas da execução do método, é necessário mudar de ambiente (Linux para Windows) para visualizar certos gráficos em programas específicos (Origin),
-que são necessários para certas tomadas de decisões que influenciam em quais dados serão escolhidos para a execução das próximas etapas do mesmo. Isto é
-prejudicial pois gera uma troca de contexto. O sistema, então, pode gerar esses gráficos (matrizes de vizinhança em forma de matrizes de cores, matrizes de
-adjacências em forma de grafos, gráficos de resultados de análises como distâncias, gráfico do dengrograma), mesmo que com qualidade um pouco inferior,
-para que a continuação do processo se dê de forma mais rápida. Esta funcionalidade não está relacionada a nenhum requisito, é apenas um extra para
-facilitar o processo. Ao mesmo tempo, o sistema pode fornecer como opção de exportação os arquivos que são utilizados por
-programas profissionais de plotagem, essenciais para a utilização em artigos científicos e afins (caso de uso 12).
-
-A análise de limiares (caso de uso 6) resulta na geração de um gráfico que será utilizado como base para a definição do limiar crítico e o prosseguimento
-do processo, com a clusterização (caso de uso 7) e a definição de comunidaes (caso de uso 8).
+Esta seção discutirá os casos de uso do AIAF, que podem ser vistos na figura \ref{fig:casos-uso}.
 
 \begin{figure}
 \centering
@@ -273,21 +252,65 @@ do processo, com a clusterização (caso de uso 7) e a definição de comunidaes
 \label{fig:casos-uso}
 \end{figure}
 
-Outro detalhe importante é a possibilidade de comparação entre o método e os outros métodos já consolidados de análise filogenética (através do fornecimento
-de alguma arquivo em determinado formato), além de poder comparar com outro projeto criado pelo próprio sistema (casos de uso 9 e 11). A figura
-\ref{fig:casos-uso} exibe os casos de uso definidos para o AIAF. Para prosseguir com a modelagem, se faz necessária a organização das informações através
+O processo de análise atual utiliza um banco de dados relacional para armazenamento de informações
+sobre as sequências proteicas. Isto força o usuário a instalar
+um banco de dados e configurá-lo corretamente. Um dos requisitos importantes, como visto no capítulo anterior, é a retirada desta necessidade e,
+por consequência, a criação de uma nova forma de organização e disposição dos dados.
+
+Diversos ambientes de \textit{software} trabalham com o conceito de projeto. Um projeto
+representa um conjunto de operações feitas durante a execução do sistema,
+podendo-se salvar e recuperar o andamento das atividades. Tal fato é possível a partir de uma estruturação de dados para um correto procedimento de
+salvamento e posterior recuperação das informações. Trabalhar com projeto se torna importante na medida em que se pode
+dar ao usuário a possibilidade de criar
+diversas análises, importar seus resultados e armazenar suas informações em qualquer etapa do processo.
+Isto permite uma interoperabilidade entre máquinas importante, e a organização de um arquivo
+que possa conter os dados necessários para o carregamento de um projeto salvo torna-se essencial. O sistema então permitirá aos seus usuários a criação de
+novos projetos e o carregamento de projetos existentes (casos de uso 1 e 2).
+
+A comunicação com módulos externos deve ser transparente e a organização de classes deve fornecer alternativas viáveis para a inclusão de novos
+tipos de análises, como por exemplo, a escolha do limiar crítico pode ser feita por uma análise de distâncias, como também por uma análise da variação
+do tamanho
+do maior \textit{cluster} da rede, ou seja, o sistema deve suportar extensibilidade e a fácil troca de módulos externos, mantendo
+os padrões de comunicação.
+
+A partir de certo momento do processo, passa-se a trabalhar apenas com matrizes. Há a perda de informações com relação aos organismos e sequências em que
+se está trabalhando. É necessário, então, que o sistema guarde estas informações e possa exibir para os usuários gráficos mais ricos, contendo informações
+sobre sequências e espécies com que se está trabalhando. Por exemplo, na exibição da rede (grafo), o sistema poderia exibir, ao se passar o mouse sobre um
+vértice,
+informações sobre a sequência e o organismo a que o vértice está representando (caso de uso 10). O usuário poderá também gerar matrizes de adjacência e
+vizinhança a qualquer momento (casos de uso 3 e 4), além de ver o gráfico de qualquer matriz de vizinhança em formato de matriz de cores (caso de uso 5).
+
+Em várias etapas da execução do processo de análise atual, é necessário mudar de ambiente (tipicamente, de Linux para Windows) para efetuar certo processamento,
+como por exemplo visualizar
+gráficos em
+programas específicos \cite{origin},
+que são necessários para certas tomadas de decisões que influenciam em quais dados serão escolhidos para a execução das próximas etapas do mesmo. Isto é
+prejudicial pois gera uma troca de contexto. O sistema, então, pode gerar esses gráficos (matrizes de vizinhança em forma de matrizes de cores, matrizes de
+adjacências em forma de grafos, gráficos de resultados de análises como distâncias, gráfico do dengrograma), mesmo que com qualidade um pouco inferior,
+para que a continuação do processo se dê de forma mais rápida. Apesar desta funcionalidade não estar relacionada a nenhum requisito, é
+uma preocupação que deve estar presente no momento da modelagem para
+tornar o processo mais ágil e transparente para o usuário. Ao mesmo tempo, o sistema pode fornecer como opção de exportação os arquivos que são utilizados por
+programas profissionais de plotagem, essenciais para a utilização em artigos científicos e afins (caso de uso 12).
+
+A análise de limiares (caso de uso 6) resulta na geração de um gráfico que será utilizado como base para a definição do limiar crítico e o prosseguimento
+do processo, com a clusterização (caso de uso 7) e a definição de comunidades (caso de uso 8).
+
+Outro detalhe importante é a possibilidade de comparação entre o método atual desenvolvido pelo FESC
+e outros métodos já consolidados de análise filogenética,
+além de poder comparar com outro projeto criado pelo próprio sistema (casos de uso 9 e 11).
+Para prosseguir com a modelagem, se faz necessária a organização das informações através
 de um diagrama de classes, mostrado na próxima seção.
 
 \section{Modelagem dos Dados} \label{sec:organizacao}
 
-\textbf{explicar composição}
-
 A organização das informações do sistema é um passo importante para que se tenha qualidade e se atenda aos requisitos propostos. Por conta da metodologia
-adotada, é imprescindível a criação de um diagrama de classes para definir entidades e suas responsabilidades, além de seus aspectos funcionais e os dados
-(e formatos) em que cada uma é responsável.
+adotada, é imprescindível a criação de um diagrama de classes para definir classes e suas responsabilidades, além de seus aspectos funcionais (métodos)
+e os dados
+(atributos) em que cada uma é responsável.
 
-Como resultado da etapa de modelagem de dados, foi criado um diagrama de classes simplificado, como pode ser visto na figura
-\ref{fig:diagrama-classes-simplificado}. O diagrama de classes completo pode ser encontrado no Apêndice.
+Após análise das informações manipuladas no ambiente de análise atual e considerando os casos de uso definidos na seção anterior,
+foi criado um diagrama de classes, cuja versão simplificada pode ser vista na figura
+\ref{fig:diagrama-classes-simplificado}. O diagrama de classes completo pode ser encontrado no Apêndice A.
 
 \begin{figure}
 \centering
@@ -300,60 +323,64 @@ A classe principal do AIAF é a classe \textit{Project}. Todas as interações d
 matrizes, análises, tratamento das informações biológicas e dos dados de entrada. Através dela é possível criar novo projeto, abrir projeto existente e
 salvar projeto corrente (casos de uso 1 e 2). Um projeto para o sistema reúne todos os dados de informações de execução de um conjunto de dados, desde
 a escolha de sequências, geração de matriz de similaridade, matrizes de adjacência e vizinhança, gráficos, definição de comunidades, clusterização,
-congruência. A classe \textit{Project} também lida com o pacote \textit{Persistence}, que mapeia as classes do sistemas onde é necessário
-persistir a estruturas de dados e armazenamento em disco. Sua função inclui serializar e desserializar os objetos do sistema, além de prover
-a organização dos dados do projeto e compressão em um arquivo de extensão própria (.nav).
+congruência. A classe \textit{Project} também lida com o pacote \textit{Persistence}, que mapeia as classes do sistema em uma camada de persistência, via
+armazenamento em disco. Sua função inclui serializar e desserializar os objetos do sistema, além de prover
+a organização dos dados do projeto, atuando de forma transparente ao usuário. Como resultado, o usuário obtém um arquivo que representa o mapeamento
+feito pela camada de persistência em um sistema de arquivos comprimido e de extensão própria (.aiaf).
 
-\sigla{GUI}{Graphical User Interface}
+\sigla{GUI}{\textit{Graphical User Interface}}
 
 A filtragem do banco de dados biológico (sequências proteicas que estão em vários arquivos no diretório especificado pelo usuário) é realizada pela classe
 \textit{BioHandler}, que a partir desta operação instancia objetos da classe \textit{Organism} e da classe \textit{Sequence}, ou seja, cria organismo e associa
-sequências a eles. Ela utiliza o pacote \textit{Blast}, que realiza as comparações entre sequências, para gerar e instanciar a matriz de similaridades.
+sequências a eles. Neste contexto, um organismo pode conter uma ou mais sequências, o que explica a composição realizada no diagrama de classes.
+Ela utiliza o pacote \textit{Blast}, que realiza as comparações entre sequências, para gerar e instanciar a matriz de similaridades.
 
 O AIAF possui três matrizes, representadas pelas classes \textit{SimilarityMatrix}, \textit{AdjacencyMatrix} e \textit{NeighbourhoodMatrix}. As três herdam
 da classe \textit{Matrix} por conterem características em comum. Só é possível ter uma matriz de similaridades por projeto, pois como um projeto está associado
 a execuções de determinado conjunto de sequências escolhido pelo usuário, há apenas uma matriz de similaridades possível para qualquer conjunto de sequências.
-Em relação às demais (adjacência e vizinhança), é possível haver mais de uma. Se pesquisas posteriores desenvolverem outro tipo de matriz, ela poderá ser
-facilmente incorporada ao sistema através da adição de uma nova classe que será uma especificação da classe \textit{Matrix}, o que explica o fato de a classe
+Em relação às demais (adjacência e vizinhança), é possível haver mais de uma. Outros tipo de matrizes poderão ser
+facilmente incorporadas ao sistema através da adição de uma nova classe que será uma especialização da classe \textit{Matrix}, o que explica o fato de a classe
 \textit{Matrix} ser um classe abstrata. É possível gerar matrizes de adjacência ou de vizinhança, além da visualização de seus respectivos gráficos a qualquer
 momento após a escolha das sequências e geração da matriz de similaridades, de acordo com os casos de uso 3, 4 e 5. A classe \textit{Project} contém métodos
-para a geração das matrizes, o que pode ser visto no diagrama de classes completo. Após a geração das matrizes, a camada de persistência as salva em disco.
+para a geração das matrizes, o que pode ser visto no diagrama de classes completo no Apêndice A.
+Após a geração das matrizes, a camada de persistência as salva em disco de forma transparente.
 
 A classe \textit{Analysis} é uma classe abstrata que concentra todos os tipos de análises que podem ser feitas sobre as matrizes relacionadas às redes
 proteicas. Existem três tipos de análises: Análise de Limiares (classe \textit{ThresholdAnalysis}), Clusterização (classe \textit{Clustering}) e
 Congruência (class \textit{Congruence}). Como descrito anteriormente, existem duas formas atualmente de analisar limiares: Distâncias (classe
-\textit{Distance}) e tamanho do maior cluster (\textit{LargestCluster}). Elas são subclasses de \textit{ThresholdAnalysis}, que também é abstrata. Essa
+\textit{Distance}) e tamanho do maior cluster (classe \textit{LargestCluster}). Elas são subclasses de \textit{ThresholdAnalysis}, que também é abstrata. Essa
 abordagem permite que outros métodos de análise de limiares possam ser adicionados de forma facilitada por meio de herança. O mesmo acontece com a
 clusterização: a classe \textit{Clustering} é abstrata, e tem \textit{NewmanGirvan} como classe filha, que implementa o único método de clusterização
 usado no processo até o momento (casos de uso 6 e 7).
 
 A análise de congruência permite a comparação da divisão de comunidades entre diversos projetos executados sob o AIAF, como também entre outros métodos de
-análise filogenética, através do fornecimento de um arquivo em um formato padrão. Isso é possível graças à classe \textit{Congruence}, que herda da classe
+análise filogenética, através do fornecimento de um arquivo em formato padrão. Isso é possível graças à classe \textit{Congruence}, que é uma
+especialização da classe
 \textit{Analysis} (casos de uso 8 e 10).
 
-Outras funcionalidades extras do sistema incluem visualização do gráfico completo da rede, que utiliza a classe \textit{CommunityMap} para desenhar
-os vértices que pertencem a uma mesma comunidade de determinada cor (caso de uso 9); e também a possibilidade de exportar dados do projeto para
+Outras funcionalidades do sistema incluem a visualização do gráfico completo da rede, que utiliza a classe \textit{CommunityMap} para desenhar
+os vértices que pertencem a uma mesma comunidade de determinada cor (caso de uso 9); e a possibilidade de exportar dados do projeto para
 gráficos em um formato de programas plotadores, utilizando-se de atributos de diversas classes, a depender do gráfico que se deseja (caso de uso 11).
 
-A seção seguinte explicará com mais detalhes como se dão os fluxos de execução do sistema para gerar, guardar e recuperar os dados necessários para a
-execução do método do FESC de análise filogenética usando Redes Complexas.
+O diagrama de classes permite ter uma visão estática das informações do sistema, enfatizando os seus relacionamentos e os métodos que as irão manipular.
+Na próxima seção serão apresentados e discutidos os principais diagramas de sequência, que fornecem uma visão dinâmica da interação entre as diversas
+classes do modelo ao longo do tempo.
 
-\section{Dinâmica de Execução do Sistema} \label{sec:dinamica}
+\section{Diagramas de Sequência} \label{sec:dinamica}
 
 Como discutido na seção anterior, a classe \textit{Project} é a classe principal do sistema, para onde os eventos captados pela interface gráfica são
 enviados. Nesta seção serão abordados três importantes diagramas de sequência do AIAF: criar novo projeto, gerar matriz de adjacência de um limiar qualquer
-e analisar limiares. Outros casos de uso são bastante simples, ou são análogos a um dos três mostrados aqui, ou até mesmo não foram implementados. Será
-apresentada uma ligeira discussão sobre sua dinâmica. Outros diagramas de sequência podem ser encontrados no Apêndice \textbf{[COLOCO TODOS OS OUTROS
-DIAGRAMAS NO APENDICE?]}.
+e analisar limiares. Os casos de uso 2, 5, 7, 8, 9, 10, 11 e 12 são autoexplicativos, e o caso de uso 4 é análogo ao caso de uso 3. Será
+apresentada uma discussão sobre sua dinâmica. Outros diagramas de sequência podem ser encontrados no Apêndice A - Anexo II.
 
-O primeiro diagrama de sequência, como pode ser visto na figura \ref{fig:new-project}, se refere à criação de um novo projeto. Primeiro, qualquer projeto
-que esteja em execução é finalizado e a classe \textit{Persistence} salva qualquer alteração nos objetos do sistema. Uma decisão de projeto importante
+O primeiro diagrama de sequência, visto na figura \ref{fig:new-project}, se refere à criação de um novo projeto (caso de uso 1). Primeiro, qualquer projeto
+que esteja em execução é finalizado e o pacote \textit{Persistence} salva qualquer alteração nos objetos do sistema. Uma decisão de projeto importante
 é que após a instanciação de uma nova classe \textit{Project} é criado também um novo objeto \textit{BioHandler}, que já filtra os dados passados pelo
 usuário, criando objetos \textit{Organism} e \textit{Sequence}. Após isto, \textit{Persistence} salva os dados do projeto.
 
 Em seguida o usuário escolherá as sequências com que a matriz de similaridades será gerada, onde \textit{BioHandler} passará as sequências, duas a duas,
 para que o pacote \textit{Blast} possa calcular as porcentagens, e então o primeiro possa montar a matriz de similaridades. Por fim, os dados do projeto
-são salvos em disco pela classe de persistência. \newline
+são salvos em disco pela classe de persistência.
 
 \begin{figure}
 \centering
@@ -362,9 +389,10 @@ são salvos em disco pela classe de persistência. \newline
 \label{fig:new-project}
 \end{figure}
 
-Para gerar uma matriz de adjacências o usuário entra com um valor limiar (ou uma lista de limiares para o caso da geração de múltiplas matrizes). Haverá
+Para gerar uma matriz de adjacências (caso de uso 3)
+o usuário entra com um valor limiar (ou uma lista de limiares para o caso da geração de múltiplas matrizes). Haverá
 então um \textit{loop} na classe \textit{Project} que instanciará objetos da classe \textit{AdjacencyMatrix}, e então usará \textit{Persistence} para salvar
-novos dados em disco, conforme a figura \ref{fig:generate-adjacency-matrix}. \newline
+novos dados em disco, conforme a figura \ref{fig:generate-adjacency-matrix}.
 
 \begin{figure}
 \centering
@@ -373,11 +401,12 @@ novos dados em disco, conforme a figura \ref{fig:generate-adjacency-matrix}. \ne
 \label{fig:generate-adjacency-matrix}
 \end{figure}
 
-Para analisar limiares, o usuário precisa informar qual análise quer executar. O método do FESC de análise filogenética dispõe atualmente de dois métodos
+Para analisar limiares (caso de uso 6),
+o usuário precisa informar qual análise quer executar. O método do FESC de análise filogenética dispõe atualmente de duas formas
 para a realização desta análise, mas existem vários outros e que podem ser adicionados ao AIAF. Atualmente o usuário deve optar, então, pelo método de
 distâncias ou tamanho do maior cluster. A depender da escolha será instanciado pela classe \textit{Project} uma classe \textit{Distance} ou
-\textit{LargestCluster}, respectivamente. A análise é realizada passando-se a matriz de similaridades e, ao seu final, é invocada uma biblioteca gráfica
-para a exibição do gráfico para o usuário como resultado da análise. A figura \ref{fig:analyse-threshold} mostra seu diagrama de sequência. \newline
+\textit{LargestCluster}. A análise é realizada passando-se a matriz de similaridades e, ao seu final, é invocada uma biblioteca gráfica
+para a exibição do gráfico para o usuário como resultado da análise. A figura \ref{fig:analyse-threshold} mostra seu diagrama de sequência.
 
 \begin{figure}
 \centering
@@ -389,91 +418,68 @@ para a exibição do gráfico para o usuário como resultado da análise. A figu
 O próximo capítulo mostrará os resultados deste trabalho, seu produto gerado, as ferramentas e o ambiente de execução utilizados, características
 de implementação e discutirá os resultados em relação aos objetivos propostos pelo trabalho.
 
-\chapter{Resultados}
+\chapter{Resultados Obtidos}
 \label{cap:resultados}
 
 Neste capítulo são apresentadas de forma detalhada as técnicas utilizadas para o desenvolvimento do AIAF.
 
 
-\section{Ambiente de execução do processo antigo} \label{sec:ambiente}
+\section{Ambiente de Desenvolvimento} \label{sec:ambiente}
 
-O ambiente operacional atual envolve uma série de ferramentas e linguagens: exige um ambiente GNU/Linux, um compilador Fortran, um compilador C, pacotes para
+O ambiente operacional original
+envolve uma série de ferramentas e linguagens: exige um ambiente GNU/Linux, um compilador Fortran, um compilador C, pacotes para
 a execução de \textit{scripts} Perl e a biblioteca \textit{BioPerl}, além de um banco de dados relacional, neste caso o MySQL. Após o \textit{download} das
 sequências a partir do banco de dados GenBank, as mesmas eram colocadas em um mesmo diretório, onde uma série de \textit{scripts} Perl eram executados,
-realizando os seguintes passos, nesta ordem:
-
-\begin{itemize}
-  \item{Listagem de arquivos com extenção .seq, sugerindo se tratarem de arquivos do GenBank;}
-  \item{Filtragem dos arquivos e armazenamento de informações importantes como Gi, locus, código da sequência na tabela SEQUENCIA do MySQL;}
-  \item{Leitura dos registros da tabela SEQUENCIA, dois a dois, e execução do Blast sobre os mesmos;}
-  \item{Armazenamento da porcentagem de similaridade das duas sequências na tabela SIMILARIDADE;}
-  \item{Leitura da tabela SIMILARIDADE e geração de um arquivo texto contendo a matriz de similaridades.}
-\end{itemize}
+realizando os seguintes passos necessários para o armazenamento das sequências no banco de dados e a posterior geração da matriz de similaridades.
 
 De posse da matriz de similaridades, é necessária a execução de outro programa para a geração das redes de diversos limiares e análise dos mesmos para que
-fosse possível a escolha de um limiar crítico e então a continuação do método. Pela abordagem do tamanho do maior cluster, existe o programa achacluster,
-codificado em Fortran. Para a abordagem do método das distâncias o FESC dispõe de duas alternativas: (i) a utilização do GeraRedes e em seguida o
-Distância (ambos em C++); (ii) a utilização do RedeCrítica (Fortran). As duas opções têm como entrada a matriz de similaridades \footnote{O GeraRedes 
-gera também as matrizes de adjacência e vizinhança e as deixa em uma pasta.} e geram um arquivo cujo formato possibilita a geração de um gráfico de pontos,
-de onde é possível determinar o limiar crítico.
-
-Utilizando então a matriz de vizinhança da rede do limiar crítico, executamos o Dendo (Fortran) que aplica o cálculo do \textit{Betweenness}, gerando como
+fosse possível a escolha de um limiar crítico e então a continuação do método.
+Utilizando então a matriz de vizinhança da rede do limiar crítico, a clusterização é aplicada, gerando como
 resultado um dendrograma (histograma de remoção de arestas, indicando modularização da rede). O dendrograma, em conjunto com a matriz de cores e as sequências
 permitem análises biológicas sobre os resultados.
 
-Os módulos permanecem os mesmos, mas o controle do processo é todo gerenciado pela GUI e classes \textit{Project} e \textit{Persistence}, com auxílio de
+Os módulos permanecem os mesmos, mas o controle do processo é todo gerenciado pela GUI, a classe \textit{Project} e o pacote \textit{Persistence},
+com auxílio de
 outras classes na execução e comunicação dos módulos externos. A seção \ref{sec:discussao} detalha como se dá este gerenciamento.
-
-\section{Ferramentas de Desenvolvimento} \label{sec:ferramentas}
 
 A área de Bioinformática hoje em dia tem utilizado bastante Python \cite{python} no lugar de Perl para comparações entre sequências, utilização de algoritmos
 genéticos, entre outras técnicas na pesquisa em geral. É uma linguagem bastante rica e poderosa, com uma grande facilidade de uso, compreensão e
-desenvolvimento, rapidez na implementação e prototipagem rápida, bibliotecas robustas para o desenvolvimento de \textit{software} científico, cálculos
+desenvolvimento, rapidez na implementação e na prototipagem, bibliotecas robustas para o desenvolvimento de \textit{software} científico, cálculos
 diversos e geração de gráficos, além de ser considerada uma ``linguagem cola'' por se comunicar facilmente com outras linguagens.
 
 Para a modelagem foi utilizado o Astah Community \cite{astah}. Para a criação das janelas foram testados o Tkinter (que vem com a linguagem Python), o Gtk
 e o Qt. O Qt foi escolhido pela sua quantidade de recursos, facilidade de utilização, desenvolvimento e manutenção, total suporte à linguagem Python através
-do PyQt \cite{pyqt}, além de fornecer o \textit{Designer}, um bom ambiente de autoria para a criação de janelas e interface gráfica em geral (uma ilustração
-do mesmo pode ser vista na figura \ref{fig:designer}). A utilização de Qt também permite a possibilidade de execução do AIAF em ambientes Windows e Mac,
+do PyQt \cite{pyqt}, além de fornecer o \textit{Designer}, um bom ambiente de autoria para a criação de janelas e interface gráfica em geral.
+A utilização de Qt também permite a possibilidade de execução do AIAF em ambientes Windows e Mac,
 faltando apenas a adaptação do \textit{back-end} para um suporte completo a essas outras plataformas.
-
-\begin{figure}
-\centering
-\includegraphics[scale=0.38]{designer}
-\caption{Exemplo de criação de janela com o Qt4-Designer.}
-\label{fig:designer}
-\end{figure}
-
-As bibliotecas necessárias e as mudanças, incluindo algumas decisões de implementação serão discutidas na próxima seção.
-
-\section{Discussão} \label{sec:discussao}
-
-``
-Na discussão acho mais importante voce destacar as mudanças que tornam a execução de uma simulação um processo mais simples e controlado,
-o que era o objetivo principal do trabalho desde o inicio!!''
 
 A utilização da linguagem Python para o desenvolvimento do AIAF acarretou certas consequências. Uma delas foi a substituição do \textit{BioPerl} pelo
 \textit{BioPython} \cite{biopython}, um conjunto de ferramentas para computação biológica feito em Python, equivalente ao \textit{BioPerl} para \textit{Perl}.
 Um dos gargalos na execução do método original é também a necessidade de observar gráficos e a partir deles tomar decisões relativas ao prosseguimento do
-processo. Como a execução dos diversos programas era feita em Linux e o programa plotador de gŕaficos, o Origin \cite{origin} roda em Windows, em várias
+processo. Como a execução dos diversos programas era feita em Linux e o programa plotador de gráficos, o Origin \cite{origin}, roda em Windows, em várias
 situações era necessário reiniciar a máquina ou mudar de máquina para que se pudesser plotar os gráficos. Com o Matplotlib \cite{matplotlib}, biblioteca de 
 plotagem de gráficos para Python, esse trabalho passa a ser desnecessário.
 
 O \textit{BioPython} inclui o Blast2 e seus \textit{bindings} para Python. Como módulos externos, se fizeram necessários ainda o Madchar (geração de matrizes),
 o RedeCrítica (análise de limiares) e o Dendo (clusterização). Por serem codificados em Fortran foi necessário o pacote Gfortran.
 
+\section{Discussão} \label{sec:discussao}
+
 A primeira preocupação na implementação do AIAF foi a questão inicial da filtragem e armazenamento dos dados. Um banco de dados relacional é uma exigência
 muito grande para um sistema que vai realizar certos cálculos e gráficos, e que será utilizado em larga escala em máquinas diversas e por pesquisadores de
 áreas como Biologia. Por isso, a primeira decisão foi a troca do banco de dados relacional por uma estrutura de armazenamento de dados através da serialização
-de objetos, sendo útil também na criação de um projeto (caso de uso 1) e o carregamento de um projeto existente no disco (caso de uso 2). A classe 
-\textit{Persistence} é responsável por isso, porém no protótipo o armazenamento não ficou tão bem estruturado, utilizando apenas o módulo \textit{Pickler}
-do Python para a serialização de todos os objetos do sistema em um único arquivo.
+de objetos, sendo útil também na criação de um projeto e o carregamento de um projeto existente no disco, que são atribuições do pacote 
+\textit{Persistence}. Em sua versão atual, o protótipo do AIAF utiliza uma solução simples para a persistência, baseada no módulo \textit{Pickler} do
+Python para a serialização de todos os objetos do sistema em um único arquivo.
 
-Um arquivo .nav (extensão de arquivo do AIAF) é simplesmente um pacote compactado que contém uma estrutura de diretórios, destinada a armazenar os arquivos
-necessários à execução de um projeto, e também fornece suporte a certas operações de execução. Quando necessário, a classe \textit{Persistence} descompacta
-o .nav em um diretório temporário, espera certas operações serem realizadas e então compacta novamente na localização original.
 
-A filtragem feita originalmente não incluía uma opção de escolha das sequências com que se desejasse trabalhar. No AIAF, a criação de um novo projeto resulta
+Um arquivo .aiaf (extensão de arquivo do AIAF) é simplesmente um pacote compactado que contém uma estrutura de diretórios, destinada a armazenar os arquivos
+necessários à execução de um projeto, e também fornece suporte a certas operações de execução. Quando necessário, o pacote \textit{Persistence} descompacta
+o .aiaf em um diretório temporário, espera certas operações serem realizadas e então compacta novamente na localização original, utilizando a biblioteca
+\textit{zipfile} do Python. Os processos de compactação e descompactação são transparentes para o restante da aplicação.
+
+A filtragem feita originalmente não incluía uma opção de escolha das sequências com que se desejasse trabalhar, fazendo com que todas as sequências dos
+arquivos do GenBank fossem utilizados na geração da matriz de similaridades. No AIAF, a criação de um novo projeto resulta
 na filtragem e armazenamento dos dados, e em seguida a possibilidade de escolha das sequências, como mostra a figura \ref{fig:choose-sequences}.
 
 \begin{figure}
@@ -486,135 +492,51 @@ na filtragem e armazenamento dos dados, e em seguida a possibilidade de escolha 
 A geração de matrizes de adjacência é feita na contrução de um objeto da classe \textit{AdjacencyMatrix}, pela própria camada de negócio do AIAF, sem a
 necessidade de invocar módulos externos, pela simplicidade da operação. Já para gerar as matrizes de vizinhança, o módulo Madchar é invocado. A operação
 também é realizada durante a construção de um objeto da classe \textit{NeighbourhoodMatrix}, onde seu construtor invoca o método
-\textit{generate\_neighbourhood\_values}, que pode ser visto na listagem \ref{lst:gennbhvalues}.
+\textit{generate\_neighbourhood\_values}. A figura \ref{fig:generate-matrices} ilustra a interface de geração de matrizes.
 
-``
-Acho desnecessário mostrar codigo !!
-
-Mais interessante voce mostrar a interface em vários momentos do processo.''
-
-\lstset{language=python}
-\lstset{commentstyle=\textit}
-\begin{lstlisting}[frame=trbl, caption=Geração de Matriz de Adjacências,label=lst:gennbhvalues]{}
-class NeighbourhoodMatrix(Matrix):
-    def __init__(self, similarity_matrix, threshold):
-        
-        #[...]
-                    
-        data = self.generate_neighbourhood_values(data)
-                    
-        #[...]
-        
-    def generate_neighbourhood_values(self, adj_matrix):
-        madchar_directory = tempfile.mkdtemp([...])
-        
-        madchar_file = os.path.join([...])
-        shutil.copy(madchar_file, madchar_directory)
-        
-        #[...]
-        
-        olddir = os.getcwd()
-        os.chdir(madchar_directory)
-        matrix_file = open([...])
-        matrix_str = ''
-        for i in adj_matrix:
-            for j in i:
-                matrix_str += '%s' % j
-            matrix_str += '\n'
-        matrix_file.write(matrix_str)
-        matrix_file.flush()
-        subprocess.check_call(
-            [os.path.join(madchar_directory,'madchar')])
-        raw_nbh_matrix = open(os.path.join(madchar_directory,
-            'madcharresult_11.dat'), 'r')
-        os.chdir(olddir)
-        
-        data = raw_nbh_matrix.readlines()
-        data = data[2:]
-        for i in range(0, len(data)):
-            data[i] = [int(j) for j in data[i].split()]
-        
-        raw_nbh_matrix.close()
-        matrix_file.close()
-        f.close()
-        shutil.rmtree(madchar_directory)
-        
-        return data
-\end{lstlisting}
+\begin{figure}
+\centering
+\includegraphics[scale=0.38]{generate-matrices}
+\caption{Geração de matrizes no AIAF.}
+\label{fig:generate-matrices}
+\end{figure}
 
 A visualização do gráfico de matriz de cores se baseia nos dados da matriz de vizinhança e simplesmente os utiliza como entrada para a biblioteca
 \textit{Matplotlib} desenhar o gráfico na tela.
 
-Como explanado na seção \ref{sec:organizacao} do capítulo \ref{cap:navi}, a classe \textit{Analysis} tem a \textit{ThresholdAnalysis} como subclasse,
-que por sua vez tem como classes filhas classes que representam as diferentes formas de execução da análise de limiares. Isso permite uma exetensibilidade
-ao AIAF, uma vez que basta acrescentar uma nova classe filha à \textit{ThresholdAnalysis} para se incluir um novo método de analisar limiares. A situação
+Como descrito na seção \ref{sec:organizacao}, a classe \textit{Analysis} tem a \textit{ThresholdAnalysis} como subclasse,
+que por sua vez tem como descendentes classes que representam as diferentes formas de execução da análise de limiares. Isso permite uma exetensibilidade
+ao AIAF, uma vez que basta acrescentar uma nova descendente à \textit{ThresholdAnalysis} para se incluir um novo método de analisar limiares. A situação
 é análoga para a clusterização, com a classe \textit{Clustering} e sua filha \textit{NewmanGirvan}.
-
-\lstset{language=python}
-\lstset{commentstyle=\textit}
-\begin{lstlisting}[frame=trbl, caption=Clusterização usando o método de Newman e Girvan,label=lst:clustering]{}
-class NewmanGirvan(Clustering):
-    #[...]
-        
-    def clusterize(self, nbh_matrix):
-        self.threshold = nbh_matrix.threshold
-        similarity_array = nbh_matrix.data
-        matrix_str = '   '
-        for i in range(0, len(similarity_array)):
-            for j in range(0, len(similarity_array[i])):
-                matrix_str += str(similarity_array[i][j])
-                if j + 1 < len(similarity_array[i]):
-                    matrix_str += '   '
-            matrix_str += '\n'
-        
-        dendo_directory = tempfile.mkdtemp([...])
-        dendo_file = os.path.join([...])
-        shutil.copy(dendo_file, dendo_directory)
-        
-        #[...]
-        
-        olddir = os.getcwd()
-        os.chdir(dendo_directory)
-        matrix_file = open([...])
-        matrix_file.write(matrix_str)
-        matrix_file.flush()
-        
-        subprocess.check_call(
-            [os.path.join(dendo_directory, 'dendo')])
-        
-        dendrogram_file = open('d2matrixde4.dat', 'r')
-        for i in dendrogram_file.readlines():
-            data = [float(elem.strip('\n')) \
-                for elem in i.split()]
-            data = data[1:]
-            self.dendrogram.append(data)
-        
-        os.chdir(olddir)
-        
-        matrix_file.close()
-        f.close()
-        shutil.rmtree(dendo_directory)
-        
-        return True
-\end{lstlisting}
 
 Nesta versão do protótipo do AIAF, apenas o método de distâncias foi implementado, por meio de invocação do módulo externo RedeCrítica por um método da
 classe \textit{Distance}, que é filha da classe \textit{ThresholdAnalysis}. Para a clusterização, o método de Newman e Girvan foi implementado por meio
 de invocação de um módulo externo feito em Fortran (Dendo). A invocação dos módulos Fortran foi feita utilizando chamadas de sistema da linguagem Python,
 que não permite uma integração perfeita, mas se utiliza do poder da linguagem de mapear as chamadas de sistema para a plataforma em que o \textit{software}
-está sendo executado. A listagem \ref{lst:clustering} mostra o trecho de código que trata da invocação do módulo externo. A figura \ref{fig:navi-dendrogram}
-mostra o dendrograma, resultado final do método, gerado pelo AIAF.
+está sendo executado. A figura \ref{fig:clustering-gui} ilustra a interface com o usuário para a execução da clusterização e a figura \ref{fig:navi-dendrogram}
+ilustra o dendrograma, resultado final do método, gerado pelo AIAF.
 
-A etapa de congruência foi modelada mas não foi implementada no protótipo por questões de tempo. Mais informações sobre a congruência podem
-ser vistas em \textbf{[CITAR]}. Como o AIAF não é capaz de gerar gráficos tão bons quanto uma suíte profissional dedicada à plotagem destinada a artigos e
+A etapa de congruência foi modelada mas não foi implementada no protótipo pela dificuldade de implementação, pela necessidade de estudo profundo nos outros
+métodos de análise filogenética e as ferramentas existentes para tal, além de adequar as saídas a um formato padrão para executar a comparação. Tal trabalho
+exigiria mais tempo que o disponível. Mais informações sobre a congruência podem
+ser vistas em \cite{marcelo2010}. Como o AIAF não é capaz de gerar gráficos tão bons quanto uma suíte profissional dedicada à plotagem destinada a artigos e
 trabalhos científicos em geral, e há perda do controle do usuário sobre a localização e o formato dos dados gerados entre as diversas etapas do processo, se
-faz necessária a exportação desses arquivos para que o usuário os utilize como fonte para utilização em programas plotadores, como consta no caso de uso
-12. Esta funcionalidade, no entanto, não foi implementada no protótipo.
+faz necessária a exportação desses arquivos para que o usuário os utilize como fonte para utilização em programas plotadores.
+Esta funcionalidade, no entanto, não foi implementada no protótipo.
 
 Duas outras funcionalidades também não foram implementadas no protótipo, que são a definição de módulos/comunidades (caso de uso 8), onde o usuário define
 com base na matriz de cores e no dengrograma quais sequências pertencem a quais comunidades e com isso pode ser gerado o gréfico completo da rede (caso de
 uso 10) para visualização, onde o usuário pode ver as comunidades separadas por cores, além de obter facilmente informações sobre as sequências clicando nos
-vértices.
+vértices. Estas funcionalidades em conjunto
+exigem um trabalho de interface gráfica grande, incluindo a exibição interativa de gráficos e a integração de bibliotecas de exibição de
+gráficos a bibliotecas de plotagem.
+
+\begin{figure}
+\centering
+\includegraphics[scale=0.38]{clustering-gui}
+\caption{Interface de execução da clusterização no AIAF.}
+\label{fig:clustering-gui}
+\end{figure}
 
 \begin{figure}
 \centering
@@ -627,9 +549,12 @@ vértices.
 
 Uma das principais dificuldades, sem dúvida, foi conseguir pensar em um sistema que pudesse ser ao mesmo tempo extensível, garantisse uma facilidade de uso,
 se mostrasse rápido, de fácil manutenção, seguindo as boas práticas de modelagem e programação, sem perder a integração com o código legado. Tais
-características exigiram um pensamento integrado na modelagem, implementação e processo de desenvolvimento, sem fugir aos requisitos a aos interesses dos dois
+características exigiram um pensamento integrado na modelagem, implementação e processo de desenvolvimento, sem fugir aos requisitos e aos interesses dos dois
 grupos de usuários: os pesquisadores e os desenvolvedores.
 
 Ao longo do trabalho, houve complicações nas decisões de projeto e na modelagem. Na parte da implementação, a migração de alguns códigos originalmente em Perl
 para Python e a opção de abandonar um banco de dados relacional tomaram uma boa parte do tempo, como também o aprendizado de PyQt e o desenvolvimento da
 interface gráfica.
+
+Apesar das dificuldades e da não implementação de alguns casos de uso, a modelagem realizada e o desenvolvimento do protótipo dentro do modelo em espiral
+consistiram de um trabalho importante, cujas considerações finais estão dispostas no próximo capítulo.

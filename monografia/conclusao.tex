@@ -1,46 +1,43 @@
 \chapter{Conclusão} \label{cap:conclusao}
 
-Com a evolução do poder dos computadores, criação de novas tecnologias, especialização dos estudantes, pesquisadores e profissionais, a Ciência da Computação
-passa a exercer um papel cada vez mais relevante na sociedade, seja na indústria, no mercado ou na pesquisa. Com o passar dos anos, a presença desta área
-nas pesquisas em áreas consideradas básicas como Física, Matemátia e Biologia de forma aplicada e também em um contexto multidisciplinar é cada vez mais
-constante.
-
-Este trabalho utilizou Ciência da Computação como um fim em um contexto de pesquisa que a utilizava como meio, demonstrando sua versatilidade. Nele pudemos
-aplicar uma metodologia tradicional de Engenharia de Software com o desafio te prover um ambiente de fácil utilização e controle do processo pelos usuários,
+Este trabalho
+aplicou uma metodologia tradicional de Engenharia de Software com o desafio de prover um ambiente de fácil utilização e controle do processo pelos usuários,
 e também fácil manutenção, utilizando-se de uma organização arquitetural em camadas, sem a perda das características originais do método de análise
 filogenética através da integração com código legado, e incluindo a possibilidade de extensibilidade.
 
-Como mostrado em capítulos anteriores, a área de Bioinformática vem crescendo bastante nos últimos anos, e sua demanda por pesquisa em Computação Aplicada
-apresenta uma curva de crescimento exponencial, de modo que a concepção de um ambiente integrado para análise filogenética constitui de um trabalho de
-desenvolvimento importante neste contexto.
+O primeiro protótipo do AIAF pode obter arquivos do GenBank, filtrá-los e a partir da escolha das sequências pelo usuário gerar a matriz de similaridades.
+A partir dela, permite ao usuário a geração de matrizes de adjacência e vizinhança, e em seguida analisar limiares e executar a clusterização.
+Além disso, possibilita a criação, carregamento e salvamento de projetos. O conjunto dessas funcionalidades
+constitui na finalização do primeiro ciclo do modelo em espiral.
 
 O trabalho realizado aqui representa um ponto de partida para que não só um método possa ser executado, mas para que se tenha um ambiente muito maior, que
-permita a aplicação de outros métodos de análise filogenética, como também a comparação e a extração de dados estatísticos entre eles. A modelagem do
-ambiente permitirá a concepção de novas versões do protótipo, permitindo a continuação do modelo de desenvolvimento em espiral, e a modelagem pode
+possibilite a aplicação de outros métodos de análise filogenética, como também a comparação e a extração de dados estatísticos entre eles. A modelagem do
+ambiente permitirá a concepção de novas versões do protótipo, levando à continuação do modelo de desenvolvimento em espiral, e a modelagem pode
 ser posteriormente ampliada, incluindo novos requisitos e funcionalidades e aumentando seu escopo. A próxima seção listará o que pode ser feito como trabalhos
 futuros.
 
 \section{Trabalhos futuros}
 
-Os principais trabalhos futuros estão relacionados ao protótipo. Posteriormente, pode-se impliar o escopo e consequentemente a modelagem.Seguem os trabalhos
+Os principais trabalhos futuros estão relacionados ao protótipo. Posteriormente, pode-se impliar o escopo e consequentemente a modelagem. Seguem os trabalhos
 futuros:
 
 \begin{itemize}
+  \item{Cinco casos de uso não foram implementados no protótipo: definir módulos/comunidades (caso de uso 8), comparar/executar congruência de redes de
+diferentes projetos (caso de uso 9), visualizar gráfico completo da rede (caso de uso 10), executar congruência em relação a um arquivo cadastrado em um
+formato padrão (caso de uso 11) e exportar dados do projeto para gráficos em um formato de programas plotadores (caso de uso 12);}
+  \item{Fazer uma modelagem bem-definida do pacote de persistência;}
   \item{Melhorar o armazenamento e serialização de objetos: a persistência foi tratada como pacote na modelagem pela sua tendência de variação conforme
 a plataforma. Na implementação foi criado um modelo simples de persistência, a partir da serialização dos objetos do sistema em um único arquivo. Ao
 carregar um projeto, o sistema lê esse arquivo e recupera o estado original;}
   \item{Algumas operações exclusivas da camada de persistência ficaram na lógica de negócio. É necessário mover a adaptar os códigos onde isso ocorre;}
   \item{Execução remota de algoritmos: alguns métodos de clusterização levam alguns dias para executar. Muitas vezes é interessante executá-lo em uma outra
 máquina de forma remota. É interessante haver uma interface ssh (Secure Shell) para a execução remota de algumas análises, à escolha do usuário;}
-  \item{Uso de \textit{threads}: algumas análises podem ser realizadas com o uso de \textit{threads} para liberar a interface para outros usos;}
-  \item{Alguns recursos do Qt podem ser melhor utilizados;}
   \item{A interface gráfica, apesar de representar uma melhoria em termos de uso, precisa ser melhorada;}
-  \item{Quatro casos de uso não foram implementados no protótipo: definir módulos/comunidades (caso de uso 8), comparar/executar congruência de redes de
-diferentes projetos (caso de uso 9), visualizar gráfico completo da rede (caso de uso 10), executar congruência em relação a um arquivo cadastrado em um
-formato padrão (caso de uso 11) e exportar dados do projeto para gráficos em um formato de programas plotadores (caso de uso 12);}
+  \item{Alguns recursos do Qt podem ser melhor utilizados;}
+  \item{O protótipo não avisa ao usuário sobre algumas operações que estão ocorrendo e nem o progresso de algumas análises duradouras;}
+  \item{Uso de \textit{threads}: algumas análises podem ser realizadas com o uso de \textit{threads} para liberar a interface para outros usos;}
   \item{A integração do sistema (feito em Python) com os módulos em Fortran está utilizando chamadas do sistema operacional. Python oferece um
 \textit{binding} para Fortran que poderia ser utilizado;}
-  \item{O protótipo não avisa ao usuário sobre algumas operações que estão ocorrendo e nem o progresso de algumas análises duradouras;}
 \end{itemize}
 
-\sigla{SSH}{Secure Shell}
+\sigla{SSH}{\textit{Secure Shell}}
