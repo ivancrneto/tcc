@@ -1,0 +1,397 @@
+\documentclass{beamer}
+\usepackage[latin1]{inputenc}
+\usepackage[brazil]{babel}
+
+\title{AIAF: Ambiente Integrado de Análise Filogenética Através de Redes Complexas}
+\author{Ivan Carmo da Rocha Neto}
+\institute{
+  Orientador: Antonio Lopes Apolinário Junior\\
+  Co-orientador: Roberto Fernandes Silva Andrade\\[2 ex]
+  Instituto de Matemática
+}
+\date{Universidade Federal da Bahia --- UFBA  \\ \vspace{.25cm} 12 de dezembro de 2011}
+\pgfdeclareimage[height=1.4cm]{logo}{brasaoUFBA}
+\logo{\pgfuseimage{logo}}
+
+%% Temas
+%  \usepackage{beamerthemeshadow}
+%   \usepackage{beamerthemebars}
+%   \usepackage[headheight=12pt,footheight=12pt]{beamerthemeboxes}
+%   \usepackage{beamerthemeclassic}
+%   \usepackage{beamerthemelined}
+%   \usepackage{beamerthemeplain}
+%   \usepackage[width=12pt,dark,tab]{beamerthemesidebar}
+%   \usepackage{beamerthemesplit}
+%   \usepackage{beamerthemetree}
+%   \usepackage[bar]{beamerthemetree}
+
+
+\begin{document}
+
+\frame
+{
+  \titlepage
+}
+
+\section{Sumário}
+
+\frame
+{
+  \frametitle{Sumário}
+  \tableofcontents
+}
+
+\section{Introdução}
+
+\frame
+{
+  \begin{center}
+    Introdução
+  \end{center}
+}
+
+\frame
+{
+  \frametitle{Introdução}
+\begin{itemize}
+ \item Análise Filogenética;
+ \item Método de Análise Filogenética através de Redes Complexas;
+ \item Criação de um ambiente integrado
+\end{itemize}
+
+}
+
+\section{Análise Filogenética através de Redes Complexas}
+
+\frame
+{  
+  \begin{center}
+    Análise Filogenética através de Redes Complexas
+  \end{center}
+}
+
+\frame
+{
+   \frametitle{Análise Filogenética através de Redes Complexas}
+\begin{itemize}
+ \item Análise Filogenética: relações hierárquicas, taxonomia, classificação, evolução;
+ \item Evolução dos computadores: comparação de sequências;
+ \item Redes Complexas
+ \begin{itemize}
+  \item Modelagem da natureza - regras para estabelecer conexões entre elementos
+  \item Grafo - geralmente com muitos vértices
+  \item Análise Filogenética: vértices são as sequências proteicas e arestas são
+  a similaridade
+ \end{itemize}
+\end{itemize}
+}
+
+\frame 
+{
+   \frametitle{Análise Filogenética através de Redes Complexas}
+\begin{itemize}
+ \item Escolha das sequências
+ \begin{itemize}
+  \item NCBI - formato GenBank \cite{ncbi};
+  \item Filtragem;
+   \item Geração de matriz de similaridades - BLAST \cite{blast1997}
+ \end{itemize}
+\end{itemize}
+}
+
+\frame 
+{
+   \frametitle{Análise Filogenética através de Redes Complexas}
+\begin{itemize}
+ \item Construção das redes
+ \begin{itemize}
+  \item Redes baseadas em um valor limiar;
+  \item Matrizes de adjacência e vizinhança \cite{andrade2006};
+  \item Limiar crítico
+ \end{itemize}
+\end{itemize}
+}
+
+\frame 
+{
+   \frametitle{Análise Filogenética através de Redes Complexas}
+\begin{itemize}
+ \item Entremeação e centralidade
+ \begin{itemize}
+  \item Clusterização;
+  \item Betweenness;
+ \end{itemize}
+\end{itemize}
+}
+
+\frame
+{
+   \frametitle{Fluxograma de execução}
+\begin{figure}[ht]
+\centering
+\includegraphics[width=.9\textwidth]{../fluxograma.png}
+\end{figure}
+}
+
+\section{AIAF - Ambiente Integrado de Análise Filogenética através de Redes Complexas}
+
+\frame
+{
+  \begin{center}
+    AIAF - Ambiente Integrado de Análise Filogenética através de Redes Complexas
+  \end{center}
+}
+
+
+\frame
+{  
+  \frametitle{AIAF}
+Pilares:
+\begin{itemize}
+ \item Usabilidade;
+ \item Gerenciamento de Informação;
+ \item Transparência.
+\end{itemize}
+}
+
+\frame
+{  
+  \frametitle{AIAF}
+Objetivos:
+\begin{itemize}
+ \item Extensibilidade;
+ \item Facilidade de uso;
+ \item Rapidez;
+ \item Fácil manutenção;
+ \item Integração com código legado.
+\end{itemize}
+}
+
+\frame
+{  
+  \frametitle{AIAF}
+Requisitos:
+\begin{itemize}
+ \item Filtragem de arquivos no formato GenBank;
+ \item Controle da análise;
+ \item Salvamento de organismos e sequências;
+ \item Escolha de sequências;
+ \item Geração de matrizes de adjacência;
+ \item Geração de matrizes de vizinhança;
+ \item Análise de limiares;
+ \item Execução da clusterização;
+ \item Visualização do gráfico completo da rede;
+ \item Congruência;
+ \item Exportação de dados.
+\end{itemize}
+}
+
+\frame
+{  
+  \frametitle{AIAF}
+Casos de uso:
+\begin{itemize}
+ \item Criar novo projeto;
+ \item Abrir projeto existente;
+ \item Gerar matriz de adjacências de um limiar qualquer;
+ \item Gerar matriz de vizinhança de um limiar qualquer;
+ \item Visualizar gráfico de matriz de vizinhança em forma de matriz de cores;
+ \item Analisar limiares;
+ \item Executar clusterização;
+ \item Definir módulos/comunidades;
+ \item Comparar/executar congruência de redes de diferentes projetos;
+ \item Visualizar gráfico completo da rede;
+ \item Executar congruência em relação a um arquivo cadastrado em um formato padrão;
+ \item Exportar dados do projeto para gráficos,
+\end{itemize}
+}
+
+\frame
+{  
+  \frametitle{AIAF}
+Modelagem:
+\begin{itemize}
+ \item Projeto - classe \textit{Project}
+ \begin{itemize}
+  \item Eventos da GUI;
+  \item Gerenciamento do sistema;
+  \item Salvamento de dados - pacote \textit{Persistence}.
+\end{itemize}
+\end{itemize}
+}
+
+\frame
+{
+   \frametitle{AIAF}
+\begin{figure}[ht]
+\centering
+\includegraphics[width=.9\textwidth]{../diagrama-classes-simplificado.png}
+\end{figure}
+}
+
+\frame
+{  
+  \frametitle{AIAF}
+Modelagem:
+\begin{itemize}
+ \item \textit{BioHandler}
+ \item Organismos e sequências
+ \item BLAST.
+\end{itemize}
+}
+
+\frame
+{
+   \frametitle{AIAF}
+\begin{figure}[ht]
+\centering
+\includegraphics[width=.9\textwidth]{../diagrama-classes-simplificado.png}
+\end{figure}
+}
+
+\frame
+{  
+  \frametitle{AIAF}
+Modelagem:
+\begin{itemize}
+ \item Matrizes
+ \begin{itemize}
+  \item \textit{SimilarityMatrix};
+  \item \textit{AdjacencyMatrix};
+  \item \textit{NeighbourhoodMatrix}.
+  \end{itemize}
+\end{itemize}
+}
+
+\frame
+{
+   \frametitle{AIAF}
+\begin{figure}[ht]
+\centering
+\includegraphics[width=.9\textwidth]{../diagrama-classes-simplificado.png}
+\end{figure}
+}
+
+\frame
+{  
+  \frametitle{AIAF}
+Modelagem:
+\begin{itemize}
+ \item Análises - extensibilidade
+ \begin{itemize}
+  \item \textit{Analysis}
+  \item \textit{ThresholdAnalysis} - \textit{Distance} e \textit{LargestCluster}
+  \item \textit{Clustering} - \textit{NewmanGirvan}
+ \end{itemize}
+\end{itemize}
+}
+
+\frame
+{
+   \frametitle{AIAF}
+\begin{figure}[ht]
+\centering
+\includegraphics[width=.9\textwidth]{../diagrama-classes-simplificado.png}
+\end{figure}
+}
+
+\frame
+{  
+  \frametitle{AIAF}
+Diagrama de Sequência - analisar limiares
+\begin{figure}[ht]
+\centering
+\includegraphics[width=1.\textwidth]{../analyse-threshold.png}
+\end{figure}
+}
+
+\section{Resultados Obtidos}
+
+\frame
+{
+  \begin{center}
+    Resultados Obtidos
+  \end{center}
+}
+
+\frame
+{
+   \frametitle{Resultados Obtidos}
+\begin{itemize}
+ \item Modelo de desenvolvimento em espiral \cite{boehm1986};
+ \item Utilização de Python, PyQt, BioPython, Pickler, Matplotlib, Zipfile;
+ \item Casos de uso implementados: criar novo projeto, abrir projeto existente,
+ gerar matriz de adjacências de um limiar qualquer, gerar matriz de vizinhança de
+ um limiar qualquer, visualizar gráfico de matriz de vizinhança em forma de matriz
+ de cores, analisar limiares, executar clusterização.
+\end{itemize}
+}
+
+\section{Dificuldades}
+
+\frame
+{
+  \begin{center}
+    Dificuldades
+  \end{center}
+}
+
+\frame
+{
+   \frametitle{Dificuldades}
+\begin{itemize}
+ \item Modelar e implementar sistema seguindo objetivos;
+ \item Integração com código legado;
+ \item Migração de código;
+ \item Algumas bibliotecas.
+\end{itemize}
+}
+
+\section{Trabalhos Futuros}
+
+\frame
+{
+  \begin{center}
+    Trabalhos Futuros
+  \end{center}
+}
+
+\frame
+{
+   \frametitle{Trabalhos futuros}
+\begin{itemize}
+ \item Casos de uso não implementados: definir módulos/comunidades, comparar/executar
+ congruência de redes de diferentes projetos, visualizar gráfico completo da rede,
+ executar congruência em relação a um arquivo cadastrado em um formato padrão e exportar dados
+do projeto para gráficos;
+ \item Modelagem bem-definida do pacote de persistência;
+ \item Melhorar o armazenamento e serialização de objetos;
+ \item Execução remota de algoritmos;
+ \item Melhorar interface gráfica;
+ \item Avisos ao usuário;
+ \item Melhor aproveitamento de processos;
+ \item Melhor integração com módulos externos.
+\end{itemize}
+}
+
+\section{Conclusão}
+
+\frame
+{
+  \begin{center}
+    Conclusão
+  \end{center}
+}
+
+\section{Referências}
+
+\frame
+{  
+  \frametitle{Referências}
+
+  \bibliographystyle{aiaf}
+  \bibliography{aiaf}
+}
+
+
+\end{document}
