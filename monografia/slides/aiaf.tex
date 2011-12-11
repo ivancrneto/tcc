@@ -7,6 +7,7 @@
 \institute{
   Orientador: Antonio Lopes Apolinário Junior\\
   Co-orientador: Roberto Fernandes Silva Andrade\\[2 ex]
+  Curso de Ciência da Computação, Departamento de Ciência da Computação\\[2 ex]
   Instituto de Matemática
 }
 \date{Universidade Federal da Bahia --- UFBA  \\ \vspace{.25cm} 12 de dezembro de 2011}
@@ -25,6 +26,9 @@
 %   \usepackage{beamerthemetree}
 %   \usepackage[bar]{beamerthemetree}
 
+\usetheme{default}
+\setbeamertemplate{navigation symbols}{} 
+\setbeamertemplate{footline}{\hspace*{.2cm}\scriptsize{\hspace*{50pt} \hfill\insertframenumber\hspace*{.2cm}}} 
 
 \begin{document}
 
@@ -32,8 +36,6 @@
 {
   \titlepage
 }
-
-\section{Sumário}
 
 \frame
 {
@@ -89,6 +91,10 @@
 \frame 
 {
    \frametitle{Análise Filogenética através de Redes Complexas}
+\begin{figure}[ht]
+\centering
+\includegraphics[width=.9\textwidth]{../fluxograma.png}
+\end{figure}
 \begin{itemize}
  \item Escolha das sequências
  \begin{itemize}
@@ -102,12 +108,17 @@
 \frame 
 {
    \frametitle{Análise Filogenética através de Redes Complexas}
+\begin{figure}[ht]
+\centering
+\includegraphics[width=.9\textwidth]{../fluxograma.png}
+\end{figure}
 \begin{itemize}
- \item Construção das redes
+ \item Requisitos
  \begin{itemize}
-  \item Redes baseadas em um valor limiar;
-  \item Matrizes de adjacência e vizinhança \cite{andrade2006};
-  \item Limiar crítico
+  \item Filtragem de arquivos no formato GenBank;
+  \item Controle da análise;
+  \item Salvamento de organismos e sequências;
+  \item Escolha de sequências.
  \end{itemize}
 \end{itemize}
 }
@@ -115,6 +126,56 @@
 \frame 
 {
    \frametitle{Análise Filogenética através de Redes Complexas}
+\begin{figure}[ht]
+\centering
+\includegraphics[width=.9\textwidth]{../fluxograma.png}
+\begin{columns}[c]
+\column{2.7in}
+\begin{itemize}
+ \item Construção das redes
+ \begin{itemize}
+  \item Redes baseadas em um valor limiar;
+  \item Matrizes de adjacência e vizinhança \cite{andrade2006};
+  \item Limiar crítico.
+ \end{itemize}
+\end{itemize}
+\column{1.5in}
+\framebox{\includegraphics[width=1.2in]{../distancia.jpg}}
+\end{columns}
+\end{figure}
+}
+
+\frame 
+{
+   \frametitle{Análise Filogenética através de Redes Complexas}
+\begin{figure}[ht]
+\centering
+\includegraphics[width=.9\textwidth]{../fluxograma.png}
+\begin{columns}[c]
+\column{2.7in}
+\begin{itemize}
+ \item Requisitos
+ \begin{itemize}
+  \item Geração de matrizes de adjacência;
+  \item Geração de matrizes de vizinhança;
+  \item Análise de limiares.
+ \end{itemize}
+\end{itemize}
+\column{1.5in}
+\framebox{\includegraphics[width=1.2in]{../distancia.jpg}}
+\end{columns}
+\end{figure}
+}
+
+\frame 
+{
+   \frametitle{Análise Filogenética através de Redes Complexas}
+\begin{figure}[ht]
+\centering
+\includegraphics[width=.9\textwidth]{../fluxograma.png}
+\end{figure}
+\begin{columns}[c]
+\column{1.8in}
 \begin{itemize}
  \item Entremeação e centralidade
  \begin{itemize}
@@ -122,14 +183,40 @@
   \item Betweenness;
  \end{itemize}
 \end{itemize}
+\column{1.2in}
+\framebox{\includegraphics[width=1.0in]{../matriz-vizinhanca.jpg}}
+\column{1.2in}
+\framebox{\includegraphics[width=1.2in]{../dendrograma.jpg}}
+\end{columns}
 }
 
-\frame
+\frame 
 {
-   \frametitle{Fluxograma de execução}
+   \frametitle{Análise Filogenética através de Redes Complexas}
 \begin{figure}[ht]
 \centering
 \includegraphics[width=.9\textwidth]{../fluxograma.png}
+\begin{columns}[c]
+\column{1.8in}
+\begin{itemize}
+ \item Requisitos
+ \begin{itemize}
+  \item Execução da clusterização;
+  \item Visualização do gráfico completo da rede;
+ \end{itemize}
+\end{itemize}
+\begin{itemize}
+ \item Outros Requisitos
+ \begin{itemize}
+  \item Congruência;
+  \item Exportação de dados.
+ \end{itemize}
+\end{itemize}
+\column{1.2in}
+\framebox{\includegraphics[width=1.0in]{../matriz-vizinhanca.jpg}}
+\column{1.2in}
+\framebox{\includegraphics[width=1.2in]{../dendrograma.jpg}}
+\end{columns}
 \end{figure}
 }
 
@@ -164,25 +251,6 @@ Objetivos:
  \item Rapidez;
  \item Fácil manutenção;
  \item Integração com código legado.
-\end{itemize}
-}
-
-\frame
-{  
-  \frametitle{AIAF}
-Requisitos:
-\begin{itemize}
- \item Filtragem de arquivos no formato GenBank;
- \item Controle da análise;
- \item Salvamento de organismos e sequências;
- \item Escolha de sequências;
- \item Geração de matrizes de adjacência;
- \item Geração de matrizes de vizinhança;
- \item Análise de limiares;
- \item Execução da clusterização;
- \item Visualização do gráfico completo da rede;
- \item Congruência;
- \item Exportação de dados.
 \end{itemize}
 }
 
