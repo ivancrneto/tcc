@@ -220,30 +220,26 @@
 \end{figure}
 }
 
-\section{AIAF - Ambiente Integrado de Análise Filogenética através de Redes Complexas}
-
-\frame
-{
-  \begin{center}
-    AIAF - Ambiente Integrado de Análise Filogenética através de Redes Complexas
-  \end{center}
-}
-
-
 \frame
 {  
-  \frametitle{AIAF}
+  \frametitle{Ambiente de Análise Filogenética}
 Pilares:
 \begin{itemize}
  \item Usabilidade;
  \item Gerenciamento de Informação;
  \item Transparência.
 \end{itemize}
+
+Base do Ambiente:
+\begin{itemize}
+ \item Projeto;
+ \item Persistência.
+\end{itemize}
 }
 
 \frame
 {  
-  \frametitle{AIAF}
+  \frametitle{Ambiente de Análise Filogenética}
 Objetivos:
 \begin{itemize}
  \item Extensibilidade;
@@ -254,145 +250,94 @@ Objetivos:
 \end{itemize}
 }
 
-\frame
-{  
-  \frametitle{AIAF}
-Casos de uso:
-\begin{itemize}
- \item Criar novo projeto;
- \item Abrir projeto existente;
- \item Gerar matriz de adjacências de um limiar qualquer;
- \item Gerar matriz de vizinhança de um limiar qualquer;
- \item Visualizar gráfico de matriz de vizinhança em forma de matriz de cores;
- \item Analisar limiares;
- \item Executar clusterização;
- \item Definir módulos/comunidades;
- \item Comparar/executar congruência de redes de diferentes projetos;
- \item Visualizar gráfico completo da rede;
- \item Executar congruência em relação a um arquivo cadastrado em um formato padrão;
- \item Exportar dados do projeto para gráficos,
-\end{itemize}
-}
-
-\frame
-{  
-  \frametitle{AIAF}
-Modelagem:
-\begin{itemize}
- \item Projeto - classe \textit{Project}
- \begin{itemize}
-  \item Eventos da GUI;
-  \item Gerenciamento do sistema;
-  \item Salvamento de dados - pacote \textit{Persistence}.
-\end{itemize}
-\end{itemize}
-}
-
-\frame
-{
-   \frametitle{AIAF}
-\begin{figure}[ht]
-\centering
-\includegraphics[width=.9\textwidth]{../diagrama-classes-simplificado.png}
-\end{figure}
-}
-
-\frame
-{  
-  \frametitle{AIAF}
-Modelagem:
-\begin{itemize}
- \item \textit{BioHandler}
- \item Organismos e sequências
- \item BLAST.
-\end{itemize}
-}
-
-\frame
-{
-   \frametitle{AIAF}
-\begin{figure}[ht]
-\centering
-\includegraphics[width=.9\textwidth]{../diagrama-classes-simplificado.png}
-\end{figure}
-}
-
-\frame
-{  
-  \frametitle{AIAF}
-Modelagem:
-\begin{itemize}
- \item Matrizes
- \begin{itemize}
-  \item \textit{SimilarityMatrix};
-  \item \textit{AdjacencyMatrix};
-  \item \textit{NeighbourhoodMatrix}.
-  \end{itemize}
-\end{itemize}
-}
-
-\frame
-{
-   \frametitle{AIAF}
-\begin{figure}[ht]
-\centering
-\includegraphics[width=.9\textwidth]{../diagrama-classes-simplificado.png}
-\end{figure}
-}
-
-\frame
-{  
-  \frametitle{AIAF}
-Modelagem:
-\begin{itemize}
- \item Análises - extensibilidade
- \begin{itemize}
-  \item \textit{Analysis}
-  \item \textit{ThresholdAnalysis} - \textit{Distance} e \textit{LargestCluster}
-  \item \textit{Clustering} - \textit{NewmanGirvan}
- \end{itemize}
-\end{itemize}
-}
-
-\frame
-{
-   \frametitle{AIAF}
-\begin{figure}[ht]
-\centering
-\includegraphics[width=.9\textwidth]{../diagrama-classes-simplificado.png}
-\end{figure}
-}
-
-\frame
-{  
-  \frametitle{AIAF}
-Diagrama de Sequência - analisar limiares
-\begin{figure}[ht]
-\centering
-\includegraphics[width=1.\textwidth]{../analyse-threshold.png}
-\end{figure}
-}
-
-\section{Resultados Obtidos}
+\section{AIAF - Ambiente Integrado de Análise Filogenética através de Redes Complexas}
 
 \frame
 {
   \begin{center}
-    Resultados Obtidos
+    AIAF - Ambiente Integrado de Análise Filogenética através de Redes Complexas
+  \end{center}
+}
+
+\frame
+{  
+  \frametitle{AIAF}
+Casos de uso:
+\begin{figure}[ht]
+\includegraphics[width=3.0in]{../diagrama-casos-de-uso.png}
+\end{figure}
+}
+
+\frame
+{  
+  \frametitle{Modelagem do AIAF - Projeto, GUI e Persistência}
+\begin{figure}[ht]
+\centering
+\includegraphics[width=.9\textwidth]{diagrama-classes-simplificado1.png}
+\end{figure}
+}
+
+\frame
+{  
+  \frametitle{Modelagem do AIAF - Organismos, Sequências e BLAST}
+\begin{figure}[ht]
+\centering
+\includegraphics[width=.9\textwidth]{diagrama-classes-simplificado2.png}
+\end{figure}
+}
+
+\frame
+{  
+  \frametitle{Modelagem do AIAF - Matrizes}
+\begin{figure}[ht]
+\centering
+\includegraphics[width=.9\textwidth]{diagrama-classes-simplificado3.png}
+\end{figure}
+}
+
+\frame
+{  
+  \frametitle{Modelagem do AIAF - Análises}
+\begin{figure}[ht]
+\centering
+\includegraphics[width=.9\textwidth]{diagrama-classes-simplificado4.png}
+\end{figure}
+}
+
+\section{Ambiente de desenvolvimento}
+
+\frame
+{
+  \begin{center}
+    Ambiente de desenvolvimento
   \end{center}
 }
 
 \frame
 {
-   \frametitle{Resultados Obtidos}
+   \frametitle{Ambiente de desenvolvimento}
 \begin{itemize}
  \item Modelo de desenvolvimento em espiral \cite{boehm1986};
- \item Utilização de Python, PyQt, BioPython, Pickler, Matplotlib, Zipfile;
- \item Casos de uso implementados: criar novo projeto, abrir projeto existente,
- gerar matriz de adjacências de um limiar qualquer, gerar matriz de vizinhança de
- um limiar qualquer, visualizar gráfico de matriz de vizinhança em forma de matriz
- de cores, analisar limiares, executar clusterização.
+ \item Sistema Operacional: GNU/Linux;
+ \item Linguagem: Python, Fortran (módulos externos);
+ \item Modelagem: Astah Community;
+ \item Bibliotecas:
+ \begin{itemize}
+  \item Filtragem e tratamento de sequências: BioPython;
+  \item Serialização: Pickler;
+  \item Plotagem de gráficos: Matplotlib;
+  \item Salvamento de arquivo de projeto: Zipfile;
+ \end{itemize}
 \end{itemize}
+}
+
+\section{Conclusão}
+
+\frame
+{
+  \begin{center}
+    Conclusão
+  \end{center}
 }
 
 \section{Dificuldades}
@@ -428,26 +373,22 @@ Diagrama de Sequência - analisar limiares
 {
    \frametitle{Trabalhos futuros}
 \begin{itemize}
- \item Casos de uso não implementados: definir módulos/comunidades, comparar/executar
- congruência de redes de diferentes projetos, visualizar gráfico completo da rede,
- executar congruência em relação a um arquivo cadastrado em um formato padrão e exportar dados
-do projeto para gráficos;
+ \item Casos de uso não implementados;
  \item Modelagem bem-definida do pacote de persistência;
- \item Melhorar o armazenamento e serialização de objetos;
+ \item Melhoria do armazenamento e serialização de objetos;
  \item Execução remota de algoritmos;
- \item Melhorar interface gráfica;
+ \item Melhoria da interface gráfica;
  \item Avisos ao usuário;
  \item Melhor aproveitamento de processos;
- \item Melhor integração com módulos externos.
+ \item Melhor integração com módulos externos;
+ \item Versões para outras plataformas.
 \end{itemize}
 }
-
-\section{Conclusão}
 
 \frame
 {
   \begin{center}
-    Conclusão
+    Considerações Finais
   \end{center}
 }
 

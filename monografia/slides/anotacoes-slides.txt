@@ -3,21 +3,21 @@ x slide1 - colocar o curso e o departamento, colocar unidade do professor
 x slide2 - retirar o sumario
 x slide7 e seguintes - colocar a imagem, frisar módulos diferentes, linguagens diferentes, arquivos, formatos de entrada, frisar organizar o ambiente
 x slide7 e seguintes - colocar os requisitos
-slide12 e slide13 - final do chapter anterior
-slide15 - caso de uso substituir pela imagem
+x slide12 e slide13 - final do chapter anterior
+x slide15 - caso de uso substituir pela imagem
 
-criar slide - a base dessa estrutura são os conceitos projeto e persistência (informações intermediárias)
+x criar slide - a base dessa estrutura são os conceitos projeto e persistência (informações intermediárias)
 
 figura da modelagem - circular grupos de classes
 
-retirar diagrama de sequências
+x retirar diagrama de sequências
 
 falar do modelo em espiral antes
 
 mudar título de resultados obtidos para ambiente de construção da ferramenta, etc. concentrar aqui a parte operacional, tópicos de linguagem, bibliotecas de cada parte, etc
 
-não listar casos de uso implementados nem casos de uso não implementados, apenas ressaltar que alguns não foram implementados
+x não listar casos de uso implementados nem casos de uso não implementados, apenas ressaltar que alguns não foram implementados
 
-colocar título conclusão antes
+x colocar título conclusão antes
 
 x mostrar gráficos distâncias, matriz de similaridades, dendrograma
