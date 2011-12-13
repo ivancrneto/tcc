@@ -48,7 +48,7 @@ realizar uma filtragem e gerar a matriz de similaridades. O sistema deve levar e
 e as receber como entrada inicial. O resultado desta etapa devem ser arquivos filtrados e organizados para facilitar a identificação de organismos em etapas
 posteriores e proporcionar a execução da similaridade.
 
-\section{Similaridade} \label{sec:similaridade}
+\section{Análise de Similaridades} \label{sec:similaridade}
 
 Uma vez selecionadas as sequências, o próximo passo é executar a análise de similaridades entre as sequências proteicas e o armazenamento em um banco
 de dados relacional. Para isso é utilizada a ferramenta BLAST (\textit{Basic Alignment Search Tool}) \cite{blast1997} para comparação entre as sequências.
@@ -97,7 +97,7 @@ a partir delas ao longo de um procedimento de análise é algo importante que de
 \label{fig:matriz-vizinhanca}
 \end{figure}
 
-\section{Limiar Crítico} \label{sec:limcrit}
+\section{Determinação do Limiar Crítico} \label{sec:limcrit}
 
 Já se sabe que o limiar crítico de uma rede revela a melhor relação entre ruído e informação. Existem diversas maneiras de determiná-lo.
 Uma delas é o método das distâncias \cite{andrade2009}. Nele, calcula-se a distância euclidiana entre matrizes de
@@ -126,7 +126,7 @@ escolha do método de análise dos limiares.
 A matriz de vizinhança da rede do limiar crítico é a entrada necessária para a realização da clusterização, que é feita através do método de detecção
 de comunidades de Newman e Girvan \cite{newman2004} para identificar a estrutura modular da rede. O método consiste em determinar a aresta mais importante
 da rede – aquela por onde passa a maior quantidade de caminhos mínimos de cada par de vértices por toda a rede – e eliminá-la, repetindo a operação
-até que não existam mais arestas na rede.
+até que não existam mais arestas na rede. Estas operações consistem no conceito de \textit{Betweenness} ou Entremeação \cite{andrade2008}.
 
 Conforme esta operação é feita, é possível construir um histograma de remoção de arestas ou dendrograma, que começa com uma linha representando toda a rede
 e à medida em que as arestas são removidas a rede vai se repartindo em módulos e a linha inicial vai sofrendo bifurcações. Observando a Figura
@@ -204,10 +204,10 @@ profissionais de plotagem \\ \hline
 A partir desses requisitos gerais, apresentamos no próximo Capítulo a proposta de modelagem que pretende atendê-los.
 
 
-\chapter{Modelagem do AIAF - Ambiente Integrado de Análise Filogenética Através de Redes Complexas}
+\chapter{Modelagem do AIAF - Ambiente Integrado de apoio à Análise Filogenética através de Redes Complexas}
 \label{cap:navi}
 
-\sigla{AIAF}{Ambiente Integrado de Análise Filogenética Através de Redes Complexas}
+\sigla{AIAF}{Ambiente Integrado de apoio à Análise Filogenética através de Redes Complexas}
 
 A partir dos requisitos identificados no Capítulo anterior, podemos propor um ambiente integrado para gerenciar o método de Análise Filogenética por
 Redes Complexas descrito anteriormente. Para garantir o controle das etapas do processo e ao mesmo tempo permitir uma fácil utilização e evitar problemas
@@ -287,7 +287,7 @@ programas específicos \cite{origin},
 que são necessários para certas tomadas de decisões que influenciam em quais dados serão escolhidos para a execução das próximas etapas do mesmo. Isto é
 prejudicial pois gera uma troca de contexto. O sistema, então, pode gerar esses gráficos (matrizes de vizinhança em forma de matrizes de cores, matrizes de
 adjacências em forma de grafos, gráficos de resultados de análises como distâncias, gráfico do dengrograma), mesmo que com qualidade um pouco inferior,
-para que a continuação do processo se dê de forma mais rápida. Apesar desta funcionalidade não estar relacionada a nenhum requisito, é
+para que a continuação do processo se dê de forma mais rápida. Esta funcionalidade representa
 uma preocupação que deve estar presente no momento da modelagem para
 tornar o processo mais ágil e transparente para o usuário. Ao mesmo tempo, o sistema pode fornecer como opção de exportação os arquivos que são utilizados por
 programas profissionais de plotagem, essenciais para a utilização em artigos científicos e afins (caso de uso 12).
@@ -296,7 +296,7 @@ A análise de limiares (caso de uso 6) resulta na geração de um gráfico que s
 do processo, com a clusterização (caso de uso 7) e a definição de comunidades (caso de uso 8).
 
 Outro detalhe importante é a possibilidade de comparação entre o método atual desenvolvido pelo FESC
-e outros métodos já consolidados de análise filogenética,
+e outros métodos já consolidados de análise filogenética, listados no Capítulo \ref{cap:analisefilo},
 além de poder comparar com outro projeto criado pelo próprio sistema (casos de uso 9 e 11).
 Para prosseguir com a modelagem, se faz necessária a organização das informações através
 de um diagrama de classes, mostrado na próxima Seção.
@@ -430,7 +430,7 @@ O ambiente operacional original
 envolve uma série de ferramentas e linguagens: exige um ambiente GNU/Linux, um compilador Fortran, um compilador C, pacotes para
 a execução de \textit{scripts} Perl e a biblioteca \textit{BioPerl}, além de um banco de dados relacional, neste caso o MySQL. Após o \textit{download} das
 sequências a partir do banco de dados GenBank, as mesmas eram colocadas em um mesmo diretório, onde uma série de \textit{scripts} Perl eram executados,
-realizando os seguintes passos necessários para o armazenamento das sequências no banco de dados e a posterior geração da matriz de similaridades.
+realizando os passos necessários para o armazenamento das sequências no banco de dados e a posterior geração da matriz de similaridades.
 
 De posse da matriz de similaridades, é necessária a execução de outro programa para a geração das redes de diversos limiares e análise dos mesmos para que
 fosse possível a escolha de um limiar crítico e então a continuação do método.
@@ -518,7 +518,7 @@ ilustra o dendrograma, resultado final do método, gerado pelo AIAF.
 
 A etapa de congruência foi modelada mas não foi implementada no protótipo pela dificuldade de implementação, pela necessidade de estudo profundo nos outros
 métodos de análise filogenética e as ferramentas existentes para tal, além de adequar as saídas a um formato padrão para executar a comparação. Tal trabalho
-exigiria mais tempo que o disponível. Mais informações sobre a congruência podem
+exigiria mais tempo que o disponível. Mais informações sobre outros métodos e a congruência podem
 ser vistas em \cite{marcelo2010}. Como o AIAF não é capaz de gerar gráficos tão bons quanto uma suíte profissional dedicada à plotagem destinada a artigos e
 trabalhos científicos em geral, e há perda do controle do usuário sobre a localização e o formato dos dados gerados entre as diversas etapas do processo, se
 faz necessária a exportação desses arquivos para que o usuário os utilize como fonte para utilização em programas plotadores.
