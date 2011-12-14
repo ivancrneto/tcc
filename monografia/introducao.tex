@@ -5,24 +5,54 @@ tem aproveitado o crescimento do poder computacional para realizar análises cad
 A possibilidade de comparação de grandes sequências de DNA em um curto intervalo de tempo possibilita resultados impossíveis de serem obtidos através
 de uma comparação manual.
 
-A Bioinformática é hoje uma das áreas multidisciplinares mais promissoras, e a comparação de sequências proteicas permite um impulso na área de Análise
+\newglossaryentry{engsoft}{name=Engenharia de Software,
+description={\hspace{2 mm}área do conhecimento da computação voltada para a especificação, desenvolvimento e manutenção de sistemas de software
+aplicando tecnologias e práticas de gerência de projetos e outras disciplinas, objetivando organização, produtividade e qualidade}}
+
+\newglossaryentry{bioinformatica}{name=Bioinformática,
+description={\hspace{2 mm}corresponde a aplicação das técnicas da Informática, no sentido de análise da informação na área de estudo da Biologia, utilizando
+tais técnicas computacionais e matemáticas à geração e gerenciamento de bioinformação}}
+
+A \gls{bioinformatica} é hoje uma das áreas multidisciplinares mais promissoras, e a comparação de sequências proteicas permite um impulso na área de Análise
 Filogenética, onde diversos métodos tem surgido. Outras áreas do conhecimento que têm se beneficiado bastante com a crescente evolução computacional são a
 Física e a Matemática que, assim como a Biologia, podem atingir resultados rapidamente antes impossíveis, e acabam gerando um leque de opções para pesquisa
 em computação aplicada.
 
+\newglossaryentry{fisica-estatistica}{name=Física Estatística,
+description={\hspace{2 mm}é o ramo da Física que usa métodos da teoria das probabilidades e estatística e, particularmente, as ferramentas matemáticas para
+lidar com grandes populações e aproximações, na solução de problemas físicos. Seu principal objetivo é esclarecer as propriedades da matéria sob conjuntos,
+em termos de leis físicas que regem o movimento atômico}}
+
+\newglossaryentry{sistemas-complexos}{name=Sistemas Complexos,
+description={\hspace{2 mm}são sistemas onde suas propriedades não são uma consequência natural de seus elementos constituintes vistos isoladamente. As
+propriedades emergentes de um sistema complexo decorrem em grande parte da relação não-linear entre as partes}}
+
 Hoje em dia a demanda por profissionais e pesquisadores de Ciência da Computação nestas áreas tem se mostrado muito grande, e a junção de duas ou mais delas
 em um contexto multidisciplinar tem guiado as pesquisas a resultados muito interessantes, além de gerar produtos e também ideias para novos projetos de
-pesquisa. Em um contexto de Física Estatística e Sistemas Complexos, aliando-se conceitos matemáticos da Teoria dos Grafos, foi possível o
+pesquisa. Em um contexto de \gls{fisica-estatistica} e \gls{sistemas-complexos}, aliando-se conceitos matemáticos da Teoria dos Grafos, foi possível o
 desenvolvimento de um método para Análise Filogenética, que levou a resultados comparáveis com os de outros métodos existentes \cite{andrade2011}.
 
+
+\newglossaryentry{artefatos}{name=artefatos computacionais,
+description={\hspace{2 mm}são vários tipos de subprodutos concretos produzido durante o desenvolvimento de software. Alguns artefatos (por exemplo,
+casos de uso, diagramas de classes e outros modelos UML, requisitos e documentos de projeto) ajudam a descrever a função, arquitetura e o design do software.
+Outros artefatos estão relacionados com o próprio processo de desenvolvimento - tais como planos de projetos, processos de negócios e avaliações de risco.
+Podem ser manuais, arquivos executáveis, módulos etc}}
+
+
+\newglossaryentry{persistencia}{name=persistência,
+description={\hspace{2 mm}refere-se ao armazenamento não-volátil de dados, por exemplo, o armazenamento em um dispositivo físico como um disco rígido.
+Pode-se dizer que de maneira geral, o termo persistência é associado a uma ação que consiste em manter em meio físico recuperável, como banco de dados
+ou arquivo, de modo a garantir a permanência das informações de um determinado estado de um objeto lógico.}}
+
 Nos três anos de pesquisa e desenvolvimento do método, houve uma maior preocupação com resultados, o que fez com que o processo de desenvolvimento de
-artefatos computacionais  para que se chegasse a eles não seguisse um metodologia de desenvolvimento baseada em conceitos de Engenharia de Software. Como
+\gls{artefatos} para que se chegasse a eles não seguisse um metodologia de desenvolvimento baseada em conceitos de \gls{engsoft}. Como
 resultado desse processo de construção de software sem metodologia, o ambiente computacional gerado necessita de
 uma curva de aprendizado grande para a sua execução, além de cuidados com relação à organização e nomenclatura de arquivos, configurações,
 formatação de dados de entrada e saída para o uso em diferentes programas. A partir do momento em que o método está concluído, testado e comparado com
 outros métodos, se faz necessário sua organização para diminuir esta curva de aprendizado. A aplicação de uma metodologia de Engenharia de Software ao
-sistema atual se dá a partir de (i) concepção de uma arquitetura que permita uma separação em camadas de interação com o usuário, lógica de negócio e
-persistência; (ii) controle de execução do processo; (iii) possibilidade de extensibilidade; (iv) utilização de código legado.
+sistema atual se dá a partir de (i) concepção de uma arquitetura que permita uma separação em camadas de interação com o usuário, gerenciamento de
+e controle, e \gls{persistencia}; (ii) controle de execução do processo; (iii) possibilidade de extensibilidade; (iv) utilização de código legado.
 
 \section{Motivação}
 
@@ -40,11 +70,18 @@ resultados entre os diferentes métodos existentes.
 O objetivo deste trabalho é aplicar metodologias baseadas em Engenharia de Software de forma a desenvolver um ambiente integrado que agrupe
 um conjunto de ferramentas e códigos legados desenvolvidos pelo grupo de pesquisa FESC (Física Estatística e Sistemas Complexos),
 utilizando-se de pouca metodologia. Em seguida, um levantamento do que era necessário para que
-se pudesse organizar os programas e \textit{scripts} utilizados objetivando uma melhor execução e experiência de utilização (a serem comprovadas após validação)
+se pudesse organizar os programas e \textit{scripts} utilizados objetivando melhorar sua execução e experiência de utilização (a serem comprovadas após validação)
  por pesquisadores que detêm de
 pouco ou quase nenhum conhecimento de desenvolvimento de software e ambientes Linux, além de permitir sua evolução e extensibilidade.
 
-A utilização de uma metodologia tradicional de Engenharia de Software, com a definição de requisitos, modelagem e implementação do sistema são também
+
+\newglossaryentry{modelagem}{name=modelagem,
+description={\hspace{2 mm}atividade de construir modelos que expliquem as características ou o comportamento de um \textit{software}.
+Na construção do \textit{software} os modelos podem ser usados na identificação das características e funcionalidades que o \textit{software} deverá prover
+(análise de requisitos), e no planejamento de sua construção}}
+
+
+A utilização de uma metodologia com a definição de requisitos, \gls{modelagem} e criação de artefatos e implementação do sistema são também
 objetivos do trabalho, pois são
 essenciais para garantir um bom projeto de \textit{software}, que consequentemente possar ser utilizado, mantido, extendido
 e evoluído facilmente.
@@ -53,15 +90,28 @@ e evoluído facilmente.
 
 \section{Contribuições}
 
+\newglossaryentry{diagrama-casos-uso}{name=Diagrama de Casos de Uso,
+description={\hspace{2 mm}descreve a funcionalidade proposta para um novo sistema que será projetado. Pode ser tido como um
+documento narrativo que descreve a sequência de eventos de um ator que usa um sistema para completar um processo}}
+
+\newglossaryentry{diagrama-classes}{name=Diagrama de Classes,
+description={\hspace{2 mm}é uma representação da estrutura e relações das classes que servem de modelo para objetos. É uma modelagem muito útil para o
+sistema, define todas as classes que o sistema necessita possuir e é a base para a construção dos diagramas de comunicação, sequência e estados}}
+
+\newglossaryentry{diagrama-sequencia}{name=Diagrama de Sequências,
+description={\hspace{2 mm}descreve a maneira como os grupos de objetos colaboram em algum comportamento ao longo do tempo. Ele registra o comportamento
+de um único caso de uso e exibe os objetos e as mensagens passadas entre esses objetos no caso de uso}}
+
 Este trabalho propõe o desenvolvimento de um pacote de \textit{software} com uma preocupação na modelagem bem elaborada, incluindo requisitos e
 interações entre o usuário
-e o sistema (Diagrama de Casos de Uso), organização de dados e informações (Diagrama de Classes) e dinâmica de execução do sistema (Diagramas de Sequência).
+e o sistema (\gls{diagrama-casos-uso}), organização de dados e informações (\gls{diagrama-classes}) e dinâmica de execução do sistema (\gls{diagrama-sequencia}).
 O trabalho de modelagem virá acompanhado de um protótipo que inclui algumas das funcionalidades dispostas nos requisitos.
 
 O sistema beneficiará dois grupos de usuários: (i) desenvolvedores, com um modelo de sistema e uma documentação abrangente, permitindo sua
 manutenção, inclusão das funcionalidades levantadas nos requisitos e ainda não implementadas e extensão do modelo para novos requisitos; e (ii) pesquisadores,
-com um ambiente para utilização e execução de Análise Filogenética através de Redes Complexas, com geração de gráficos, armazenamento e organização de
-arquivos, salvamento e carregamento de projetos, direcionado para pesquisadores que não são da área de Ciência da Computação.
+com um ambiente integrado que permitirá a utilização e execução de Análise Filogenética através de Redes Complexas por uma interface gráfica,
+armazenamento e organização de
+arquivos, salvamento e retomada de execuções das análises de forma transparente, direcionado para pesquisadores que não são da área de Ciência da Computação.
 
 \section{Estrutura do trabalho}
 

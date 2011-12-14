@@ -12,6 +12,7 @@ view: $(SOURCEDOCUMENT).pdf
 $(SOURCEDOCUMENT).pdf: $(SOURCEDOCUMENT).tex $(CAPITULOS) $(SOURCEDOCUMENT).bib
 	pdflatex $< && \
 	makeindex -s tabela-simbolos.ist -o $(SOURCEDOCUMENT).sigla $(SOURCEDOCUMENT).siglax && \
+	makeindex $(SOURCEDOCUMENT).glo -s $(SOURCEDOCUMENT).ist -t $(SOURCEDOCUMENT).glg -o $(SOURCEDOCUMENT).gls
 	bibtex $(SOURCEDOCUMENT) && \
 	pdflatex $< && \
 	pdflatex $< || \

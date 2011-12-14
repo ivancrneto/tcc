@@ -41,9 +41,14 @@ uma rota metabólica, separando as sequências pela enzima que as produzem na ro
 
 \sigla{NCBI}{\textit{National Center for Biotechnology Information}}
 
-Esta é uma etapa manual, onde são feitas buscas por data e são realizadas determinadas filtragens no site do NCBI para obter as sequências desejadas, 
-resultando em arquivos em um formato chamado GenBank. Um requisito importante para o sistema é a capacidade de receber um ou mais arquivos neste formato e
-a partir deles
+\newglossaryentry{genbank}{name=GenBank,
+description={\hspace{2 mm}é um formato de exibição de sequências, consistindo em uma seção de anotações contendo locus, identificador, palavras-chave,
+definição, organismo, entre outras informações; e uma seção de sequência, que contém o código da sequência propriamente dita. O fim de uma seção é demarcado
+por ``//''}}
+
+Esta é uma etapa manual, onde são feitas buscas por data e são realizadas determinadas filtragens no \textit{site} do NCBI para obter as sequências desejadas, 
+resultando em arquivos em um formato chamado \gls{genbank}. Um requisito importante para o sistema é a capacidade de receber um ou mais arquivos neste
+formato e a partir deles
 realizar uma filtragem e gerar a matriz de similaridades. O sistema deve levar em consideração que as sequências já foram escolhidas
 e as receber como entrada inicial. O resultado desta etapa devem ser arquivos filtrados e organizados para facilitar a identificação de organismos em etapas
 posteriores e proporcionar a execução da similaridade.
@@ -71,7 +76,8 @@ são subconjuntos de dois elementos de $V$. Para evitar ambiguidades de notaçã
 
 Podemos dizer que o estudo de uma rede é o estudo de um grafo, mas em uma escala maior. Redes podem ser tidas como grafos muito grandes e complexos,
 onde se torna necessário o uso de técnicas estatísticas para a sua análise \cite{bessa2008}. Na literatura de Redes Complexas, em geral, precisamos
-encontrar uma rede de determinado conjunto que melhor o caracterize. Essa escolha se dá pela relação entre ruído e informação \cite{barabasi2004}.
+determinar qual rede de um dado conjunto melhor o caracteriza, seguindo uma propriedade. Essa escolha se dá pela relação entre ruído e informação
+\cite{barabasi2004}.
 
 Partindo da matriz de similaridades, podemos construir até 101 matrizes de adjacência, relacionando cada matriz a uma escala de similaridade
 de 0\% a 100\%, se levarmos
@@ -80,7 +86,11 @@ rede onde haverá uma aresta entre dois vértices (sequências) se e somente se 
 muito baixo apresenta muito ruído, ou seja, muitas arestas, o que leva a pouca possibilidade de identificação de suas características. Por outro lado, uma
 rede com limiar muito alto apresenta pouca informação, ou seja, poucas arestas, levando também a pouca possibilidade de identificação de suas características.
 
-Partindo das matrizes de adjacência podemos também criar matrizes de vizinhança \cite{andrade2009}, que podem ser obtidas calculando-se os caminhos mínimos
+\newglossaryentry{matrizes-vizinhanca}{name=matrizes de vizinhança,
+description={\hspace{2 mm}são matrizes derivadas das matrizes de adjacência, onde, no lugar dos números 0 referentes a uma não conexão entre o par de
+vértices em questão, tem-se um número natural, representando o caminho mínimo entre os vértices}}
+
+Partindo das matrizes de adjacência podemos também criar \gls{matrizes-vizinhanca} \cite{andrade2009}, que podem ser obtidas calculando-se os caminhos mínimos
 \cite{bessa2008} entre os vértices da rede ou através da multiplicação booleana de matrizes de adjacência de ordens consecutivas \cite{andrade2006}. Na Figura 
 \ref{fig:matriz-vizinhanca}, temos um exemplo de matriz de vizinhança, onde cada cor representa um valor de distância entre dois vértices. Pela Figura, temos
 que se a distância entre dois vértices é 1, o ponto que representa a relação entre eles recebe a cor azul escura. Se for 7, por exemplo, receberá a cor
@@ -99,12 +109,16 @@ a partir delas ao longo de um procedimento de análise é algo importante que de
 
 \section{Determinação do Limiar Crítico} \label{sec:limcrit}
 
+\newglossaryentry{metodo-distancias}{name=método das distâncias,
+description={\hspace{2 mm}método de comparação de matrizes de vizinhança de limiares consecutivos através da distância euclidiana entre elas, ou seja,
+pela soma das diferenças em módulo das posições da mesma}}
+
 Já se sabe que o limiar crítico de uma rede revela a melhor relação entre ruído e informação. Existem diversas maneiras de determiná-lo.
-Uma delas é o método das distâncias \cite{andrade2009}. Nele, calcula-se a distância euclidiana entre matrizes de
+Uma delas é o \gls{metodo-distancias} \cite{andrade2009}. Nele, calcula-se a distância euclidiana entre matrizes de
 vizinhança de limiares consecutivos \cite{andrade2011}. A matriz que apresentar a maior distância entre a matriz de limiar consecutivo
 ao seu será a escolhida como a matriz do limiar crítico, para representar a rede. A literatura relacionada a Redes Complexas mostra que é necessário
-escolher a melhor rede que representa o conjunto.
-A rede do limiar crítico cumpre bem este papel.
+escolher a melhor rede que representa o conjunto, de acordo com uma propriedade. No método em questão, é a rede que revela maior possibilidade de
+análise de seu caráter modular. A rede do limiar crítico cumpre bem este papel.
 
 Na Figura \ref{fig:distancia}, temos um exemplo de resultado do cálculo das distâncias entre matrizes de vizinhança, onde o limiar crítico é representado
 pelo pico do gráfico, ou seja, o valor 51. A rede que representa todo o conjunto é então a rede limiar 51, que será utilizada na última etapa do processo:
@@ -121,12 +135,16 @@ escolha do método de análise dos limiares.
 \label{fig:distancia}
 \end{figure}
 
-\section{Entremeação} \label{sec:entremeacao}
+\section{Aplicação da Clusterização} \label{sec:entremeacao}
+
+\newglossaryentry{entremeacao}{name=Entremeação,
+description={\hspace{2 mm}ou \textit{Betweenness}, é uma medida de centralidade de um vértice ou aresta de uma rede. Nesta concepção, vértices ou arestas
+que tenham alta probabilidade de serem percorridas na escolha aleatória de um caminho mínimo entre dois vértices da rede possuem uma alta entremeação}}
 
 A matriz de vizinhança da rede do limiar crítico é a entrada necessária para a realização da clusterização, que é feita através do método de detecção
 de comunidades de Newman e Girvan \cite{newman2004} para identificar a estrutura modular da rede. O método consiste em determinar a aresta mais importante
 da rede – aquela por onde passa a maior quantidade de caminhos mínimos de cada par de vértices por toda a rede – e eliminá-la, repetindo a operação
-até que não existam mais arestas na rede. Estas operações consistem no conceito de \textit{Betweenness} ou Entremeação \cite{andrade2008}.
+até que não existam mais arestas na rede. Estas operações consistem no conceito de \textit{Betweenness} ou \gls{entremeacao} \cite{andrade2008}.
 
 Conforme esta operação é feita, é possível construir um histograma de remoção de arestas ou dendrograma, que começa com uma linha representando toda a rede
 e à medida em que as arestas são removidas a rede vai se repartindo em módulos e a linha inicial vai sofrendo bifurcações. Observando a Figura
@@ -143,7 +161,7 @@ tamanho da rede.
 \begin{figure}
 \centering
 \includegraphics[scale=0.73]{dendrograma}
-\caption{Exemplo de dendrograma para o limiar crítico 51.}
+\caption{Exemplo de dendrograma para o limiar crítico 51, onde temos a numeração dos vértices pela quantidade de arestas removidas, em escala logaritmica.}
 \label{fig:dendrograma}
 \end{figure}
 
@@ -163,7 +181,7 @@ processamento e geram outros arquivos de saída. Os requisitos mais importantes,
 intermediários pelos usuários e a conversão de formatos entre as execuções. Para agilizar a execução, é importante também a geração de gráficos em
 determinadas etapas. A tabela \ref{tab:requisitos} mostra de forma consolidada os requisitos levantados e que devem ser satisfeitos no processo de
 modelagem e construção de um AIAF -
-Ambiente Integrado de Análise Filogenética
+Ambiente Integrado de apoio à Análise Filogenética
 Através de Redes Complexas.
 
 \begin{table}
@@ -275,8 +293,8 @@ os padrões de comunicação.
 
 A partir de certo momento do processo, passa-se a trabalhar apenas com matrizes. Há a perda de informações com relação aos organismos e sequências em que
 se está trabalhando. É necessário, então, que o sistema guarde estas informações e possa exibir para os usuários gráficos mais ricos, contendo informações
-sobre sequências e espécies com que se está trabalhando. Por exemplo, na exibição da rede (grafo), o sistema poderia exibir, ao se passar o mouse sobre um
-vértice,
+sobre sequências e espécies com que se está trabalhando. Por exemplo, na exibição da rede (grafo), o sistema poderia exibir, ao se passar o \textit{mouse}
+sobre um vértice,
 informações sobre a sequência e o organismo a que o vértice está representando (caso de uso 10). O usuário poderá também gerar matrizes de adjacência e
 vizinhança a qualquer momento (casos de uso 3 e 4), além de ver o gráfico de qualquer matriz de vizinhança em formato de matriz de cores (caso de uso 5).
 
@@ -303,8 +321,9 @@ de um diagrama de classes, mostrado na próxima Seção.
 
 \section{Modelagem dos Dados} \label{sec:organizacao}
 
-A organização das informações do sistema é um passo importante para que se tenha qualidade e se atenda aos requisitos propostos. Por conta da metodologia
-adotada, é imprescindível a criação de um diagrama de classes para definir classes e suas responsabilidades, além de seus aspectos funcionais (métodos)
+A organização das informações do sistema é um passo importante para que se tenha qualidade e se atenda aos requisitos propostos. Torna-se de grande
+importância,
+a criação de um diagrama de classes para definir classes e suas responsabilidades, além de seus aspectos funcionais (métodos)
 e os dados
 (atributos) em que cada uma é responsável.
 
@@ -319,7 +338,8 @@ foi criado um diagrama de classes, cuja versão simplificada pode ser vista na F
 \label{fig:diagrama-classes-simplificado}
 \end{figure}
 
-A classe principal do AIAF é a classe \textit{Project}. Todas as interações do usuário com a \textit{GUI} passam por ela, que controlará operações com
+A classe principal do AIAF é a classe \textit{Project}. Todas as interações do usuário com a \textit{GUI} (\textit{Graphical User Interface})
+passam por ela, que controlará operações com
 matrizes, análises, tratamento das informações biológicas e dos dados de entrada. Através dela é possível criar novo projeto, abrir projeto existente e
 salvar projeto corrente (casos de uso 1 e 2). Um projeto para o sistema reúne todos os dados de informações de execução de um conjunto de dados, desde
 a escolha de sequências, geração de matriz de similaridade, matrizes de adjacência e vizinhança, gráficos, definição de comunidades, clusterização,
@@ -447,8 +467,9 @@ genéticos, entre outras técnicas na pesquisa em geral. É uma linguagem bastan
 desenvolvimento, rapidez na implementação e na prototipagem, bibliotecas robustas para o desenvolvimento de \textit{software} científico, cálculos
 diversos e geração de gráficos, além de ser considerada uma ``linguagem cola'' por se comunicar facilmente com outras linguagens.
 
-Para a modelagem foi utilizado o Astah Community \cite{astah}. Para a criação das janelas foram testados o Tkinter (que vem com a linguagem Python), o Gtk
-e o Qt. O Qt foi escolhido pela sua quantidade de recursos, facilidade de utilização, desenvolvimento e manutenção, total suporte à linguagem Python através
+Para a modelagem foi utilizado o Astah Community \cite{astah}. Para a criação das janelas foram testados o Tkinter \cite{python}, o Gtk \cite{gtk}
+e o Qt \cite{qt}. O Qt foi escolhido pela sua quantidade de recursos, facilidade de utilização, desenvolvimento e manutenção, total suporte à
+linguagem Python através
 do PyQt \cite{pyqt}, além de fornecer o \textit{Designer}, um bom ambiente de autoria para a criação de janelas e interface gráfica em geral.
 A utilização de Qt também permite a possibilidade de execução do AIAF em ambientes Windows e Mac,
 faltando apenas a adaptação do \textit{back-end} para um suporte completo a essas outras plataformas.
@@ -461,7 +482,8 @@ situações era necessário reiniciar a máquina ou mudar de máquina para que s
 plotagem de gráficos para Python, esse trabalho passa a ser desnecessário.
 
 O \textit{BioPython} inclui o Blast2 e seus \textit{bindings} para Python. Como módulos externos, se fizeram necessários ainda o Madchar (geração de matrizes),
-o RedeCrítica (análise de limiares) e o Dendo (clusterização). Por serem codificados em Fortran foi necessário o pacote Gfortran.
+o RedeCrítica (análise de limiares) e o Dendo (clusterização), os três desenvolvidos pelo FESC. Por serem codificados em Fortran foi necessário o pacote
+Gfortran \cite{gfortran}.
 
 \section{Discussão} \label{sec:discussao}
 
@@ -489,7 +511,7 @@ na filtragem e armazenamento dos dados, e em seguida a possibilidade de escolha 
 \label{fig:choose-sequences}
 \end{figure}
 
-A geração de matrizes de adjacência é feita na construção de um objeto da classe \textit{AdjacencyMatrix}, pela própria camada de negócio do AIAF, sem a
+A geração de matrizes de adjacência é feita na construção de um objeto da classe \textit{AdjacencyMatrix}, sem a
 necessidade de invocar módulos externos, pela simplicidade da operação. Já para gerar as matrizes de vizinhança, o módulo Madchar é invocado. A operação
 também é realizada durante a construção de um objeto da classe \textit{NeighbourhoodMatrix}, onde seu construtor invoca o método
 \textit{generate\_neighbourhood\_values}. A Figura \ref{fig:generate-matrices} ilustra a interface de geração de matrizes.

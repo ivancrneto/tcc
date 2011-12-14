@@ -14,14 +14,17 @@
 \usepackage{subfigure}
 \usepackage{multicol}
 \usepackage{framed}
+\usepackage{glossaries}
 \def\lstlistingname{Listagem}
+
+\makeglossaries
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Dados da monografia
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \newcommand{\meunome}{Ivan Carmo da Rocha Neto}
-\newcommand{\meutitulo}{AIAF: Construção de um Ambiente Integrado de apoio Análise Filogenética através de Redes Complexas}
+\newcommand{\meutitulo}{AIAF: Construção de um Ambiente Integrado de apoio à Análise Filogenética através de Redes Complexas}
 %\newcommand{\meusubtitulo}{Uma abordagem focada na experiência do usuário}
 \newcommand{\meuano}{2011.2}
 \newcommand{\meuorientador}{Orientador: \prof\ Antonio Lopes Apolinário Junior.}
@@ -50,16 +53,14 @@
 \input{folhaderosto.tex}
 
 \begin{resumo}
+
 O método de análise filogenética através de redes complexas parte de princípios teóricos da Física Estatística e utiliza técnicas computacionais
 baseadas em Teoria dos Grafos. Essa abordagem se mostra como uma alternativa viável aos pesquisadores, na medida em que traz resultados comparáveis aos
 de outros métodos. Neste trabalho de análise e desenvolvimento são organizados os dados, informações e programas desenvolvidos pelo grupo
 de pesquisa FESC (Física Estatística e Sistemas Complexos - Instituto de Física - UFBA), e é projetado um \textit{software} visando a facilidade de uso
 por biólogos, físicos e bioinformáticos como uma importante alternativa às ferramentas existentes para análise filogenética. Os artefatos originais foram
-desenvolvidos com falta de integração e uma forma de organização que dificulta a utilização por parte dos pesquisadores. O trabalho se utiliza de
-práticas de Engenharia de Software, incluindo análise de requisitos, modelagem de classes e de interações entre os usuários e o sistema, beneficiando os
-usuários pela própria organização do processo e sua isenção de algumas preocupações referentes ao mesmo, além de também tornar possível a continuação
-de seu desenvolvimento e manutenção de forma facilitada. Seu produto é um ambiente integrado de controle e gerenciamento de artefatos, com a utilização de
-persistência e modelado de forma que permita extensibilidade.
+desenvolvidos com falta de integração e uma forma de organização que dificulta a utilização por parte dos pesquisadores. O produto deste trabalho é um
+ambiente integrado de controle e gerenciamento de artefatos, com a utilização de persistência e modelado de forma que permita extensibilidade.
 
 
 \textbf{Palavras-chave:}
@@ -79,9 +80,7 @@ because it has results that are comparable to other methods. In this work of ana
 and Complex Systems - Physics Institute - UFBA) are organized, and it is designed a software that is easily useful
  by biologists, physicists and bioinformaticians
 as an important alternative of existing tools for phylogenetic analysis. The original artifacts were developed with a lack of integration and form of
-organization that makes it difficult to use by researchers. The work takes advantage of software engineering practices, including requirements
-analysis, modeling classes and interactions between users and the system. The users are benefit by the organization of the process and their exemption from
-some concerns. Besides it make possible to continue of its development and maintenance of an easier way. Its product is an integrated control and
+organization that makes it difficult to use by researchers. The product of this work is an integrated control and
 management of artifacts, with the use of persistence and modeled to allow extensibility.
 
 \textbf{Keywords:} 
@@ -105,9 +104,11 @@ development
 \input{desenvolvimento.tex}
 \input{conclusao.tex}
 
+\input{apendices.tex}
+
 \bibliography{monografia}
 
-\input{apendices.tex}
+\input{glossario.tex}
 
 \end{document}
 
