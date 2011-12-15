@@ -283,7 +283,7 @@ dar ao usuário a possibilidade de criar
 diversas análises, importar seus resultados e armazenar suas informações em qualquer etapa do processo.
 Isto permite uma interoperabilidade entre máquinas importante, e a organização de um arquivo
 que possa conter os dados necessários para o carregamento de um projeto salvo torna-se essencial. O sistema então permitirá aos seus usuários a criação de
-novos projetos e o carregamento de projetos existentes (casos de uso 1 e 2).
+novos projetos e o carregamento de projetos existentes (caso de uso 1).
 
 A comunicação com módulos externos deve ser transparente e a organização de classes deve fornecer alternativas viáveis para a inclusão de novos
 tipos de análises, como por exemplo, a escolha do limiar crítico pode ser feita por uma análise de distâncias, como também por uma análise da variação
@@ -295,8 +295,8 @@ A partir de certo momento do processo, passa-se a trabalhar apenas com matrizes.
 se está trabalhando. É necessário, então, que o sistema guarde estas informações e possa exibir para os usuários gráficos mais ricos, contendo informações
 sobre sequências e espécies com que se está trabalhando. Por exemplo, na exibição da rede (grafo), o sistema poderia exibir, ao se passar o \textit{mouse}
 sobre um vértice,
-informações sobre a sequência e o organismo a que o vértice está representando (caso de uso 10). O usuário poderá também gerar matrizes de adjacência e
-vizinhança a qualquer momento (casos de uso 3 e 4), além de ver o gráfico de qualquer matriz de vizinhança em formato de matriz de cores (caso de uso 5).
+informações sobre a sequência e o organismo a que o vértice está representando (caso de uso 9). O usuário poderá também gerar matrizes de adjacência e
+vizinhança a qualquer momento (casos de uso 2 e 3), além de ver o gráfico de qualquer matriz de vizinhança em formato de matriz de cores (caso de uso 4).
 
 Em várias etapas da execução do processo de análise atual, é necessário mudar de ambiente (tipicamente, de Linux para Windows) para efetuar certo processamento,
 como por exemplo visualizar
@@ -308,14 +308,14 @@ adjacências em forma de grafos, gráficos de resultados de análises como dist�
 para que a continuação do processo se dê de forma mais rápida. Esta funcionalidade representa
 uma preocupação que deve estar presente no momento da modelagem para
 tornar o processo mais ágil e transparente para o usuário. Ao mesmo tempo, o sistema pode fornecer como opção de exportação os arquivos que são utilizados por
-programas profissionais de plotagem, essenciais para a utilização em artigos científicos e afins (caso de uso 12).
+programas profissionais de plotagem, essenciais para a utilização em artigos científicos e afins (caso de uso 11).
 
-A análise de limiares (caso de uso 6) resulta na geração de um gráfico que será utilizado como base para a definição do limiar crítico e o prosseguimento
-do processo, com a clusterização (caso de uso 7) e a definição de comunidades (caso de uso 8).
+A análise de limiares (caso de uso 5) resulta na geração de um gráfico que será utilizado como base para a definição do limiar crítico e o prosseguimento
+do processo, com a clusterização (caso de uso 6) e a definição de comunidades (caso de uso 7).
 
 Outro detalhe importante é a possibilidade de comparação entre o método atual desenvolvido pelo FESC
 e outros métodos já consolidados de análise filogenética, listados no Capítulo \ref{cap:analisefilo},
-além de poder comparar com outro projeto criado pelo próprio sistema (casos de uso 9 e 11).
+além de poder comparar com outro projeto criado pelo próprio sistema (casos de uso 8 e 10).
 Para prosseguir com a modelagem, se faz necessária a organização das informações através
 de um diagrama de classes, mostrado na próxima Seção.
 
@@ -341,7 +341,7 @@ foi criado um diagrama de classes, cuja versão simplificada pode ser vista na F
 A classe principal do AIAF é a classe \textit{Project}. Todas as interações do usuário com a \textit{GUI} (\textit{Graphical User Interface})
 passam por ela, que controlará operações com
 matrizes, análises, tratamento das informações biológicas e dos dados de entrada. Através dela é possível criar novo projeto, abrir projeto existente e
-salvar projeto corrente (casos de uso 1 e 2). Um projeto para o sistema reúne todos os dados de informações de execução de um conjunto de dados, desde
+salvar projeto corrente (caso de uso 1). Um projeto para o sistema reúne todos os dados de informações de execução de um conjunto de dados, desde
 a escolha de sequências, geração de matriz de similaridade, matrizes de adjacência e vizinhança, gráficos, definição de comunidades, clusterização,
 congruência. A classe \textit{Project} também lida com o pacote \textit{Persistence}, que mapeia as classes do sistema em uma camada de persistência, via
 armazenamento em disco. Sua função inclui serializar e desserializar os objetos do sistema, além de prover
@@ -361,7 +361,7 @@ a execuções de determinado conjunto de sequências escolhido pelo usuário, h�
 Em relação às demais (adjacência e vizinhança), é possível haver mais de uma. Outros tipo de matrizes poderão ser
 facilmente incorporadas ao sistema através da adição de uma nova classe que será uma especialização da classe \textit{Matrix}, o que explica o fato de a classe
 \textit{Matrix} ser um classe abstrata. É possível gerar matrizes de adjacência ou de vizinhança, além da visualização de seus respectivos gráficos a qualquer
-momento após a escolha das sequências e geração da matriz de similaridades, de acordo com os casos de uso 3, 4 e 5. A classe \textit{Project} contém métodos
+momento após a escolha das sequências e geração da matriz de similaridades, de acordo com os casos de uso 2, 3 e 4. A classe \textit{Project} contém métodos
 para a geração das matrizes, o que pode ser visto no diagrama de classes completo no Apêndice A.
 Após a geração das matrizes, a camada de persistência as salva em disco de forma transparente.
 
@@ -371,7 +371,7 @@ Congruência (class \textit{Congruence}). Como descrito anteriormente, existem d
 \textit{Distance}) e tamanho do maior cluster (classe \textit{LargestCluster}). Elas são subclasses de \textit{ThresholdAnalysis}, que também é abstrata. Essa
 abordagem permite que outros métodos de análise de limiares possam ser adicionados de forma facilitada por meio de herança. O mesmo acontece com a
 clusterização: a classe \textit{Clustering} é abstrata, e tem \textit{NewmanGirvan} como classe filha, que implementa o único método de clusterização
-usado no processo até o momento (casos de uso 6 e 7).
+usado no processo até o momento (casos de uso 5 e 6).
 
 A análise de congruência permite a comparação da divisão de comunidades entre diversos projetos executados sob o AIAF, como também entre outros métodos de
 análise filogenética, através do fornecimento de um arquivo em formato padrão. Isso é possível graças à classe \textit{Congruence}, que é uma
@@ -379,7 +379,7 @@ especialização da classe
 \textit{Analysis} (casos de uso 8 e 10).
 
 Outras funcionalidades do sistema incluem a visualização do gráfico completo da rede, que utiliza a classe \textit{CommunityMap} para desenhar
-os vértices que pertencem a uma mesma comunidade de determinada cor (caso de uso 9); e a possibilidade de exportar dados do projeto para
+os vértices que pertencem a uma mesma comunidade de determinada cor (caso de uso 8); e a possibilidade de exportar dados do projeto para
 gráficos em um formato de programas plotadores, utilizando-se de atributos de diversas classes, a depender do gráfico que se deseja (caso de uso 11).
 
 O diagrama de classes permite ter uma visão estática das informações do sistema, enfatizando os seus relacionamentos e os métodos que as irão manipular.
@@ -390,8 +390,8 @@ classes do modelo ao longo do tempo.
 
 Como discutido na Seção anterior, a classe \textit{Project} é a classe principal do sistema, para onde os eventos captados pela interface gráfica são
 enviados. Nesta Seção serão abordados três importantes diagramas de sequência do AIAF: criar novo projeto, gerar matriz de adjacência de um limiar qualquer
-e analisar limiares. Os casos de uso 2, 5, 7, 8, 9, 10, 11 e 12 são autoexplicativos, e o caso de uso 4 é análogo ao caso de uso 3. Será
-apresentada uma discussão sobre sua dinâmica. Outros diagramas de sequência podem ser encontrados no Apêndice B - Anexo II.
+e analisar limiares. Os casos de uso 1, 4, 6, 7, 8, 9, 10 e 11 são autoexplicativos, e o caso de uso 3 é análogo ao caso de uso 2. Será
+apresentada uma discussão sobre sua dinâmica. Outros diagramas de sequência podem ser encontrados no Apêndice B.
 
 O primeiro diagrama de sequência, visto na Figura \ref{fig:new-project}, se refere à criação de um novo projeto (caso de uso 1). Primeiro, qualquer projeto
 que esteja em execução é finalizado e o pacote \textit{Persistence} salva qualquer alteração nos objetos do sistema. Uma decisão de projeto importante
@@ -405,11 +405,11 @@ são salvos em disco pela classe de persistência.
 \begin{figure}
 \centering
 \includegraphics[scale=0.27]{new-project}
-\caption{Diagrama de sequências para o caso de uso 1: criar novo projeto.}
+\caption{Diagrama de sequências para a parte de criação de um projeto referente ao caso de uso 1: gerenciar projeto.}
 \label{fig:new-project}
 \end{figure}
 
-Para gerar uma matriz de adjacências (caso de uso 3)
+Para gerar uma matriz de adjacências (caso de uso 2)
 o usuário entra com um valor limiar (ou uma lista de limiares para o caso da geração de múltiplas matrizes). Haverá
 então um \textit{loop} na classe \textit{Project} que instanciará objetos da classe \textit{AdjacencyMatrix}, e então usará \textit{Persistence} para salvar
 novos dados em disco, conforme a Figura \ref{fig:generate-adjacency-matrix}.
@@ -417,11 +417,11 @@ novos dados em disco, conforme a Figura \ref{fig:generate-adjacency-matrix}.
 \begin{figure}
 \centering
 \includegraphics[scale=0.42]{generate-adjacency-matrix}
-\caption{Diagrama de sequências para o caso de uso 3: gerar matriz de adjacências de um limiar qualquer.}
+\caption{Diagrama de sequências para o caso de uso 2: gerar matriz de adjacências de um limiar qualquer.}
 \label{fig:generate-adjacency-matrix}
 \end{figure}
 
-Para analisar limiares (caso de uso 6),
+Para analisar limiares (caso de uso 5),
 o usuário precisa informar qual análise quer executar. O método do FESC de análise filogenética dispõe atualmente de duas formas
 para a realização desta análise, mas existem vários outros e que podem ser adicionados ao AIAF. Atualmente o usuário deve optar, então, pelo método de
 distâncias ou tamanho do maior cluster. A depender da escolha será instanciado pela classe \textit{Project} uma classe \textit{Distance} ou
@@ -431,14 +431,14 @@ para a exibição do gráfico para o usuário como resultado da análise. A Figu
 \begin{figure}
 \centering
 \includegraphics[scale=0.34]{analyse-threshold}
-\caption{Diagrama de sequências para o caso de uso 6: analisar limiares.}
+\caption{Diagrama de sequências para o caso de uso 5: analisar limiares.}
 \label{fig:analyse-threshold}
 \end{figure}
 
 O próximo Capítulo mostrará os resultados deste trabalho, seu produto gerado, as ferramentas e o ambiente de execução utilizados, características
 de implementação e discutirá os resultados em relação aos objetivos propostos pelo trabalho.
 
-\chapter{Resultados Obtidos}
+\chapter{Implementação do Protótipo}
 \label{cap:resultados}
 
 Neste Capítulo são apresentadas de forma detalhada as técnicas utilizadas para o desenvolvimento do AIAF.
@@ -485,13 +485,16 @@ O \textit{BioPython} inclui o Blast2 e seus \textit{bindings} para Python. Como 
 o RedeCrítica (análise de limiares) e o Dendo (clusterização), os três desenvolvidos pelo FESC. Por serem codificados em Fortran foi necessário o pacote
 Gfortran \cite{gfortran}.
 
-\section{Discussão} \label{sec:discussao}
+\section{Apresentação do Protótipo} \label{sec:discussao}
 
 A primeira preocupação na implementação do AIAF foi a questão inicial da filtragem e armazenamento dos dados. Um banco de dados relacional é uma exigência
 muito grande para um sistema que vai realizar certos cálculos e gráficos, e que será utilizado em larga escala em máquinas diversas e por pesquisadores de
 áreas como Biologia. Por isso, a primeira decisão foi a troca do banco de dados relacional por uma estrutura de armazenamento de dados através da serialização
 de objetos, sendo útil também na criação de um projeto e o carregamento de um projeto existente no disco, que são atribuições do pacote 
-\textit{Persistence}. Em sua versão atual, o protótipo do AIAF utiliza uma solução simples para a persistência, baseada no módulo \textit{Pickler} do
+\textit{Persistence}. Por um lado se perde ao deixar de utilizar um sistema gerenciador de banco de dados, deixando a cargo do AIAF toda a responsabilidade
+sobre o correto armazenamento e recuperação dos dados, mas por outro exime o usuário da necessidade de instalar e configurar um ambiente de banco de dados
+relacional, o que exige um determinado nível de conhecimento técnico. Em sua versão atual, o protótipo do AIAF utiliza uma solução simples para a persistência,
+baseada no módulo \textit{Pickler} do
 Python para a serialização de todos os objetos do sistema em um único arquivo.
 
 
@@ -544,14 +547,6 @@ exigiria mais tempo que o disponível. Mais informações sobre outros métodos 
 ser vistas em \cite{marcelo2010}. Como o AIAF não é capaz de gerar gráficos tão bons quanto uma suíte profissional dedicada à plotagem destinada a artigos e
 trabalhos científicos em geral, e há perda do controle do usuário sobre a localização e o formato dos dados gerados entre as diversas etapas do processo, se
 faz necessária a exportação desses arquivos para que o usuário os utilize como fonte para utilização em programas plotadores.
-Esta funcionalidade, no entanto, não foi implementada no protótipo.
-
-Duas outras funcionalidades também não foram implementadas no protótipo, que são a definição de módulos/comunidades (caso de uso 8), onde o usuário define
-com base na matriz de cores e no dengrograma quais sequências pertencem a quais comunidades e com isso pode ser gerado o gréfico completo da rede (caso de
-uso 10) para visualização, onde o usuário pode ver as comunidades separadas por cores, além de obter facilmente informações sobre as sequências clicando nos
-vértices. Estas funcionalidades em conjunto
-exigem um trabalho de interface gráfica grande, incluindo a exibição interativa de gráficos e a integração de bibliotecas de exibição de
-gráficos a bibliotecas de plotagem.
 
 \begin{figure}
 \centering

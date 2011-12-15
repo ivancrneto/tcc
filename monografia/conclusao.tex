@@ -1,8 +1,9 @@
 \chapter{Conclusão} \label{cap:conclusao}
 
 Este trabalho
-aplicou uma metodologia tradicional de Engenharia de Software com o desafio de prover um ambiente de fácil utilização e controle do processo pelos usuários,
-e também fácil manutenção, utilizando-se de uma organização arquitetural em camadas, sem a perda das características originais do método de análise
+se utilizou de práticas de Engenharia de Software com o desafio de prover um ambiente para o controle do processo pelos usuários,
+e também oferecer aos desenvolvedores possibilidade de manutenção e extensibilidade, utilizando-se de uma organização arquitetural em camadas,
+sem a perda das características originais do método de análise
 filogenética através da integração com código legado, e incluindo a possibilidade de extensibilidade.
 
 O primeiro protótipo do AIAF pode obter arquivos do GenBank, filtrá-los e a partir da escolha das sequências pelo usuário gerar a matriz de similaridades.
@@ -22,22 +23,35 @@ Os principais trabalhos futuros estão relacionados ao protótipo. Posteriorment
 futuros:
 
 \begin{itemize}
-  \item{Cinco casos de uso não foram implementados no protótipo: definir módulos/comunidades (caso de uso 8), comparar/executar congruência de redes de
-diferentes projetos (caso de uso 9), visualizar gráfico completo da rede (caso de uso 10), executar congruência em relação a um arquivo cadastrado em um
-formato padrão (caso de uso 11) e exportar dados do projeto para gráficos em um formato de programas plotadores (caso de uso 12);}
+  \item{Dois casos de uso importantes que não foram implementados no protótipo são a definição de módulos/comunidades (caso de uso 7), onde o usuário define
+com base na matriz de cores e no dengrograma quais sequências pertencem a quais comunidades e com isso pode ser gerado o gréfico completo da rede (caso de
+uso 9) para visualização, onde o usuário pode ver as comunidades separadas por cores, além de obter facilmente informações sobre as sequências clicando nos
+vértices. Estas funcionalidades em conjunto
+exigem um trabalho de interface gráfica grande, incluindo a exibição interativa de gráficos e a integração de bibliotecas de exibição de
+gráficos a bibliotecas de plotagem.}
+  \item{Outros casos de uso também não foram implementados no protótipo, principalmente por questões de tempo: comparar/executar congruência de redes de
+diferentes projetos (caso de uso 8), executar congruência em relação a um arquivo cadastrado em um
+formato padrão (caso de uso 10) e exportar dados do projeto para gráficos em um formato de programas plotadores (caso de uso 11);}
+  \item{A validação do protótipo é uma etapa muito importante neste processo de desenvolvimento e não foi realizada por conta de tempo e também pelo fato
+de o mesmo não apresentar maturidade suficiente. Após a implementação de alguns casos de uso e soluções de questões de interface gráfica e comunicação com
+o usuário como veremos abaixo, sua validação torna-se imprescindível;}
   \item{Fazer uma modelagem bem-definida do pacote de persistência;}
   \item{Melhorar o armazenamento e serialização de objetos: a persistência foi tratada como pacote na modelagem pela sua tendência de variação conforme
 a plataforma. Na implementação foi criado um modelo simples de persistência, a partir da serialização dos objetos do sistema em um único arquivo. Ao
 carregar um projeto, o sistema lê esse arquivo e recupera o estado original;}
-  \item{Algumas operações exclusivas da camada de persistência ficaram na lógica de negócio. É necessário mover a adaptar os códigos onde isso ocorre;}
+  \item{O controle do pacote de persistência ficou centralizado na classe \textit{Project}. É necessário uma análise sobre as vantagens dentro
+do projeto de tornar este controle distribuído;}
   \item{Execução remota de algoritmos: alguns métodos de clusterização levam alguns dias para executar. Muitas vezes é interessante executá-lo em uma outra
 máquina de forma remota. É interessante haver uma interface ssh (Secure Shell) para a execução remota de algumas análises, à escolha do usuário;}
-  \item{A interface gráfica, apesar de representar uma melhoria em termos de uso, precisa ser melhorada;}
-  \item{Alguns recursos do Qt podem ser melhor utilizados;}
-  \item{O protótipo não avisa ao usuário sobre algumas operações que estão ocorrendo e nem o progresso de algumas análises duradouras;}
-  \item{Uso de \textit{threads}: algumas análises podem ser realizadas com o uso de \textit{threads} para liberar a interface para outros usos;}
+  \item{A interface gráfica, apesar de representar uma melhoria em termos de uso, precisa ser melhorada com a criação de \textit{widgets} em substituição
+às janelas \textit{popup}, utilizando melhor os recursos do Qt;}
+  \item{O protótipo não avisa ao usuário sobre algumas operações que estão ocorrendo e nem o progresso de algumas análises, o que é algo importante pois
+determinadas análises demoram muito tempo para serem realizadas, tornando esse \textit{feedback} para o usuário algo essencial;}
+  \item{Uso de \textit{threads}: algumas análises podem ser realizadas com o uso de \textit{threads} para liberar a interface gráfica, para o usuário possa
+realizar outras operações no sistema enquanto alguma análise estiver em andamento;}
   \item{A integração do sistema (feito em Python) com os módulos em Fortran está utilizando chamadas do sistema operacional. Python oferece um
-\textit{binding} para Fortran que poderia ser utilizado.}
+\textit{binding} para Fortran que poderia ser utilizado, pois proporcionaria a integração direta entre as duas linguagens sem utilizar chamadas ao
+sistema operacional como uma espécie de camada intermediária para a comunicação entre elas.}
 \end{itemize}
 
 \sigla{SSH}{\textit{Secure Shell}}
