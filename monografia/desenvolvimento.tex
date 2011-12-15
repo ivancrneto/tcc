@@ -100,7 +100,7 @@ Alguns programas utilizados geram as matrizes em memória e as excluem após det
 de diretórios. A possibilidade de dar ao usuário o poder de gerenciar essas matrizes e realizar operações diversas, como compará-las ou visualizar gráficos
 a partir delas ao longo de um procedimento de análise é algo importante que deve estar incluído em um ambiente integrado de análise filogenética.
 
-\newglossaryentry{matriz-cores}{name=Matriz de Cores,
+\newglossaryentry{matriz-cores}{name=matriz de cores,
 description={\hspace{2 mm}é a matriz de vizinhança representada de forma que cada número recebe uma cor diferente, variando do azul ao vermelho à medida
 em que esse número aumenta. A matriz de vizinhança pode ser rearranjada de forma a agrupar números iguais com a maior proximoidade possível da diagonal
 principal, resultando em um gráfico de matriz de cores que permite uma melhor interpretação a partir da visualização}}
@@ -108,7 +108,7 @@ principal, resultando em um gráfico de matriz de cores que permite uma melhor i
 \begin{figure}
 \centering
 \includegraphics[scale=0.53]{matriz-vizinhanca}
-\caption{Exemplo de Matriz de Vizinhança no formato de \gls{matriz-cores}.}
+\caption{Exemplo de Matriz de Vizinhança no formato de Matriz de Cores.}
 \label{fig:matriz-vizinhanca}
 \end{figure}
 
@@ -191,11 +191,24 @@ os artefatos de modelagem gerados.
 
 \section{Metodologia de Desenvolvimento}
 
-Para satisfazer a todos os requisitos e possuir as características citadas acima, este trabalho seguiu uma metodologia tradicional de projetos
-de Engenharia de Software \cite{softeng2005} e foi adotado o modelo de desenvolvimento em espiral, onde há ciclos de planejamento de requisitos,
-com concepção de requisitos, criação
-de um protótipo, verificação, validação e novo planejamento de requisitos, continuando o ciclo \cite{boehm1986}. Neste trabalho apenas uma
-parte da espiral foi percorrida.
+O desenvolvimento interativo e incremental tem se mostrado ultimamente como um processo de desenvolvimento alternativo ao modelo em cascata, e traz
+grandes vantagens por garantir ciclos menores de desenvolvimento e uma divisão do problema em problemas menores. A metodologia de desenvolvimento adotada
+foi o modelo de desenvolvimento em espiral \cite{boehm1986}. A espiral combina ideias do desenvolvimento interativo com alguns aspectos do modelo em cascata.
+
+O modelo em espiral é baseado em refinamento contínio do produto a partir de definição de requisitos e análises, projeto de \textit{software}, e implementação.
+A cada interação dentro do ciclo, o produto gerado é considerado uma extensão de um produto mais antigo. Esse modelo utiliza muidas das fases do modelo em
+cascata, na mesma ordem, separados por planejamento, análise de riscos, construição de protótipos, testes e validação, como é mostrado na Figura
+\ref{fig:espiral}
+
+\begin{figure}
+\centering
+\includegraphics[scale=0.73]{espiral}
+\caption{Modelo de desenvolvimento em espiral.}
+\label{fig:espiral}
+\end{figure}
+
+No contexto do projeto, apenas uma parte da espiral foi percorrida, resultando em um primeiro protótipo. A parte de validação e verificação não foi realizada,
+sendo imprescindível na concepção de novos requisitos e o início de um novo ciclo da espiral.
 
 \section{Levantamento de Requisitos}
 
@@ -309,7 +322,7 @@ se está trabalhando. É necessário, então, que o sistema guarde estas informa
 sobre sequências e espécies com que se está trabalhando. Por exemplo, na exibição da rede (grafo), o sistema poderia exibir, ao se passar o \textit{mouse}
 sobre um vértice,
 informações sobre a sequência e o organismo a que o vértice está representando (caso de uso 9). O usuário poderá também gerar matrizes de adjacência e
-vizinhança a qualquer momento (casos de uso 2 e 3), além de ver o gráfico de qualquer matriz de vizinhança em formato de matriz de cores (caso de uso 4).
+vizinhança a qualquer momento (casos de uso 2 e 3), além de ver o gráfico de qualquer matriz de vizinhança em formato de \gls{matriz-cores} (caso de uso 4).
 
 Em várias etapas da execução do processo de análise atual, é necessário mudar de ambiente (tipicamente, de Linux para Windows) para efetuar certo processamento,
 como por exemplo visualizar
