@@ -100,10 +100,15 @@ Alguns programas utilizados geram as matrizes em memória e as excluem após det
 de diretórios. A possibilidade de dar ao usuário o poder de gerenciar essas matrizes e realizar operações diversas, como compará-las ou visualizar gráficos
 a partir delas ao longo de um procedimento de análise é algo importante que deve estar incluído em um ambiente integrado de análise filogenética.
 
+\newglossaryentry{matriz-cores}{name=Matriz de Cores,
+description={\hspace{2 mm}é a matriz de vizinhança representada de forma que cada número recebe uma cor diferente, variando do azul ao vermelho à medida
+em que esse número aumenta. A matriz de vizinhança pode ser rearranjada de forma a agrupar números iguais com a maior proximoidade possível da diagonal
+principal, resultando em um gráfico de matriz de cores que permite uma melhor interpretação a partir da visualização}}
+
 \begin{figure}
 \centering
 \includegraphics[scale=0.53]{matriz-vizinhanca}
-\caption{Exemplo de Matriz de Vizinhança no formato de Matriz de Cores.}
+\caption{Exemplo de Matriz de Vizinhança no formato de \gls{matriz-cores}.}
 \label{fig:matriz-vizinhanca}
 \end{figure}
 
@@ -172,21 +177,43 @@ o processo, seria mais interessante que o seu gerenciamento fosse realizado por 
 mantivesse disponíveis as informações por meio de uma camada de persistência, deixando a questão da organização dos dados transparente para o
 pesquisador.
 
-\section{A Proposta} \label{sec:proposta}
+\chapter{Modelagem do AIAF - Ambiente Integrado de apoio à Análise Filogenética através de Redes Complexas}
+\label{cap:navi}
 
 Da forma como está estruturado atualmente, o processo de análise filogenética através de redes complexas pode ser resumido como uma série de execuções
 de programas independentes entre si que recebem arquivos
 de entrada em determinados formatos, realizam seu
-processamento e geram outros arquivos de saída. Os requisitos mais importantes, portanto, são a eliminação da necessidade de organização de arquivos
+processamento e geram outros arquivos de saída. O desenvolvimento de um ambiente integrado que busque facilitar o controle de execução do processo
+torna-se importante nesse contexto. Nas seções a seguir são detalhadas a metodologia de desenvolvimento adotada e
+os artefatos de modelagem gerados.
+
+\sigla{AIAF}{Ambiente Integrado de apoio à Análise Filogenética através de Redes Complexas}
+
+\section{Metodologia de Desenvolvimento}
+
+Para satisfazer a todos os requisitos e possuir as características citadas acima, este trabalho seguiu uma metodologia tradicional de projetos
+de Engenharia de Software \cite{softeng2005} e foi adotado o modelo de desenvolvimento em espiral, onde há ciclos de planejamento de requisitos,
+com concepção de requisitos, criação
+de um protótipo, verificação, validação e novo planejamento de requisitos, continuando o ciclo \cite{boehm1986}. Neste trabalho apenas uma
+parte da espiral foi percorrida.
+
+\section{Levantamento de Requisitos}
+
+A partir do que foi descrito no Capítulo \ref{cap:analisefilo}, os requisitos mais importantes são a eliminação da necessidade de organização de arquivos
 intermediários pelos usuários e a conversão de formatos entre as execuções. Para agilizar a execução, é importante também a geração de gráficos em
-determinadas etapas. A tabela \ref{tab:requisitos} mostra de forma consolidada os requisitos levantados e que devem ser satisfeitos no processo de
+determinadas etapas. A tabela \ref{tab:requisitos} mostra de forma consolidada os requisitos funcionais levantados e que devem ser satisfeitos no processo de
 modelagem e construção de um AIAF -
 Ambiente Integrado de apoio à Análise Filogenética
 Através de Redes Complexas.
 
+\newglossaryentry{congruencia}{name=Congruência,
+description={\hspace{2 mm}trata da comparação entre duas redes de sequências proteicas, que é feita após a definição de módulos/comunidades de cada uma das
+redes. Nela analisa-se a porcentagem de sequências proteicas que pertencendo a uma determinada comunidade da primeira rede, também estão presentes na
+comunidade correspondente na segunda rede}}
+
 \begin{table}
 \centering
-\caption{Tabela de requisitos do AIAF} % igual ao ambiente Figura
+\caption{Tabela de requisitos funcionais do AIAF} % igual ao ambiente Figura
 \begin{tabular}{p{5cm}p{10cm}} % com este comando dizemos quantas colunas terá nossa tabela e a posição do texto dentro de cada coluna. Aqui temos três colunas (pois são três "c" dentre {}) e o texto estará centralizado em todas elas (indicado pelo "c", se quisermos alinhados à esquerda "l" ou direita "r"
 \hline 
 %Requisito & Pontos & Classificação \\
@@ -211,7 +238,7 @@ Execução da clusterização & O sistema deve fornecer opções de métodos de 
 o gráfico de seu resultado quando requisitado \\ \hline
 Visualização do gráfico completo da rede & O sistema deve permitir a visualização do gráfico completo da rede, após a escolha das comunidades,
 recuperando as informações salvas durante o processo de salvamento das sequências e organismos \\ \hline
-Congruência & O sistema deve permitir a comparação do resultado do método com o resultado de outros métodos de análise filogenética, além da comparação
+\gls{congruencia} & O sistema deve permitir a comparação do resultado do método com o resultado de outros métodos de análise filogenética, além da comparação
 com o resultado pelo próprio método com outro conjunto de dados \\ \hline
 Exportação de dados & O sistema deve permitir a exportação de dados necessários à geração de gráficos para o uso pelos usuários de ferramentas
 profissionais de plotagem \\ \hline
@@ -219,17 +246,9 @@ profissionais de plotagem \\ \hline
 \label{tab:requisitos}
 \end{table} 
 
-A partir desses requisitos gerais, apresentamos no próximo Capítulo a proposta de modelagem que pretende atendê-los.
-
-
-\chapter{Modelagem do AIAF - Ambiente Integrado de apoio à Análise Filogenética através de Redes Complexas}
-\label{cap:navi}
-
-\sigla{AIAF}{Ambiente Integrado de apoio à Análise Filogenética através de Redes Complexas}
-
-A partir dos requisitos identificados no Capítulo anterior, podemos propor um ambiente integrado para gerenciar o método de Análise Filogenética por
-Redes Complexas descrito anteriormente. Para garantir o controle das etapas do processo e ao mesmo tempo permitir uma fácil utilização e evitar problemas
-com padrões e arquivos de conFiguração, o sistema precisa seguir três importantes pilares:
+A partir dos requisitos identificados na Tabela \ref{tab:requisitos}, podemos propor um ambiente integrado para gerenciar o método de Análise Filogenética por
+Redes Complexas descrito anteriormente. Para garantir o controle das etapas do processo e ao mesmo tempo evitar problemas
+com padrões e arquivos de configuração, o sistema precisa seguir três importantes requisitos não-funcionais:
 
 \begin{itemize}
  \item{\textbf{Usabilidade:} é um fator importante por tornar o método passível de utilização por pessoas com pouco ou quase nenhum conhecimento de
@@ -244,12 +263,6 @@ necessárias para a retomada de execuções.}
 preocupar com detalhes de mais baixo nível de execução, como os locais em que os arquivos estão dispostos e situações relacionadas à conversão de
 formatos e adaptações diversas de dados.}
 \end{itemize}
-
-Para satisfazer a todos os requisitos e possuir as características citadas acima, este trabalho seguiu uma metodologia tradicional de projetos
-de Engenharia de Software \cite{softeng2005} e foi adotado o modelo de desenvolvimento em espiral, onde há ciclos de planejamento de requisitos,
-com concepção de requisitos, criação
-de um protótipo, verificação, validação e novo planejamento de requisitos, continuando o ciclo \cite{boehm1986}. Neste trabalho apenas uma
-parte da espiral foi percorrida.
 
 No levantamento de requisitos, foram determinados os objetivos e alternativas e definido o escopo do sistema baseado nos objetivos do projeto,
 dispostos na Seção \ref{sec:objetivos}. Em seguida foi realizada a modelagem, com os diagramas de casos de uso, classes e sequência.
@@ -322,7 +335,7 @@ de um diagrama de classes, mostrado na próxima Seção.
 \section{Modelagem dos Dados} \label{sec:organizacao}
 
 A organização das informações do sistema é um passo importante para que se tenha qualidade e se atenda aos requisitos propostos. Torna-se de grande
-importância,
+importância
 a criação de um diagrama de classes para definir classes e suas responsabilidades, além de seus aspectos funcionais (métodos)
 e os dados
 (atributos) em que cada uma é responsável.
@@ -338,14 +351,25 @@ foi criado um diagrama de classes, cuja versão simplificada pode ser vista na F
 \label{fig:diagrama-classes-simplificado}
 \end{figure}
 
-A classe principal do AIAF é a classe \textit{Project}. Todas as interações do usuário com a \textit{GUI} (\textit{Graphical User Interface})
+Na Figura \ref{fig:diagrama-classes-simplificado} as classes estão agrupadas para facilitar o entendimento. A numeração adotada foi intencional pelo mesmo
+motivo. As três classes mais importantes estão no grupo 1. Elas são responsáveis por garantir usabilidade, gerenciamento de informação e transparência. No
+grupo 2 estão as classes que tratarão da parte inicial do método, onde há a filtragem dos dados provenientes do GenBank e o salvamento de sequências e
+organismos, além da execução da ferramenta BLAST para a comparação de sequências e geração da matriz de similaridades. Os grupos 3 e 4 demonstram de forma
+clara o poder de extensibilidade do sistema, onde de pode incluir novas matrizes ou novas análises de limiares ou de clusterização, por exemplo, através
+da simples criação de uma classe e utilização de herança. \textit{BLAST} foi definido como pacote por se tratar de uma ferramenta externa.
+\textit{GUI} (\textit{Graphical User Interface}) e \textit{Persistence}
+foram definidos da mesma maneira pois seu detalhamento é irrelevante no contexto da análise da modelagem de classes, mas fazem parte do núcleo do AIAF.
+A seguir teremos um detalhamento melhor sobre as classes.
+
+A classe principal do AIAF é a classe \textit{Project}. Todas as interações do usuário com a \textit{GUI} 
 passam por ela, que controlará operações com
 matrizes, análises, tratamento das informações biológicas e dos dados de entrada. Através dela é possível criar novo projeto, abrir projeto existente e
 salvar projeto corrente (caso de uso 1). Um projeto para o sistema reúne todos os dados de informações de execução de um conjunto de dados, desde
 a escolha de sequências, geração de matriz de similaridade, matrizes de adjacência e vizinhança, gráficos, definição de comunidades, clusterização,
 congruência. A classe \textit{Project} também lida com o pacote \textit{Persistence}, que mapeia as classes do sistema em uma camada de persistência, via
 armazenamento em disco. Sua função inclui serializar e desserializar os objetos do sistema, além de prover
-a organização dos dados do projeto, atuando de forma transparente ao usuário. Como resultado, o usuário obtém um arquivo que representa o mapeamento
+a organização dos dados do projeto, atuando de forma transparente ao usuário. Os dados de vários objetos são salvos, embora todo o controle para persisti-los
+tenha que passar pela classe \textit{Project}. Como resultado, o usuário obtém um arquivo que representa o mapeamento
 feito pela camada de persistência em um sistema de arquivos comprimido e de extensão própria (.aiaf).
 
 \sigla{GUI}{\textit{Graphical User Interface}}
@@ -481,9 +505,25 @@ processo. Como a execução dos diversos programas era feita em Linux e o progra
 situações era necessário reiniciar a máquina ou mudar de máquina para que se pudesser plotar os gráficos. Com o Matplotlib \cite{matplotlib}, biblioteca de 
 plotagem de gráficos para Python, esse trabalho passa a ser desnecessário.
 
+\begin{figure}
+\centering
+\includegraphics[scale=0.43]{ferramentas-etapa-processo}
+\caption{Ferramentas utilizadas em cada etapa do processo.}
+\label{fig:ferramentas-etapa-processo}
+\end{figure}
+
 O \textit{BioPython} inclui o Blast2 e seus \textit{bindings} para Python. Como módulos externos, se fizeram necessários ainda o Madchar (geração de matrizes),
-o RedeCrítica (análise de limiares) e o Dendo (clusterização), os três desenvolvidos pelo FESC. Por serem codificados em Fortran foi necessário o pacote
-Gfortran \cite{gfortran}.
+o RedeCrítica (análise de limiares) e o Dendo (clusterização), os três desenvolvidos pelo FESC.
+Por serem codificados em Fortran foi necessário o pacote
+Gfortran \cite{gfortran}. A Figura \ref{fig:ferramentas-etapa-processo} e a Figura \ref{fig:ferramentas-camadas}
+ilustram as ferramentas utilizadas em cada etapa do processo e em relação às camadas do AIAF, respectivamente.
+
+\begin{figure}
+\centering
+\includegraphics[scale=0.43]{ferramentas-camadas}
+\caption{Ferramentas utilizadas na interface gráfica, camada de controle e gerenciamento, persistência e módulos externos.}
+\label{fig:ferramentas-camadas}
+\end{figure}
 
 \section{Apresentação do Protótipo} \label{sec:discussao}
 
