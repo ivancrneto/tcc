@@ -177,7 +177,7 @@ o processo, seria mais interessante que o seu gerenciamento fosse realizado por 
 mantivesse disponíveis as informações por meio de uma camada de persistência, deixando a questão da organização dos dados transparente para o
 pesquisador.
 
-\chapter{Modelagem do AIAF - Ambiente Integrado de apoio à Análise Filogenética através de Redes Complexas}
+\chapter{Modelagem do Ambiente Integrado de apoio à Análise Filogenética através de Redes Complexas}
 \label{cap:navi}
 
 Da forma como está estruturado atualmente, o processo de análise filogenética através de redes complexas pode ser resumido como uma série de execuções
@@ -191,24 +191,22 @@ os artefatos de modelagem gerados.
 
 \section{Metodologia de Desenvolvimento}
 
-O desenvolvimento interativo e incremental tem se mostrado ultimamente como um processo de desenvolvimento alternativo ao modelo em cascata, e traz
-grandes vantagens por garantir ciclos menores de desenvolvimento e uma divisão do problema em problemas menores. A metodologia de desenvolvimento adotada
+O desenvolvimento interativo e incremental tem se mostrado como um processo de desenvolvimento alternativo ao modelo em cascata, e traz
+grandes vantagens por garantir ciclos menores de desenvolvimento e uma divisão do problema em problemas menores \cite{softeng2005}.
+A metodologia de desenvolvimento adotada
 foi o modelo de desenvolvimento em espiral \cite{boehm1986}. A espiral combina ideias do desenvolvimento interativo com alguns aspectos do modelo em cascata.
 
 O modelo em espiral é baseado em refinamento contínio do produto a partir de definição de requisitos e análises, projeto de \textit{software}, e implementação.
-A cada interação dentro do ciclo, o produto gerado é considerado uma extensão de um produto mais antigo. Esse modelo utiliza muidas das fases do modelo em
+A cada interação dentro do ciclo, o produto gerado é considerado uma extensão de um produto mais antigo. Esse modelo utiliza muitas das fases do modelo em
 cascata, na mesma ordem, separados por planejamento, análise de riscos, construição de protótipos, testes e validação, como é mostrado na Figura
 \ref{fig:espiral}
 
 \begin{figure}
 \centering
 \includegraphics[scale=0.73]{espiral}
-\caption{Modelo de desenvolvimento em espiral.}
+\caption{Modelo de desenvolvimento em espiral \cite{boehm1986}.}
 \label{fig:espiral}
 \end{figure}
-
-No contexto do projeto, apenas uma parte da espiral foi percorrida, resultando em um primeiro protótipo. A parte de validação e verificação não foi realizada,
-sendo imprescindível na concepção de novos requisitos e o início de um novo ciclo da espiral.
 
 \section{Levantamento de Requisitos}
 
